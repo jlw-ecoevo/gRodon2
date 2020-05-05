@@ -1,0 +1,23 @@
+Package: gRodon
+Title: Inference of prokaryotic growth rates with codon usage statistics
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Jake",
+           family = "Weissman",
+           role = c("aut", "cre"),
+           email = "jakeweis@usc.edu",
+           comment = c(ORCID = "0000-0002-4237-4807"))
+Description: This package infers growth rates of prokaryotic organisms by 
+    calculating several codon usage statistics on a user-provided set of highly 
+    expressed genes and the genome at large. In particular, it uses the MILC 
+    statistic from the coRdon package as well as the codon pair bias 
+    (Coleman et al. 2008).
+License: use_mit_license()
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports:
+    dplyr,
+    Biostrings,
+    coRdon
