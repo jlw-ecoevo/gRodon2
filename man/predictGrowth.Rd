@@ -25,7 +25,7 @@ bias)}
 "none" and we do not guarantee good results for non-mesophilic organisms.}
 }
 \value{
-A list with the following components is returned:
+gRodon returns a list with the following elements:
 \describe{
 \item{CUBHE}{Median codon usage bias of the highly expressed genes (MILC)
 calculated using the genome-wide codon usage as the expected bias}
@@ -45,7 +45,22 @@ This function predicts the growth rate of a prokaryotic organism based on
 genomic codon usage patterns (Weissman et. al. TBD).
 }
 \examples{
+# Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
+# included with gRodon
+path_to_genome <- system.file('extdata',
+  'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna',
+  package = 'gRodon')
 genes <- readDNAStringSet(path_to_genome)
+
+# Search pre-existing annotations for ribosomal proteins, which we
+# will use as our set of highly expressed genes
 highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
-getGrowth(genes, highly_expressed)
+
+# Run the gRodon growth prediction pipeline
+predictGrowth(genes, highly_expressed)
+
+# Run gRodon with temperature option (not needed for mesophiles, gRodon not
+# validated on extremophiles, use with care)
+predictGrowth(genes, highly_expressed, temperature = 37)
+
 }
