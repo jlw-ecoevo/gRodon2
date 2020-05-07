@@ -8,8 +8,8 @@
 #' genome.
 #' @param highly_expressed Logical vector describing the set of highly expressed
 #' genes. Must be of same lend as \code{genes}.
-#' @param metagenome Whether to run prediction in metagenome mode (no codon pair
-#' bias)
+#' @param mode Whether to run prediction in full, partial, or metagenome mode
+#' (by default gRodon applies the full model)
 #' @param temperature Optimal growth temperature. By default this is set as
 #' "none" and we do not guarantee good results for non-mesophilic organisms.
 #' @return gRodon returns a list with the following elements:
@@ -51,32 +51,48 @@
 #' @import Biostrings
 predictGrowth <- function(genes,
                           highly_expressed,
-                          metagenome = FALSE,
+                          mode = "full",
                           temperature = "none"){
 
+  if(sum(highly_expressed)<10){
+    warning("Less than 10 highly expressed genes provided,
+            performance may suffer")
+  }
+
   # Calculate codon data
-  codon_stats <- getCodonStatistics(genes, highly_expressed)
+  codon_stats <- getCodonStatistics(genes, highly_expressed, metagenome)
 
   # Predict growth rate (stored models - sysdata.rda)
-  if(temperature == "none" & metagenome == FALSE){
+  if(temperature == "none" & mode=="full"){
     pred <- stats::predict.lm(gRodon_model_base,
                               newdata = codon_stats,
                               interval = "confidence")
 
-  } else if(temperature == "none" & metagenome == TRUE){
+  } else if(temperature == "none" & mode=="metagenome"){
     pred <- stats::predict.lm(gRodon_model_meta,
                               newdata = codon_stats,
                               interval = "confidence")
 
-  } else if(temperature != "none" & metagenome == FALSE){
+  } else if(temperature == "none" & mode=="partial"){
+    pred <- stats::predict.lm(gRodon_model_partial,
+                              newdata = codon_stats,
+                              interval = "confidence")
+
+  } else if(temperature != "none" & mode=="full"){
     codon_stats$OGT <- temperature
     pred <- stats::predict.lm(gRodon_model_temp,
                               newdata = codon_stats,
                               interval = "confidence")
 
-  } else if(temperature != "none" & metagenome == TRUE){
+  } else if(temperature != "none" & mode=="metagenome"){
     codon_stats$OGT <- temperature
     pred <- stats::predict.lm(gRodon_model_meta_temp,
+                              newdata = codon_stats,
+                              interval = "confidence")
+
+  } else if(temperature != "none" & mode=="partial"){
+    codon_stats$OGT <- temperature
+    pred <- stats::predict.lm(gRodon_model_partial_temp,
                               newdata = codon_stats,
                               interval = "confidence")
   }

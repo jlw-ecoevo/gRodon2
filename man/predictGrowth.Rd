@@ -4,12 +4,7 @@
 \alias{predictGrowth}
 \title{Predict Growth Rate}
 \usage{
-predictGrowth(
-  genes,
-  highly_expressed,
-  metagenome = FALSE,
-  temperature = "none"
-)
+predictGrowth(genes, highly_expressed, mode = "full", temperature = "none")
 }
 \arguments{
 \item{genes}{DNAStringSet object holding all nucleotide sequences from a
@@ -18,8 +13,8 @@ genome.}
 \item{highly_expressed}{Logical vector describing the set of highly expressed
 genes. Must be of same lend as \code{genes}.}
 
-\item{metagenome}{Whether to run prediction in metagenome mode (no codon pair
-bias)}
+\item{mode}{Whether to run prediction in full, partial, or metagenome mode
+(by default gRodon applies the full model)}
 
 \item{temperature}{Optimal growth temperature. By default this is set as
 "none" and we do not guarantee good results for non-mesophilic organisms.}
