@@ -102,6 +102,10 @@ predictGrowth <- function(genes,
                                            lambda_milc,
                                            back_transform = TRUE)
 
+  if(pred_back_transformed[,"fit"]>5){
+    warning("Estimated doubling time >5 hours. CUB signal saturates at approx. 5 hrs ... gRodon may underestimate doubling times above this range")
+  }
+
   #return prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
   codon_stats$LowerCI <- pred_back_transformed[,"lwr"]

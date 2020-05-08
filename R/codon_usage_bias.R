@@ -44,28 +44,16 @@ getCodonStatistics <- function(genes, highly_expressed, metagenome){
   # codon table
   codon_table <- codonTable(genes)
 
-  if(metagenome == FALSE){
-    # codon pair counts
-    codon_pair_table <- getPairCounts(genes)
+  # codon pair counts
+  codon_pair_table <- getPairCounts(genes)
 
-    return(data.frame(CUBHE = getCUB(codon_table,
-                                     highly_expressed,
-                                     method = "MILC"),
-                      ConsistencyHE = getCUB(codon_table,
-                                             highly_expressed,
-                                             method = "consistency"),
-                      CPB = getCPB(codon_pair_table),
-                      FilteredSequences = filtered$Filtered,
-                      stringsAsFactors = FALSE))
-
-  } else {
-    return(data.frame(CUBHE = getCUB(codon_table,
-                                     highly_expressed,
-                                     method = "MILC"),
-                      ConsistencyHE = getCUB(codon_table,
-                                             highly_expressed,
-                                             method = "consistency"),
-                      FilteredSequences = filtered$Filtered,
-                      stringsAsFactors = FALSE))
-  }
+  return(data.frame(CUBHE = getCUB(codon_table,
+                                   highly_expressed,
+                                   method = "MILC"),
+                    ConsistencyHE = getCUB(codon_table,
+                                           highly_expressed,
+                                           method = "consistency"),
+                    CPB = getCPB(codon_pair_table),
+                    FilteredSequences = filtered$Filtered,
+                    stringsAsFactors = FALSE))
 }
