@@ -28,7 +28,7 @@ growth rate. Note that we will use "maximal growth rate", "minimal doubling
 time", and "growth rate" interchangeably below when talking about the output
 from `gRodon`. 
 
-# Before You Begin
+## Before You Begin
 
 There are two things that `gRodon` does *not* do that you *must* do ahead of 
 time yourself in order to predict growth rate:
@@ -42,7 +42,7 @@ easy loading. Additionally, you will need to have a logical vector describing
 which genes are part of your highly expressed set. This should become a bit
 clearer with the example below.
 
-# A Minimal Example
+## A Minimal Example
 
 We have included a single example genome assembly with this package, downloaded 
 from NCBI's RefSeq database (*Streptococcus pyogenes* M1, GCF_000349925.2). This

@@ -15,13 +15,11 @@ filterSeq <- function(genes, highly_expressed, length_threshold = 100){
   # Warn user if genes have been filtered
   if(sum(!pass_filter) > 0){
     warning(paste("There were", sum(!pass_filter),
-                  "genes either with lengths not multiples of 3 or not above length threshold (default 100bp),
-                    these genes have been ignored"))
+                  "genes either with lengths not multiples of 3 or not above length threshold (default 100bp), these genes have been ignored"))
   }
   if(sum(ambiguous_bases) > 0){
     warning(paste("There were", sum(ambiguous_bases),
-                  "genes with ambiguous bases,
-                    these genes have been ignored"))
+                  "genes with ambiguous bases, these genes have been ignored"))
   }
 
   return(list(Genes=genes, HE = highly_expressed, Filtered = sum(ambiguous_bases)+sum(!pass_filter)))

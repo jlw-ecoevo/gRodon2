@@ -55,8 +55,7 @@ predictGrowth <- function(genes,
                           temperature = "none"){
 
   if(sum(highly_expressed)<10){
-    warning("Less than 10 highly expressed genes provided,
-            performance may suffer")
+    warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
 
   # Calculate codon data
@@ -109,10 +108,10 @@ predictGrowth <- function(genes,
 
   #Return
   if(pred_back_transformed[,"fit"]>5){
-    warning("Estimated doubling time >5 hours. CUB signal saturates at approx.
-            5 hrs ...  gRodon may underestimate doubling times above this range.
-            Consider simply reporting as '>5hrs'. (In other words, this microbe
-            definitely grows slowly, but we can't tell you quite how slowly).")
+    warning("Estimated doubling time >5 hours. CUB signal saturates at approx. 5 hrs ...
+gRodon may underestimate doubling times above this range.
+Consider simply reporting as '>5hrs'.
+(In other words, this microbe definitely grows slowly, but we can't tell you quite how slowly).")
   }
   return(as.list(codon_stats))
 }
