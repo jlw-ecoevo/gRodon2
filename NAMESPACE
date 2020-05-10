@@ -3,4 +3,8 @@
 export(predictGrowth)
 import(Biostrings)
 import(coRdon)
+importFrom(dplyr,count)
+importFrom(dplyr,group_by)
+importFrom(dplyr,mutate)
+importFrom(dplyr,summarise)
 importFrom(magrittr,"%>%")
