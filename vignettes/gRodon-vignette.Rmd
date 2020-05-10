@@ -1,0 +1,84 @@
+---
+title: "Predicting maximal growth rates with gRodon"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{gRodon-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `gRodon` package allows you to predict the maximal growth rate of
+a prokaryotic organism with only it's genome in hand. For details of how this
+is done please see the original paper. Briefly, gRodon exploits codon usage
+statistics to detect optimization of highly-expressed genes, an indicator of
+rapid growth. We will provide some guidance to when these predictions are 
+appropriate below. 
+
+The `gRodon` package is quite simple, with only a single function currently
+available to users: `predictGrowth()`. Our hope is to provide a simple, easy to
+use interface that allows any user with a genome in-hand to predict maximal
+growth rate. Note that we will use "maximal growth rate", "minimal doubling 
+time", and "growth rate" interchangeably below when talking about the output
+from `gRodon`. 
+
+# Before You Begin
+
+There are two things that `gRodon` does *not* do that you *must* do ahead of 
+time yourself in order to predict growth rate:
+1. You must identify coding sequences in you genome 
+(e.g., using [prodigal](https://github.com/hyattpd/Prodigal))
+2. You must annotate a set of highly-expressed genes, typically ribosomal 
+proteins
+
+It is helpful if (in frame) coding sequences are stored in a fasta file for 
+easy loading. Additionally, you will need to have a logical vector describing
+which genes are part of your highly expressed set. This should become a bit
+clearer with the example below.
+
+# A Minimal Example
+
+We have included a single example genome assembly with this package, downloaded 
+from NCBI's RefSeq database (*Streptococcus pyogenes* M1, GCF_000349925.2). This
+is simply a fasta file with the predicted coding sequences and 
+annotations for this genome (provided by NCBI).
+
+Let's load this file using the `readDNAStringSet()` function from the
+`Biostrings` package (required for `gRodon` to work).
+
+```{r setup}
+devtools::load_all("~/gRodon")
+#library(Biostrings)
+path_to_genome <- system.file('extdata',
+  'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna',
+  package = 'gRodon')
+genes <- readDNAStringSet(path_to_genome)
+```
+We also need a set of highly expressed genes. In general, the ribosomal
+proteins are a good set of genes to use for this purpose. Since these proteins
+should already be annotated in our example file (try running `names(genes)`) we 
+can use `grep()` to search for them (specifically, `grepl()` to return a logical
+vector).
+
+```{r HE}
+highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
+```
+And now we are ready to predict the growth rate of *S. pyogenes* M1.
+
+```{r Pred}
+predictGrowth(genes, highly_expressed)
+```
+
+For the most part, that's all you need to know. There are a few specific use
+cases we discuss below that require a slightly more thoughful application of
+`gRodon`. These are:
+* The use of partial genomic data (e.g., incomplete SAGs or MAGs)
+* The use of metagenomic data
+* Predicting growth rates when growth is very slow
+* Predicting the growth rate of a psychrophile or thermophile

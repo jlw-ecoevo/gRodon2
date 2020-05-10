@@ -102,13 +102,17 @@ predictGrowth <- function(genes,
                                            lambda_milc,
                                            back_transform = TRUE)
 
-  if(pred_back_transformed[,"fit"]>5){
-    warning("Estimated doubling time >5 hours. CUB signal saturates at approx. 5 hrs ... gRodon may underestimate doubling times above this range")
-  }
-
-  #return prediction
+  #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
   codon_stats$LowerCI <- pred_back_transformed[,"lwr"]
   codon_stats$UpperCI <- pred_back_transformed[,"upr"]
+
+  #Return
+  if(pred_back_transformed[,"fit"]>5){
+    warning("Estimated doubling time >5 hours. CUB signal saturates at approx.
+            5 hrs ...  gRodon may underestimate doubling times above this range.
+            Consider simply reporting as '>5hrs'. (In other words, this microbe
+            definitely grows slowly, but we can't tell you quite how slowly).")
+  }
   return(as.list(codon_stats))
 }

@@ -30,7 +30,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC"){
   }
 }
 
-getCodonStatistics <- function(genes, highly_expressed, metagenome){
+getCodonStatistics <- function(genes, highly_expressed){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")

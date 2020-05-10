@@ -21,3 +21,7 @@ Imports:
     dplyr,
     Biostrings,
     coRdon
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
