@@ -1,5 +1,5 @@
 ---
-title: "Predicting maximal growth rates with gRodon"
+title: "Predicting maximal growth rates with `gRodon`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{gRodon-vignette}
@@ -18,7 +18,7 @@ The `gRodon` package allows you to predict the maximal growth rate of
 a prokaryotic organism with only it's genome in hand. For details of how this
 is done please see the original paper. Briefly, gRodon exploits codon usage
 statistics to detect optimization of highly-expressed genes, an indicator of
-rapid growth. We will provide some guidance to when these predictions are 
+rapid growth. We will provide some guidance about when these predictions are 
 appropriate below. 
 
 The `gRodon` package is quite simple, with only a single function currently
@@ -44,7 +44,7 @@ clearer with the example below.
 
 ## A Minimal Example
 
-We have included a single example genome assembly with this package, downloaded 
+We have included an example genome assembly with this package, downloaded 
 from NCBI's RefSeq database (*Streptococcus pyogenes* M1, GCF_000349925.2). This
 is simply a fasta file with the predicted coding sequences and 
 annotations for this genome (provided by NCBI).
@@ -52,14 +52,19 @@ annotations for this genome (provided by NCBI).
 Let's load this file using the `readDNAStringSet()` function from the
 `Biostrings` package (required for `gRodon` to work).
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 library(gRodon)
 library(Biostrings)
+```
+
+```{r load}
 path_to_genome <- system.file('extdata',
   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna',
   package = 'gRodon')
 genes <- readDNAStringSet(path_to_genome)
 ```
+
+
 We also need a set of highly expressed genes. In general, the ribosomal
 proteins are a good set of genes to use for this purpose. Since these proteins
 should already be annotated in our example file (try running `names(genes)`) we 
@@ -75,10 +80,63 @@ And now we are ready to predict the growth rate of *S. pyogenes* M1.
 predictGrowth(genes, highly_expressed)
 ```
 
+The warning at the top is letting you know that there were a number of genes
+in your fasta that either weren't a length multiple of three, or were under the 
+length threshold of 100bp where estimates of bias will be unreliable. Don't
+worry about this unless the number of filtered genes is very high compared
+to the total number of genes in your file. We expect some genes to typically get
+filtered.
+
+The output contains several (hopefully) useful quantities:
+
+*  `$CUBHE` is the codon usage bias of the highly expressed genes relative to
+the genomic background
+*  `ConsistencyHE` is the codon usage bias of the highly expressed genes relative to
+the all highly expressed genes
+*  `$CPB` is the genome-wide codon pair bias
+*  `$FilteredSequences` is the number of sequences filtered due to length
+*  `$d` is the estimated doubling time from `gRodon`. This is, presumably, what
+you came here for
+*  `$LowerCI` and `$UpperCI` are the 95% confidence intervals for `d`
+
 For the most part, that's all you need to know. There are a few specific use
 cases we discuss below that require a slightly more thoughful application of
 `gRodon`. These are:
-* The use of partial genomic data (e.g., incomplete SAGs or MAGs)
-* The use of metagenomic data
-* Predicting growth rates when growth is very slow
-* Predicting the growth rate of a psychrophile or thermophile
+
+*  The use of partial genomic data (e.g., incomplete SAGs or MAGs)  
+*  The use of metagenomic data  
+*  Predicting growth rates when growth is very slow  
+*  Predicting the growth rate of a psychrophile or thermophile  
+
+### Partial and Metagenome Modes
+
+What if you don't have a nice, complete genome ... can you still use `gRodon`? 
+Yes, you can, though you may want to use either "partial" or "metagenome" mode.
+
+When your genome is incomplete, you may have insufficient data to accurately
+estimate the codon pair bias (since there are many possible codon pairs). In 
+this case you can set `gRodon` to "partial" mode, which excludes pair-bias 
+from the prediction. This is probably a good choice when working with incomplete
+SAGs and MAGs. The expected decrease in accuracy is quite small (see original 
+`gRodon` paper).
+
+```{r PredP}
+predictGrowth(genes, highly_expressed, mode="partial")
+```
+
+For metagenomes, our consistency statistic is not appropriate, since different
+organisms may prefer different codons (even when they have similar bias values).
+It also doesn't make much sense to calculate the pair-bias in this scenario.
+Thus the model for predicting the mean growth rate of a metagenomic sample
+excludes consistency and pair-bias. Importantly, metagenome mode is expected to
+be less accurate than the default mode, so only use this mode if you must 
+(i.e., you have a metagenomic sample).
+
+
+```{r PredM}
+predictGrowth(genes, highly_expressed, mode="metagenome")
+```
+
+### Slow Growers
+
+### Psychrophiles and Thermophiles

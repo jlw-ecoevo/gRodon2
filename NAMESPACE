@@ -3,4 +3,4 @@
 export(predictGrowth)
 import(Biostrings)
 import(coRdon)
-import(dplyr)
+importFrom(magrittr,"%>%")

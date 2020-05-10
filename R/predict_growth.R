@@ -46,7 +46,7 @@
 #' predictGrowth(genes, highly_expressed, temperature = 37)
 #'
 #' @export
-#' @import dplyr
+#' @importFrom magrittr "%>%"
 #' @import coRdon
 #' @import Biostrings
 predictGrowth <- function(genes,
