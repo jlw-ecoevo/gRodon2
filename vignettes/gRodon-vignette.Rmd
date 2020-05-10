@@ -52,7 +52,7 @@ annotations for this genome (provided by NCBI).
 Let's load this file using the `readDNAStringSet()` function from the
 `Biostrings` package (required for `gRodon` to work).
 
-```{r setup, message=FALSE, warning=FALSE}
+```{r setup, message=FALSE}
 library(gRodon)
 library(Biostrings)
 ```

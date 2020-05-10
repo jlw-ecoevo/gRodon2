@@ -47,6 +47,7 @@
 #'
 #' @export
 #' @importFrom magrittr "%>%"
+#' @importFrom dplyr group_by mutate count summarise
 #' @import coRdon
 #' @import Biostrings
 predictGrowth <- function(genes,
