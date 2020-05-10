@@ -60,7 +60,7 @@ predictGrowth <- function(genes,
   }
 
   # Calculate codon data
-  codon_stats <- getCodonStatistics(genes, highly_expressed, metagenome)
+  codon_stats <- getCodonStatistics(genes, highly_expressed)
 
   # Predict growth rate (stored models - sysdata.rda)
   if(temperature == "none" & mode=="full"){
