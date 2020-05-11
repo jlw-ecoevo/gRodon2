@@ -15,25 +15,31 @@ knitr::opts_chunk$set(
 ```
 
 The `gRodon` package allows you to predict the maximal growth rate of
-a prokaryotic organism with only it's genome in hand. For details of how this
+a prokaryotic organism from genomic data. For details of how this
 is done please see the original paper. Briefly, gRodon exploits codon usage
 statistics to detect optimization of highly-expressed genes, an indicator of
 rapid growth. We will provide some guidance about when these predictions are 
 appropriate below. 
 
 The `gRodon` package is quite simple, with only a single function currently
-available to users: `predictGrowth()`. Our hope is to provide a simple, easy to
+available to users: `predictGrowth()`. We provide a simple, easy to
 use interface that allows any user with a genome in-hand to predict maximal
 growth rate. Note that we will use "maximal growth rate", "minimal doubling 
 time", and "growth rate" interchangeably below when talking about the output
 from `gRodon`. 
 
+The `gRodon` approach is largely based on an earlier program, `growthpred`,
+developed by [Viera-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808). 
+`gRodon` is intended to be:
+1. More user-friendly (especially for R users)
+2. More accurate (due to the incorporation of additional measures of codon usage)
+
 ## Before You Begin
 
 There are two things that `gRodon` does *not* do that you *must* do ahead of 
-time yourself in order to predict growth rate:
-1. You must identify coding sequences in you genome 
-(e.g., using [prodigal](https://github.com/hyattpd/Prodigal))
+time yourself in order to predict growth rate:  
+1. You must identify coding sequences in your genome 
+(e.g., using [prodigal](https://github.com/hyattpd/Prodigal))  
 2. You must annotate a set of highly-expressed genes, typically ribosomal 
 proteins
 
@@ -139,6 +145,19 @@ predictGrowth(genes, highly_expressed, mode="metagenome")
 
 ### Slow Growers
 
+All codon-usage based predictors of growth will underestimate doubling times
+when doubling times are very long. In other words, these predictors will often 
+indicate that slow-growing microbes grow more quickly than they actually do. 
+See the original paper for a more in-depth discusison, but this is because 
+codon-usage bias tends to plateau at a lower-bound in slow-growers. 
+
+What does this mean for you? Well, `gRodon` can reliably tell you if your
+microbe grows slowly, but it can't tell you how slowly. In practice, doubling 
+time predictions appear to be accurate up to 5 hours. If `gRodon` predicts a
+doubling time above 5 hours, you can confidently say your microbe grows slowly,
+but not quite how slowly. In these cases `gRodon` will even warn you to be 
+careful:
+
 ```{r slow}
 path_to_genome <- system.file('extdata',
   'GCF_003253775.1_ASM325377v1_cds_from_genomic.fna.gz',
@@ -148,4 +167,20 @@ highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
 predictGrowth(genes, highly_expressed)
 ```
 
+The example above is for a *Mycobacterium leprae* genome. This organism has a 
+doubling time around 240 hours. So we are off by an order of magnitude, but 
+still well within the "slow grower" range.
+
 ### Psychrophiles and Thermophiles
+
+[Viera-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808) showed that
+codon-usage based growth estimators are sensitive to growth temperature. 
+Thermophiles and psychrophiles showed consistently higher/lower growth rates 
+respectively. We included a temperature correstion factor in `gRodon` to account
+for this. We caution that this correction is based on only 31 extremophile
+species, and that `gRodon` has primarily been validated on 
+mesophilic organisms.
+
+```{r temp}
+predictGrowth(genes, highly_expressed, temperature = 33)
+```

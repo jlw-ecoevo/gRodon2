@@ -108,13 +108,9 @@ predictGrowth <- function(genes,
 
   #Return
   if(is.na(pred_back_transformed[,"fit"]) & pred[,"fit"]>6){
-    warning("Estimated doubling time very long. Essentially goes to infinity
-(gives NA value after back-transforming from box-cox).")
+    warning("Estimated doubling time very long. Essentially goes to infinity (gives NA value after back-transforming from box-cox).")
   } else if(pred_back_transformed[,"fit"]>5){
-    warning("Estimated doubling time >5 hours. CUB signal saturates at approx. 5 hrs ...
-gRodon may underestimate doubling times above this range.
-Consider simply reporting as '>5hrs'.
-(In other words, this microbe definitely grows slowly, but we can't tell you quite how slowly).")
+    warning("Estimated doubling time >5 hours. CUB signal saturates at approx. 5 hrs... gRodon may underestimate doubling times above this range. Consider simply reporting as '>5hrs'. (In other words, this microbe definitely grows slowly, but we can't tell you quite how slowly).")
   }
   return(as.list(codon_stats))
 }
