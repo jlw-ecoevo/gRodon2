@@ -30,7 +30,7 @@
 #' # Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
 #' # included with gRodon
 #' path_to_genome <- system.file('extdata',
-#'   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna',
+#'   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
 #'   package = 'gRodon')
 #' genes <- readDNAStringSet(path_to_genome)
 #'

@@ -59,7 +59,7 @@ library(Biostrings)
 
 ```{r load}
 path_to_genome <- system.file('extdata',
-  'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna',
+  'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
   package = 'gRodon')
 genes <- readDNAStringSet(path_to_genome)
 ```
@@ -67,9 +67,9 @@ genes <- readDNAStringSet(path_to_genome)
 
 We also need a set of highly expressed genes. In general, the ribosomal
 proteins are a good set of genes to use for this purpose. Since these proteins
-should already be annotated in our example file (try running `names(genes)`) we 
-can use `grep()` to search for them (specifically, `grepl()` to return a logical
-vector).
+should already be annotated in our example file (try running `names(genes)` to
+see the annotations from NCBI) we  can use `grep()` to search for them 
+(specifically, `grepl()` to return a logical vector).
 
 ```{r HE}
 highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
@@ -91,7 +91,7 @@ The output contains several (hopefully) useful quantities:
 
 *  `$CUBHE` is the codon usage bias of the highly expressed genes relative to
 the genomic background
-*  `ConsistencyHE` is the codon usage bias of the highly expressed genes relative to
+*  `#ConsistencyHE` is the codon usage bias of the highly expressed genes relative to
 the all highly expressed genes
 *  `$CPB` is the genome-wide codon pair bias
 *  `$FilteredSequences` is the number of sequences filtered due to length
@@ -138,5 +138,14 @@ predictGrowth(genes, highly_expressed, mode="metagenome")
 ```
 
 ### Slow Growers
+
+```{r slow}
+path_to_genome <- system.file('extdata',
+  'GCF_002291465.1_ASM229146v1_cds_from_genomic.fna.gz',
+  package = 'gRodon')
+genes <- readDNAStringSet(path_to_genome)
+highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
+predictGrowth(genes, highly_expressed)
+```
 
 ### Psychrophiles and Thermophiles
