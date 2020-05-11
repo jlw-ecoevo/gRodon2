@@ -141,7 +141,7 @@ predictGrowth(genes, highly_expressed, mode="metagenome")
 
 ```{r slow}
 path_to_genome <- system.file('extdata',
-  'GCF_002291465.1_ASM229146v1_cds_from_genomic.fna.gz',
+  'GCF_003253775.1_ASM325377v1_cds_from_genomic.fna.gz',
   package = 'gRodon')
 genes <- readDNAStringSet(path_to_genome)
 highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
