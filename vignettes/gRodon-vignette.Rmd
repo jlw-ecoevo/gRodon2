@@ -30,18 +30,18 @@ from `gRodon`.
 
 The `gRodon` approach is largely based on an earlier program, `growthpred`,
 developed by [Viera-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808). 
-`gRodon` is intended to be:
-1. More user-friendly (especially for R users)
-2. More accurate (due to the incorporation of additional measures of codon usage)
+`gRodon` is intended to be:  
+1. More user-friendly (especially for R users)  
+2. More accurate (due to the incorporation of additional measures of codon usage)  
 
 ## Before You Begin
 
 There are two things that `gRodon` does *not* do that you *must* do ahead of 
 time yourself in order to predict growth rate:  
-1. You must identify coding sequences in your genome 
+1. You must identify coding sequences in your genome  
 (e.g., using [prodigal](https://github.com/hyattpd/Prodigal))  
 2. You must annotate a set of highly-expressed genes, typically ribosomal 
-proteins
+proteins  
 
 It is helpful if (in frame) coding sequences are stored in a fasta file for 
 easy loading. Additionally, you will need to have a logical vector describing
