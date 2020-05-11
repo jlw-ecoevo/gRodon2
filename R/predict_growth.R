@@ -101,18 +101,16 @@ predictGrowth <- function(genes,
   pred_back_transformed <- boxcoxTransform(pred,
                                            lambda_milc,
                                            back_transform = TRUE)
-  print(pred)
-  print(pred_back_transformed)
-  print(paste("Predicted doubling time (box-cox tansformed):",pred))
-  print(paste("Predicted doubling time (hours):",pred_back_transformed))
-
   #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
   codon_stats$LowerCI <- pred_back_transformed[,"lwr"]
   codon_stats$UpperCI <- pred_back_transformed[,"upr"]
 
   #Return
-  if(pred_back_transformed[,"fit"]>5){
+  if(is.na(pred_back_transformed[,"fit"]) & pred[,"fit"]>6){
+    warning("Estimated doubling time very long. Essentially goes to infinity
+(gives NA value after back-transforming from box-cox).")
+  } else if(pred_back_transformed[,"fit"]>5){
     warning("Estimated doubling time >5 hours. CUB signal saturates at approx. 5 hrs ...
 gRodon may underestimate doubling times above this range.
 Consider simply reporting as '>5hrs'.
