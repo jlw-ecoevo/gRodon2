@@ -101,6 +101,8 @@ predictGrowth <- function(genes,
   pred_back_transformed <- boxcoxTransform(pred,
                                            lambda_milc,
                                            back_transform = TRUE)
+  print(paste("Predicted doubling time (box-cox tansformed):",pred))
+  print(paste("Predicted doubling time (hours):",pred_back_transformed))
 
   #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
