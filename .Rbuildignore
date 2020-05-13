@@ -1,2 +1,4 @@
 ^gRodon\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$

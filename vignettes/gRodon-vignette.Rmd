@@ -130,7 +130,8 @@ SAGs and MAGs. The expected decrease in accuracy is quite small (see original
 predictGrowth(genes, highly_expressed, mode="partial")
 ```
 
-For metagenomes, our consistency statistic is not appropriate, since different
+For bulk estimation from metagenomes (see [Viera-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808) for discussion), 
+our consistency statistic is not appropriate, since different
 organisms may prefer different codons (even when they have similar bias values).
 It also doesn't make much sense to calculate the pair-bias in this scenario.
 Thus the model for predicting the mean growth rate of a metagenomic sample
@@ -155,8 +156,8 @@ What does this mean for you? Well, `gRodon` can reliably tell you if your
 microbe grows slowly, but it can't tell you how slowly. In practice, doubling 
 time predictions appear to be accurate up to 5 hours. If `gRodon` predicts a
 doubling time above 5 hours, you can confidently say your microbe grows slowly,
-but not quite how slowly. In these cases `gRodon` will even warn you to be 
-careful:
+but not quite how slowly (doubling times >5hrs tend to be underestimates). 
+In these cases `gRodon` will even warn you to be  careful:
 
 ```{r slow}
 path_to_genome <- system.file('extdata',
