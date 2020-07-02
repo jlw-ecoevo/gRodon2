@@ -6,7 +6,7 @@
 #'
 #' @param gene_file  path to CDS-containing fasta file
 getStatistics <- function(gene_file){
-  genes <- readDNAStringSet(path_to_genome)
+  genes <- readDNAStringSet(gene_file)
   highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
   codon_stats <- getCodonStatistics(genes, highly_expressed)
   return(as.list(codon_stats))
