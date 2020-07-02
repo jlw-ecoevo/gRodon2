@@ -27,7 +27,7 @@ rgrep <- function(big,small_vec){
 cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes/", 
                          mc.cores = 6)
 setwd("~/gRodon/inst/extdata/")
-save("CodonStatistics.rda")
+save(cu, file = "CodonStatistics.rda")
 
 # Load Growth Dataset ----------------------------------------------------------
 
@@ -35,23 +35,24 @@ setwd("~/gRodon/inst/extdata/")
 load("GrowthRates.rda")
 load("CodonStatistics.rda")
 load("Accession2Species.rda")
+cu <- cu %>% mutate_all(unlist)
 
 # Merge datasets
 rownames(spp_acc) <- spp_acc$V1 %>% gsub(pattern="[.].*",replace="")
-cs_df$Accession <- cs_df$File %>% gsub(pattern="[.].*",replace="")
-cs_df$Species <- spp_acc[cs_df$Accession,"V2"]
-cs_df$Species <- lapply(cs_df$Species,rgrep,small_vec=d$Species) %>% 
+cu$Accession <- cu$File %>% gsub(pattern="[.].*",replace="")
+cu$Species <- spp_acc[cu$Accession,"V2"]
+cu$Species <- lapply(cu$Species,rgrep,small_vec=d$Species) %>% 
   lapply("[",1) %>% unlist()
-cs_df <- merge.easy(cs_df,d,key="Species")
+cu <- merge.easy(cu,d,key="Species")
 
 # Average CUB estimates over species
-stat_data <- cs_df %>% group_by(Species) %>% 
+stat_data <- cu %>% group_by(Species) %>% 
   summarise_all(mean,na.rm=T) %>% 
   subset(!is.na(Species)) 
 
 # Fit Models -------------------------------------------------------------------
 
-model_list <- fitModels(stat_data)
+model_list <- gRodon:::fitModels(stat_data)
 
 gRodon_model_base <- model_list[[1]]
 gRodon_model_temp <- model_list[[2]]
