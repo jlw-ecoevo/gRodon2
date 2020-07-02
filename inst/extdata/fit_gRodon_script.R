@@ -7,13 +7,8 @@
 library(dplyr)
 library(data.table)
 library(MASS)
-library(ggplot2)
-library(ggpubr)
-library(car)
-library(lmtest)
-library(reshape2)
-library(psych)
 library(gRodon)
+library(parallel)
 
 # Helper Functions -------------------------------------------------------------
 
@@ -29,7 +24,7 @@ rgrep <- function(big,small_vec){
 
 # Calculate Codon Usage Statistics ---------------------------------------------
 
-cu <- getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes", 
+cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes", 
                          mc.cores = 4)
 setwd("~/gRodon/inst/extdata/")
 save("CodonStatistics.rda")

@@ -21,7 +21,9 @@ getStatistics <- function(gene_file){
 getStatisticsBatch <- function(directory, mc.cores = 1){
   gene_files <- list.files(directory)
   cu <- mclapply(X = gene_files, FUN = getStatistics, mc.cores = mc.cores) %>%
-    do.call("rbind", .) %>% mutate(File=gene_files)
+    do.call("rbind", .) %>%
+    as.data.frame(stringsAsFactors = FALSE) %>%
+    mutate(File=gene_files)
   return(cu)
 }
 
@@ -33,25 +35,25 @@ getStatisticsBatch <- function(directory, mc.cores = 1){
 fitModels <- function(stat_data){
   bc_milc <- boxcox(d~CUBHE+ConsistencyHE+CPB,data=stat_data)
   lambda_milc <- bc_milc$x[which.max(bc_milc$y)]
-  
+
   #Full gRodon
-  gRodon_model_base <- 
+  gRodon_model_base <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+CPB,data=stat_data)
-  gRodon_model_temp <- 
+  gRodon_model_temp <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+CPB+OGT,data=stat_data)
-  
+
   # Partial genome mode
-  gRodon_model_partial <- 
+  gRodon_model_partial <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE,data=stat_data)
-  gRodon_model_partial_temp <- 
+  gRodon_model_partial_temp <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+OGT,data=stat_data)
-  
+
   # Metagenome mode
-  gRodon_model_meta <- 
+  gRodon_model_meta <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE,data=stat_data)
-  gRodon_model_meta_temp <- 
+  gRodon_model_meta_temp <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+OGT,data=stat_data)
-  
+
   return(list(gRodon_model_base,
               gRodon_model_temp,
               gRodon_model_partial,
