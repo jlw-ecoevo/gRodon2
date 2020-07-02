@@ -12,17 +12,19 @@
 #' (by default gRodon applies the full model)
 #' @param temperature Optimal growth temperature. By default this is set as
 #' "none" and we do not guarantee good results for non-mesophilic organisms.
+#' @param fragments If useing gene fragments predicted from reads, will use a
+#' more permissive length filter (120bp as opposed to 240bp)
 #' @return gRodon returns a list with the following elements:
 #' \describe{
 #'   \item{CUBHE}{Median codon usage bias of the highly expressed genes (MILC)
 #'   calculated using the genome-wide codon usage as the expected bias}
-#'   \item{ConsistencyHE}{Median codon usage bias of the highly expressed genes
+#'   \item{ConsistencyHE}{Mean codon usage bias of the highly expressed genes
 #'   (MILC) calculated using the codon usage of highly expressed genes as the
 #'   expected bias}
 #'   \item{CPB}{Genome-wide codon pair bias (Coleman et al. 2008)}
 #'   \item{FilteredSequences}{Number of gene sequences filtered out during
 #'   calulation (due to length and/or presence of ambiguous bases)}
-#'   \item{d}{Predicted doubling time}
+#'   \item{d}{Predicted doubling time in hours}
 #'   \item{LowerCI}{Lower CI of \code{d} (2.5%)}
 #'   \item{UpperCI}{Upper CI of \code{d} (97.5%)}
 #' }
@@ -53,14 +55,16 @@
 predictGrowth <- function(genes,
                           highly_expressed,
                           mode = "full",
-                          temperature = "none"){
+                          temperature = "none",
+                          fragments = FALSE){
 
   if(sum(highly_expressed)<10){
     warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
 
   # Calculate codon data
-  codon_stats <- getCodonStatistics(genes, highly_expressed)
+  codon_stats <- getCodonStatistics(genes, highly_expressed, fragments)
+
 
   # Predict growth rate (stored models - sysdata.rda)
   if(temperature == "none" & mode=="full"){

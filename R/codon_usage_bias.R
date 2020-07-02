@@ -30,14 +30,18 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC"){
   }
 }
 
-getCodonStatistics <- function(genes, highly_expressed){
+getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
   }
 
   #Remove short sequences and sequences that are not multiples of 3
-  filtered <- filterSeq(genes, highly_expressed)
+  if(fragments == TRUE){
+    filtered <- filterSeq(genes, highly_expressed, length_threshold = 120)
+  } else {
+    filtered <- filterSeq(genes, highly_expressed)
+  }
   genes <- filtered$Genes
   highly_expressed <- filtered$HE
 

@@ -1,7 +1,7 @@
 
 
-filterSeq <- function(genes, highly_expressed, length_threshold = 100){
-  # Gene lengths >= 80 for good behavior (see coRdon documentation)
+filterSeq <- function(genes, highly_expressed, length_threshold = 240){
+  # Gene lengths >= 80 codons for good behavior (see coRdon documentation)
   # Throw out any genes w/ ambiguous frame
   pass_filter <- (width(genes) > length_threshold) & ((width(genes) %% 3) == 0)
   highly_expressed <- highly_expressed[pass_filter]
@@ -15,7 +15,7 @@ filterSeq <- function(genes, highly_expressed, length_threshold = 100){
   # Warn user if genes have been filtered
   if(sum(!pass_filter) > 0){
     warning(paste("There were", sum(!pass_filter),
-                  "genes either with lengths not multiples of 3 or not above length threshold (default 100bp), these genes have been ignored"))
+                  "genes either with lengths not multiples of 3 or not above length threshold (default 240bp), these genes have been ignored"))
   }
   if(sum(ambiguous_bases) > 0){
     warning(paste("There were", sum(ambiguous_bases),
