@@ -20,7 +20,8 @@ getStatistics <- function(gene_file){
 #' @param directory path to directory containing annotated CDS files
 getStatisticsBatch <- function(directory, mc.cores = 1){
   gene_files <- list.files(directory)
-  cu <- mclapply(X = gene_files, FUN = getStatistics, mc.cores = mc.cores) %>%
+  gene_paths <- paste0(directory,gene_files)
+  cu <- mclapply(X = gene_paths, FUN = getStatistics, mc.cores = mc.cores) %>%
     do.call("rbind", .) %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     mutate(File=gene_files)
