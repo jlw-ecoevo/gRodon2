@@ -33,7 +33,7 @@ getStatisticsBatch <- function(directory, mc.cores = 1){
 #' This function fits the gRodon models
 #'
 #' @param stat_data dataframe with codon usage statistics and known doubling times
-fitModels <- function(stat_data){
+fitModels <- function(stat_data, stat_data_extremo){
   bc_milc <- boxcox(d~CUBHE+ConsistencyHE+CPB,data=stat_data)
   lambda_milc <- bc_milc$x[which.max(bc_milc$y)]
 
@@ -41,19 +41,19 @@ fitModels <- function(stat_data){
   gRodon_model_base <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+CPB,data=stat_data)
   gRodon_model_temp <-
-    lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+CPB+OGT,data=stat_data)
+    lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+CPB+OGT,data=stat_data_extremo)
 
   # Partial genome mode
   gRodon_model_partial <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE,data=stat_data)
   gRodon_model_partial_temp <-
-    lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+OGT,data=stat_data)
+    lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+ConsistencyHE+OGT,data=stat_data_extremo)
 
   # Metagenome mode
   gRodon_model_meta <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE,data=stat_data)
   gRodon_model_meta_temp <-
-    lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+OGT,data=stat_data)
+    lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+OGT,data=stat_data_extremo)
 
   return(list(gRodon_model_base,
               gRodon_model_temp,

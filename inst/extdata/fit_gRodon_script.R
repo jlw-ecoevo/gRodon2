@@ -1,6 +1,6 @@
 
 
-## JLW 2020 - Fit gRodon 
+## JLW 2020 - Fit gRodon
 
 # Load Packages ----------------------------------------------------------------
 
@@ -24,7 +24,7 @@ rgrep <- function(big,small_vec){
 
 # Calculate Codon Usage Statistics ---------------------------------------------
 
-cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes/", 
+cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes/",
                          mc.cores = 6)
 setwd("~/gRodon/inst/extdata/")
 save(cu, file = "CodonStatistics.rda")
@@ -41,18 +41,26 @@ cu <- cu %>% mutate_all(unlist)
 rownames(spp_acc) <- spp_acc$V1 %>% gsub(pattern="[.].*",replace="")
 cu$Accession <- cu$File %>% gsub(pattern="[.].*",replace="")
 cu$Species <- spp_acc[cu$Accession,"V2"]
-cu$Species <- lapply(cu$Species,rgrep,small_vec=d$Species) %>% 
+cu$Species <- lapply(cu$Species,rgrep,small_vec=d$Species) %>%
   lapply("[",1) %>% unlist()
 cu <- merge.easy(cu,d,key="Species")
 
 # Average CUB estimates over species
-stat_data <- cu %>% group_by(Species) %>% 
-  summarise_all(mean,na.rm=T) %>% 
-  subset(!is.na(Species)) 
+stat_data <- cu %>%
+  subset(Extremophile == "") %>%
+  group_by(Species) %>%
+  summarise_all(mean,na.rm=T) %>%
+  subset(!is.na(Species))
+
+# Average CUB estimates over species, including extremophiles
+stat_data_extremo <- cu %>%
+  group_by(Species) %>%
+  summarise_all(mean,na.rm=T) %>%
+  subset(!is.na(Species))
 
 # Fit Models -------------------------------------------------------------------
 
-model_list <- gRodon:::fitModels(stat_data)
+model_list <- gRodon:::fitModels(stat_data, stat_data_extremo)
 
 gRodon_model_base <- model_list[[1]]
 gRodon_model_temp <- model_list[[2]]
