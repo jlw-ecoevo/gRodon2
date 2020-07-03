@@ -21,6 +21,9 @@ filterSeq <- function(genes, highly_expressed, length_threshold = 240){
     warning(paste("There were", sum(ambiguous_bases),
                   "genes with ambiguous bases, these genes have been ignored"))
   }
+  if(sum(highly_expressed) == 0){
+    stop("No highly expressed genes after filtering, unable to compute growth rate")
+  }
 
   return(list(Genes=genes, HE = highly_expressed, Filtered = sum(ambiguous_bases)+sum(!pass_filter)))
 }
