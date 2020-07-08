@@ -4,7 +4,14 @@
 \alias{predictGrowth}
 \title{Predict Growth Rate}
 \usage{
-predictGrowth(genes, highly_expressed, mode = "full", temperature = "none")
+predictGrowth(
+  genes,
+  highly_expressed,
+  mode = "full",
+  temperature = "none",
+  fragments = FALSE,
+  depth_of_coverage = NULL
+)
 }
 \arguments{
 \item{genes}{DNAStringSet object holding all nucleotide sequences from a
@@ -18,19 +25,25 @@ genes. Must be of same lend as \code{genes}.}
 
 \item{temperature}{Optimal growth temperature. By default this is set as
 "none" and we do not guarantee good results for non-mesophilic organisms.}
+
+\item{fragments}{If using gene fragments predicted from reads, will use a
+more permissive length filter (120bp as opposed to 240bp)}
+
+\item{depth_of_coverage}{When using metagenome mode, provide a vector containing
+the coverage of your ORFs to improve your estimate}
 }
 \value{
 gRodon returns a list with the following elements:
 \describe{
 \item{CUBHE}{Median codon usage bias of the highly expressed genes (MILC)
 calculated using the genome-wide codon usage as the expected bias}
-\item{ConsistencyHE}{Median codon usage bias of the highly expressed genes
+\item{ConsistencyHE}{Mean codon usage bias of the highly expressed genes
 (MILC) calculated using the codon usage of highly expressed genes as the
 expected bias}
 \item{CPB}{Genome-wide codon pair bias (Coleman et al. 2008)}
 \item{FilteredSequences}{Number of gene sequences filtered out during
 calulation (due to length and/or presence of ambiguous bases)}
-\item{d}{Predicted doubling time}
+\item{d}{Predicted doubling time in hours}
 \item{LowerCI}{Lower CI of \code{d} (2.5\%)}
 \item{UpperCI}{Upper CI of \code{d} (97.5\%)}
 }
