@@ -12,8 +12,10 @@
 #' (by default gRodon applies the full model)
 #' @param temperature Optimal growth temperature. By default this is set as
 #' "none" and we do not guarantee good results for non-mesophilic organisms.
-#' @param fragments If useing gene fragments predicted from reads, will use a
+#' @param fragments If using gene fragments predicted from reads, will use a
 #' more permissive length filter (120bp as opposed to 240bp)
+#' @param depth_of_coverage When using metagenome mode, provide a vector containing
+#' the coverage of your ORFs to improve your estimate
 #' @return gRodon returns a list with the following elements:
 #' \describe{
 #'   \item{CUBHE}{Median codon usage bias of the highly expressed genes (MILC)
@@ -50,20 +52,34 @@
 #' @export
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr group_by mutate count summarise
+#' @importFrom matrixStats weightedMedian
 #' @import coRdon
 #' @import Biostrings
 predictGrowth <- function(genes,
                           highly_expressed,
                           mode = "full",
                           temperature = "none",
-                          fragments = FALSE){
+                          fragments = FALSE,
+                          depth_of_coverage = NULL){
 
   if(sum(highly_expressed)<10){
     warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
 
+  if(mode!="metagenome" & !is.null(depth_of_coverage)){
+    warning("Ignoring depth_of_coverage because not in metagenome mode")
+    depth_of_coverage <- NULL
+  }
+
+  if(mode=="metagenome" & is.null(depth_of_coverage)){
+    warning("Provide depth_of_coverage for your ORFs for a more realistic average community growth rate")
+  }
+
   # Calculate codon data
-  codon_stats <- getCodonStatistics(genes, highly_expressed, fragments)
+  codon_stats <- getCodonStatistics(genes = genes,
+                                    highly_expressed = highly_expressed,
+                                    fragments = fragments,
+                                    depth_of_coverage = depth_of_coverage)
 
 
   # Predict growth rate (stored models - sysdata.rda)

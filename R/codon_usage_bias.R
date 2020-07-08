@@ -30,7 +30,15 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC"){
   }
 }
 
-getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE){
+getWeightedCUB <- function(fna_tab, highly_expressed, depth_of_coverage){
+    x <- MILC(fna_tab,id_or_name2 = "11")
+    x[highly_expressed, 1] %>%
+      weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
+      return()
+}
+
+
+getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -38,12 +46,18 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE){
 
   #Remove short sequences and sequences that are not multiples of 3
   if(fragments == TRUE){
-    filtered <- filterSeq(genes, highly_expressed, length_threshold = 120)
+    filtered <- filterSeq(genes = genes,
+                          highly_expressed = highly_expressed,
+                          length_threshold = 120,
+                          depth_of_coverage = depth_of_coverage)
   } else {
-    filtered <- filterSeq(genes, highly_expressed)
+    filtered <- filterSeq(genes = genes,
+                          highly_expressed = highly_expressed,
+                          depth_of_coverage = depth_of_coverage)
   }
   genes <- filtered$Genes
   highly_expressed <- filtered$HE
+  depth_of_coverage <- filtered$Depth
 
   # codon table
   codon_table <- codonTable(genes)
@@ -51,13 +65,23 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE){
   # codon pair counts
   codon_pair_table <- getPairCounts(genes)
 
-  return(data.frame(CUBHE = getCUB(codon_table,
-                                   highly_expressed,
-                                   method = "MILC"),
-                    ConsistencyHE = getCUB(codon_table,
-                                           highly_expressed,
-                                           method = "consistency"),
-                    CPB = getCPB(codon_pair_table),
-                    FilteredSequences = filtered$Filtered,
-                    stringsAsFactors = FALSE))
+  if(!is.null(depth_of_coverage)){
+    return(data.frame(CUBHE = getWeightedCUB(codon_table,
+                                     highly_expressed,
+                                     depth_of_coverage),
+                      ConsistencyHE = NA,
+                      CPB = NA,
+                      FilteredSequences = filtered$Filtered,
+                      stringsAsFactors = FALSE))
+  } else {
+    return(data.frame(CUBHE = getCUB(codon_table,
+                                     highly_expressed,
+                                     method = "MILC"),
+                      ConsistencyHE = getCUB(codon_table,
+                                             highly_expressed,
+                                             method = "consistency"),
+                      CPB = getCPB(codon_pair_table),
+                      FilteredSequences = filtered$Filtered,
+                      stringsAsFactors = FALSE))
+  }
 }
