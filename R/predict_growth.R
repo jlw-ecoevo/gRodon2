@@ -62,6 +62,10 @@ predictGrowth <- function(genes,
                           fragments = FALSE,
                           depth_of_coverage = NULL){
 
+  if(! mode %in% c("full","partial","metagenome")){
+    stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome\")")
+  }
+
   if(sum(highly_expressed)<10){
     warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
