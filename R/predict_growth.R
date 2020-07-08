@@ -5,13 +5,14 @@
 #' genomic codon usage patterns (Weissman et. al. TBD).
 #'
 #' @param genes DNAStringSet object holding all nucleotide sequences from a
-#' genome.
+#' genome. See Biostrings package.
 #' @param highly_expressed Logical vector describing the set of highly expressed
-#' genes. Must be of same lend as \code{genes}.
+#' genes. Must be of same length as \code{genes}.
 #' @param mode Whether to run prediction in full, partial, or metagenome mode
 #' (by default gRodon applies the full model)
 #' @param temperature Optimal growth temperature. By default this is set as
-#' "none" and we do not guarantee good results for non-mesophilic organisms.
+#' "none" and we do not guarantee good results for non-mesophilic organisms since
+#' few were used to fit the model.
 #' @param fragments If using gene fragments predicted from reads, will use a
 #' more permissive length filter (120bp as opposed to 240bp)
 #' @param depth_of_coverage When using metagenome mode, provide a vector containing

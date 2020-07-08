@@ -15,16 +15,17 @@ predictGrowth(
 }
 \arguments{
 \item{genes}{DNAStringSet object holding all nucleotide sequences from a
-genome.}
+genome. See Biostrings package.}
 
 \item{highly_expressed}{Logical vector describing the set of highly expressed
-genes. Must be of same lend as \code{genes}.}
+genes. Must be of same length as \code{genes}.}
 
 \item{mode}{Whether to run prediction in full, partial, or metagenome mode
 (by default gRodon applies the full model)}
 
 \item{temperature}{Optimal growth temperature. By default this is set as
-"none" and we do not guarantee good results for non-mesophilic organisms.}
+"none" and we do not guarantee good results for non-mesophilic organisms since
+few were used to fit the model.}
 
 \item{fragments}{If using gene fragments predicted from reads, will use a
 more permissive length filter (120bp as opposed to 240bp)}
