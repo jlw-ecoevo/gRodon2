@@ -2,7 +2,7 @@
 
 `gRodon` is an R package to estimate maximal growth rates of prokaryotic organisms from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRoodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
 
-To run `gRodo`n you will need a fasta file with your coding sequence, as well as a list of highly expressed proteins (typically ribosomal proteins).
+To run `gRodon` you will need a fasta file with your coding sequence (ORFs), as well as a list of highly expressed proteins (typically ribosomal proteins). If you would like to run abundance-weighted metagenome mode you will also need mean depth of coverage estimates for each of your ORFs.
 
 ## Installation
 
@@ -12,7 +12,7 @@ The easiest way to install `gRodon` is with [`devtools`](https://github.com/r-li
 
 ## A simple example
 
-Currently `gRodon` only has a single function: `predictGrowth`. 
+Currently `gRodon` only has a single function available to users: `predictGrowth`. 
 
 To see the details of how this function works type `?predictGrowth()`.
 
