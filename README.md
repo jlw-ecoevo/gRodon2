@@ -12,7 +12,7 @@ The easiest way to install `gRodon` is with [`devtools`](https://github.com/r-li
 
 ## A simple example
 
-Currently `gRodon` only has a single function: `predictGrowth`. 
+Currently `gRodon` only has a single function available to users: `predictGrowth`. 
 
 To see the details of how this function works type `?predictGrowth()`.
 
