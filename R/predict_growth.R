@@ -13,10 +13,12 @@
 #' @param temperature Optimal growth temperature. By default this is set as
 #' "none" and we do not guarantee good results for non-mesophilic organisms since
 #' few were used to fit the model.
-#' @param fragments If using gene fragments predicted from reads, will use a
-#' more permissive length filter (120bp as opposed to 240bp)
+#' @param training_set Whether to use models trained on the original Vieira-Silva et al.
+#' doubling time dataset or doubling times drawn from the Madin et al. database.
 #' @param depth_of_coverage When using metagenome mode, provide a vector containing
 #' the coverage of your ORFs to improve your estimate
+#' @param fragments If using gene fragments predicted from reads, will use a
+#' more permissive length filter (120bp as opposed to 240bp)
 #' @return gRodon returns a list with the following elements:
 #' \describe{
 #'   \item{CUBHE}{Median codon usage bias of the highly expressed genes (MILC)
@@ -60,11 +62,16 @@ predictGrowth <- function(genes,
                           highly_expressed,
                           mode = "full",
                           temperature = "none",
-                          fragments = FALSE,
-                          depth_of_coverage = NULL){
+                          training_set = "vs",
+                          depth_of_coverage = NULL,
+                          fragments = FALSE){
 
   if(! mode %in% c("full","partial","metagenome")){
     stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome\")")
+  }
+
+  if(! training_set  %in% c("vs","madin")){
+    stop("Invalid training set. Please pick an available model (\"vs\", \"madin\")")
   }
 
   if(sum(highly_expressed)<10){
@@ -86,46 +93,85 @@ predictGrowth <- function(genes,
                                     fragments = fragments,
                                     depth_of_coverage = depth_of_coverage)
 
-
   # Predict growth rate (stored models - sysdata.rda)
-  if(temperature == "none" & mode=="full"){
-    pred <- stats::predict.lm(gRodon_model_base,
-                              newdata = codon_stats,
-                              interval = "confidence")
+  if(training_set=="vs"){
+    if(temperature == "none" & mode=="full"){
+      pred <- stats::predict.lm(gRodon_model_base,
+                                newdata = codon_stats,
+                                interval = "confidence")
 
-  } else if(temperature == "none" & mode=="metagenome"){
-    pred <- stats::predict.lm(gRodon_model_meta,
-                              newdata = codon_stats,
-                              interval = "confidence")
+    } else if(temperature == "none" & mode=="metagenome"){
+      pred <- stats::predict.lm(gRodon_model_meta,
+                                newdata = codon_stats,
+                                interval = "confidence")
 
-  } else if(temperature == "none" & mode=="partial"){
-    pred <- stats::predict.lm(gRodon_model_partial,
-                              newdata = codon_stats,
-                              interval = "confidence")
+    } else if(temperature == "none" & mode=="partial"){
+      pred <- stats::predict.lm(gRodon_model_partial,
+                                newdata = codon_stats,
+                                interval = "confidence")
 
-  } else if(temperature != "none" & mode=="full"){
-    codon_stats$OGT <- temperature
-    pred <- stats::predict.lm(gRodon_model_temp,
-                              newdata = codon_stats,
-                              interval = "confidence")
+    } else if(temperature != "none" & mode=="full"){
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_temp,
+                                newdata = codon_stats,
+                                interval = "confidence")
 
-  } else if(temperature != "none" & mode=="metagenome"){
-    codon_stats$OGT <- temperature
-    pred <- stats::predict.lm(gRodon_model_meta_temp,
-                              newdata = codon_stats,
-                              interval = "confidence")
+    } else if(temperature != "none" & mode=="metagenome"){
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_meta_temp,
+                                newdata = codon_stats,
+                                interval = "confidence")
 
-  } else if(temperature != "none" & mode=="partial"){
-    codon_stats$OGT <- temperature
-    pred <- stats::predict.lm(gRodon_model_partial_temp,
-                              newdata = codon_stats,
-                              interval = "confidence")
+    } else if(temperature != "none" & mode=="partial"){
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_partial_temp,
+                                newdata = codon_stats,
+                                interval = "confidence")
+    }
+    #Transform back from box-cox
+    pred_back_transformed <- boxcoxTransform(pred,
+                                             lambda_milc,
+                                             back_transform = TRUE)
+  } else {
+    if(temperature == "none" & mode=="full"){
+      pred <- stats::predict.lm(gRodon_model_base_madin,
+                                newdata = codon_stats,
+                                interval = "confidence")
+
+    } else if(temperature == "none" & mode=="metagenome"){
+      pred <- stats::predict.lm(gRodon_model_meta_madin,
+                                newdata = codon_stats,
+                                interval = "confidence")
+
+    } else if(temperature == "none" & mode=="partial"){
+      pred <- stats::predict.lm(gRodon_model_partial_madin,
+                                newdata = codon_stats,
+                                interval = "confidence")
+
+    } else if(temperature != "none" & mode=="full"){
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_temp_madin,
+                                newdata = codon_stats,
+                                interval = "confidence")
+
+    } else if(temperature != "none" & mode=="metagenome"){
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_meta_temp_madin,
+                                newdata = codon_stats,
+                                interval = "confidence")
+
+    } else if(temperature != "none" & mode=="partial"){
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_partial_temp_madin,
+                                newdata = codon_stats,
+                                interval = "confidence")
+    }
+    #Transform back from box-cox
+    pred_back_transformed <- boxcoxTransform(pred,
+                                             lambda_milc_madin,
+                                             back_transform = TRUE)
   }
 
-  #Transform back from box-cox
-  pred_back_transformed <- boxcoxTransform(pred,
-                                           lambda_milc,
-                                           back_transform = TRUE)
   #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
   codon_stats$LowerCI <- pred_back_transformed[,"lwr"]

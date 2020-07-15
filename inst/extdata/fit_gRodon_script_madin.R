@@ -24,31 +24,33 @@ rgrep <- function(big,small_vec){
 
 # Calculate Codon Usage Statistics ---------------------------------------------
 
-cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes/",
-                         mc.cores = 6)
+cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/madin_genomes/",
+                                  mc.cores = 6)
 setwd("~/gRodon/inst/extdata/")
-save(cu, file = "CodonStatistics.rda")
-
+save(cu, file = "CodonStatistics_Madin.rda")
 
 # Load Growth Dataset ----------------------------------------------------------
 
 setwd("~/gRodon/inst/extdata/")
-load("GrowthRates.rda")
-load("CodonStatistics.rda")
-load("Accession2Species.rda")
+load("GrowthRates_Madin.rda")
+load("CodonStatistics_Madin.rda")
+load("Accession2Species_Madin.rda")
 cu <- cu %>% mutate_all(unlist)
+names(d)[1] <- "Species"
+d <- d %>% as.data.frame(stringsAsFactors=F)
 
 # Merge datasets
 rownames(spp_acc) <- spp_acc$V1 %>% gsub(pattern="[.].*",replace="")
 cu$Accession <- cu$File %>% gsub(pattern="[.].*",replace="")
-cu$Species <- spp_acc[cu$Accession,"V2"]
-cu$Species <- lapply(cu$Species,rgrep,small_vec=d$Species) %>%
+cu$Spp <- spp_acc[cu$Accession,"V2"]
+cu$Species <- lapply(cu$Spp,rgrep,small_vec=d$Species) %>%
   lapply("[",1) %>% unlist()
-cu <- merge.easy(cu,d,key="Species")
+cu$Species[cu$Spp %in% d$Species] <- cu$Spp[cu$Spp %in% d$Species]
+cu <- merge.easy(cu,d,key="Species") %>% subset(!is.na(Species))
 
 # Average CUB estimates over species
 stat_data <- cu %>%
-  subset(Extremophile == "") %>%
+  subset(Extremophile == FALSE) %>%
   group_by(Species) %>%
   summarise_all(mean,na.rm=T) %>%
   subset(!is.na(Species))
@@ -58,21 +60,32 @@ stat_data_extremo <- cu %>%
   group_by(Species) %>%
   summarise_all(mean,na.rm=T) %>%
   subset(!is.na(Species))
+stat_data_extremo$OGT <- stat_data_extremo$OptTemp
+stat_data_extremo$OGT[is.na(stat_data_extremo$OGT)] <-
+  stat_data_extremo$GrowthTemp[is.na(stat_data_extremo$OGT)]
 
 # Fit Models -------------------------------------------------------------------
 
 model_list <- gRodon:::fitModels(stat_data, stat_data_extremo)
 
-gRodon_model_base <- model_list[[1]]
-gRodon_model_temp <- model_list[[2]]
-gRodon_model_partial <- model_list[[3]]
-gRodon_model_partial_temp <- model_list[[4]]
-gRodon_model_meta <- model_list[[5]]
-gRodon_model_meta_temp <- model_list[[6]]
-lambda_milc <- model_list[[7]]
+gRodon_model_base_madin <- model_list[[1]]
+gRodon_model_temp_madin <- model_list[[2]]
+gRodon_model_partial_madin <- model_list[[3]]
+gRodon_model_partial_temp_madin <- model_list[[4]]
+gRodon_model_meta_madin <- model_list[[5]]
+gRodon_model_meta_temp_madin <- model_list[[6]]
+lambda_milc_madin <- model_list[[7]]
 
 setwd("~/gRodon/R/")
-save(gRodon_model_base,
+load("sysdata.rda")
+save(gRodon_model_base_madin,
+     gRodon_model_temp_madin,
+     gRodon_model_partial_madin,
+     gRodon_model_partial_temp_madin,
+     gRodon_model_meta_madin,
+     gRodon_model_meta_temp_madin,
+     lambda_milc_madin,
+     gRodon_model_base,
      gRodon_model_temp,
      gRodon_model_partial,
      gRodon_model_partial_temp,
