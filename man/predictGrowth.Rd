@@ -9,8 +9,9 @@ predictGrowth(
   highly_expressed,
   mode = "full",
   temperature = "none",
-  fragments = FALSE,
-  depth_of_coverage = NULL
+  training_set = "vs",
+  depth_of_coverage = NULL,
+  fragments = FALSE
 )
 }
 \arguments{
@@ -27,11 +28,14 @@ genes. Must be of same length as \code{genes}.}
 "none" and we do not guarantee good results for non-mesophilic organisms since
 few were used to fit the model.}
 
-\item{fragments}{If using gene fragments predicted from reads, will use a
-more permissive length filter (120bp as opposed to 240bp)}
+\item{training_set}{Whether to use models trained on the original Vieira-Silva et al.
+doubling time dataset or doubling times drawn from the Madin et al. database.}
 
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing
 the coverage of your ORFs to improve your estimate}
+
+\item{fragments}{If using gene fragments predicted from reads, will use a
+more permissive length filter (120bp as opposed to 240bp)}
 }
 \value{
 gRodon returns a list with the following elements:
