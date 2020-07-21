@@ -41,7 +41,7 @@ The easiest way to install gRodon is with [devtools](https://github.com/r-lib/de
 devtools::install_github("jlw-ecoevo/gRodon")
 ```
 
-`gRodon` has a number of dependencies - including the `Biostrings` and `coRdon`
+`gRodon` has a couple dependencies - namely the `Biostrings` and `coRdon`
 packages which are bioconductor packages and cannot be installed via CRAN. 
 To install them run the following:
 
@@ -59,22 +59,29 @@ There are two things that `gRodon` does *not* do that you *must* do ahead of
 time yourself in order to predict growth rate:  
 1. You must identify coding sequences in your genome  
 (e.g., using [prodigal](https://github.com/hyattpd/Prodigal))  
-2. You must annotate a set of highly-expressed genes, typically ribosomal 
-proteins  
+2. You must annotate a set of highly-expressed genes, typically those coding for ribosomal 
+proteins. We usually use genes coding for ribosomal proteins as our highly-expressed set since
+these are universal across microbes and almost always highly expressed (if you wanna
+grow you gotta make proteins), but if you have expression data for your organism
+you might be able to tailor an even better set of highly expressed genes.
 
 It is helpful if (in frame) coding sequences are stored in a fasta file for 
 easy loading. Additionally, you will need to have a logical vector describing
 which genes are part of your highly expressed set (this should become a bit
 clearer with the examples below).
 
-##### A Tiny Detour: Annotating Your Genome
+##### A Tiny Detour: Annotating Your Assembly
 
-**Disclaimer:** I make no claim that this is the best, most efficient, or most graceful way
+I'll lead you through one way to get annotated coding sequence to input into gRodon
+here, but there are many (MANY) ways to do this. For example, check out this set of
+tutorials on [functional annotation](https://github.com/biovcnet/biovcnet.github.io/wiki/TOPIC%3A-Functional-Annotation).
+
+**Disclaimer:** *I make no claim that this is the best, most efficient, or most graceful way
 to get annotated coding sequences from your assembly, but it will get the job done.
 If you have strong opinions about how this should be done shoot me an email and I
 will be happy to link to your rant/tutorial. If you already have annotated coding sequences please skip this section. If you have unannotated CDS (e.g., from [prodigal](https://github.com/hyattpd/Prodigal)),
 you might consider simply BLASTing your output for highly expressed genes (e.g., using
-the blastdb included in [growthpred](http://ftp.pasteur.fr/pub/gensoft/projects/growthpred/)).
+the blastdb  of ribosomal proteins included in [growthpred](http://ftp.pasteur.fr/pub/gensoft/projects/growthpred/)).*
 
 Given an un-annotated genome or metagenomic assembly, an easy way
 to find and annotate coding sequence is using the program [prokka](https://github.com/tseemann/prokka).
@@ -165,14 +172,18 @@ all other highly expressed genes
 you came here for.
 *  `$LowerCI` and `$UpperCI` are the 95% confidence intervals for `d`
 
+For details on how each of these is calculated please see the `gRodon` paper. For 
+most users the only outputs that will matter much to you are `$d`, `$LowerCI`, and `$UpperCI`, which are your
+estimated minimal doubling times and 95% CIs output by the gRodon model.
+
 For the most part, that's all you need to know. There are a few specific use
 cases we discuss below that require a slightly more thoughful application of
 `gRodon`. These are:
 
 *  The use of partial genomic data (e.g., incomplete SAGs or MAGs)  
-*  The use of metagenomic data  
-*  Predicting growth rates when growth is very slow  
-*  Predicting the growth rate of a psychrophile or thermophile  
+*  The use of metagenomic data  (**if using metagenomes you MUST use metagenome mode or risk getting some very strange results**)
+*  Predicting maximal growth rates when maximal growth is very slow  
+*  Predicting the maximal growth rate of a psychrophile or thermophile  
 
 ### Partial Mode
 
