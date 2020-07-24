@@ -210,7 +210,14 @@ It also doesn't make much sense to calculate the pair-bias in this scenario.
 Thus the model for predicting the average maximal growth rate of a metagenomic sample
 excludes consistency and pair-bias. Importantly, metagenome mode is expected to
 be less accurate than the default mode, so only use this mode if you must 
-(i.e., you have a metagenomic sample).
+(i.e., you have a metagenomic sample). 
+
+**EVEN MORE IMPORTANTLY - if you have a metagenome
+(mixed community sample) you MUST use metagenome mode.** Otherwise, gRodon's consistency
+statistic will think you have a single organism that has a bunch of highly expressed
+genes optimized in different ways, and gRodon will severely underestimate your maximal
+growth rate. If you are getting really long minimal doubling times check to make sure
+you are using metagenome mode.
 
 Let's try this on one of the samples from [Okie et al.](https://doi.org/10.7554/eLife.49816), as discussed in the
 `gRodon` manuscript:
