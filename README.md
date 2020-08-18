@@ -18,7 +18,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install("Biostrings")
 BiocManager::install("coRdon")
-install.packages("matrixStats")```
+install.packages("matrixStats")
+```
 
 ## A simple example
 
