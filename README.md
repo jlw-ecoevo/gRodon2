@@ -12,12 +12,12 @@ The easiest way to install `gRodon` is with [`devtools`](https://github.com/r-li
 
 gRodon has a few dependencies - namely the Biostrings, coRdon, and matrixStats packages which are bioconductor packages and cannot be installed via CRAN. To install them run the following:
 
-`if (!requireNamespace("BiocManager", quietly = TRUE))
+```if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("Biostrings")
 BiocManager::install("coRdon")
-install.packages("matrixStats")`
+install.packages("matrixStats")```
 
 ## A simple example
 
