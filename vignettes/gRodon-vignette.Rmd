@@ -311,9 +311,8 @@ the default training set.
 ### Alternative Training Set from [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4)
 
 We also include a version of `gRodon` trained on an alternative set of minimal
-doubling time estimates from a trait database compiled by [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4).  While this is a larger training
-set than the set of minimal doubling times fron [Vieira-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808), it is not hand-curated in the
-same way and is likely to be more error-prone. In any case, both training sets give
+doubling time estimates from a trait database compiled by [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4). This is a larger training
+set than the set of minimal doubling times fron [Vieira-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808), though both training sets give
 very similar results. See the `gRodon` paper for an in-depth discussion.
 
 
