@@ -44,3 +44,45 @@ highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
 # Run the gRodon growth prediction pipeline
 predictGrowth(genes, highly_expressed)
 ```
+
+## Using `gRodon` with [`docker`](https://www.docker.com/)
+
+We have compiled a docker image for `gRodon` to ease the installation process. You can pull it to your local computer and run it like this:
+
+```bash
+# pull the image
+$ docker pull shengwei/grodon:latest
+
+# start an interactive container
+$ docker run -ti --rm shengwei/grodon:latest
+```
+
+Now you're inside of docker container, let's start an `R` session
+```bash
+$ root@5218b31cd695:/mnt# R
+```
+
+Now you're inside of `R` REPL of the docker container, let's test `gRodon`: 
+```
+> library(gRodon)
+> library(Biostrings)
+> path_to_genome <- system.file('extdata',
+  'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
+  package = 'gRodon')
+> genes <- readDNAStringSet(path_to_genome)
+> highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
+> predictGrowth(genes, highly_expressed)
+```
+
+To mount your own data volume and run in non-interactive mode, please refer to [this](https://hub.docker.com/r/shengwei/das_tool/) example.
+
+If you want to modify and build your own docker image, the source code can be found [here](https://github.com/housw/Bioinfo-Dockerfiles/blob/master/gRodon).
+
+## Citation
+If you find `gRodon` is useful to your study, please cite: 
+
+> Jake L. Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. bioRxiv 2020.07.25.221176; doi: https://doi.org/10.1101/2020.07.25.221176
+
+
+
+
