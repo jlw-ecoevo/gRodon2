@@ -80,11 +80,31 @@ To mount your own data volume and run in non-interactive mode, please refer to [
 
 If you want to modify and build your own docker image, the source code can be found [here](https://github.com/housw/Bioinfo-Dockerfiles/blob/master/gRodon).
 
+## gRodon with conda
+
+[Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
+
 ## Citation
-If you find `gRodon` is useful to your study, please cite: 
+If you find `gRodon` is useful to your study, please cite the [`gRodon` paper](https://doi.org/10.1073/pnas.2016810118): 
 
-> Jake L. Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. bioRxiv 2020.07.25.221176; doi: https://doi.org/10.1101/2020.07.25.221176
+> Jake L. Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences Mar 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
 
+```
+@article {Weissmane2016810118,
+	author = {Weissman, Jake L. and Hou, Shengwei and Fuhrman, Jed A.},
+	title = {Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns},
+	volume = {118},
+	number = {12},
+	elocation-id = {e2016810118},
+	year = {2021},
+	doi = {10.1073/pnas.2016810118},
+	publisher = {National Academy of Sciences},
+	issn = {0027-8424},
+	URL = {https://www.pnas.org/content/118/12/e2016810118},
+	eprint = {https://www.pnas.org/content/118/12/e2016810118.full.pdf},
+	journal = {Proceedings of the National Academy of Sciences}
+}
 
+```
 
 
