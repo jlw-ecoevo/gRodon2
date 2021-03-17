@@ -80,7 +80,7 @@ To mount your own data volume and run in non-interactive mode, please refer to [
 
 If you want to modify and build your own docker image, the source code can be found [here](https://github.com/housw/Bioinfo-Dockerfiles/blob/master/gRodon).
 
-## gRodon with conda
+## `gRodon` with conda
 
 [Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
 
