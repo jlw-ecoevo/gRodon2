@@ -104,7 +104,17 @@ If you find `gRodon` is useful to your study, please cite the [`gRodon` paper](h
 	eprint = {https://www.pnas.org/content/118/12/e2016810118.full.pdf},
 	journal = {Proceedings of the National Academy of Sciences}
 }
-
 ```
 
+We also encourage you to cite `gRodon`'s dependencies:
+
+> Elek A, Kuzman M, Vlahovicek K (2020). coRdon: Codon Usage Analysis and Prediction of Gene Expressivity. R package version 1.8.0, https://github.com/BioinfoHR/coRdon
+
+> Pagès H, Aboyoun P, Gentleman R, DebRoy S (2020). Biostrings: Efficient manipulation of biological strings. R package version 2.58.0, https://bioconductor.org/packages/Biostrings.
+
+> Henrik Bengtsson (2021). matrixStats: Functions that Apply to Rows and Columns of  Matrices (and to Vectors). R package version 0.58.0. https://CRAN.R-project.org/package=matrixStats
+
+As well as the original paper describing the MILC statistic:
+
+> Supek, Fran, and Kristian Vlahovicek. “Comparison of codon usage measures and their applicability in prediction of microbial gene expressivity.” BMC bioinformatics vol. 6 182. 19 Jul. 2005, doi:10.1186/1471-2105-6-182
 
