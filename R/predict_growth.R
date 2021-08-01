@@ -204,8 +204,11 @@ predictGrowth <- function(genes,
                                 newdata = codon_stats,
                                 interval = "confidence")
     }
+    #Transform back from box-cox
+    pred_back_transformed <- boxcoxTransform(pred,
+                                             lambda_milc_euk,
+                                             back_transform = TRUE)
   }
-
   #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
   codon_stats$LowerCI <- pred_back_transformed[,"lwr"]
