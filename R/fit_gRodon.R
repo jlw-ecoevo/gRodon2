@@ -5,11 +5,24 @@
 #' It is assumed that gene names contain annotations of ribosomal proteins.
 #'
 #' @param gene_file  path to CDS-containing fasta file
-getStatistics <- function(gene_file){
+getStatistics <- function(gene_file, genetic_code = "11"){
+  print(gene_file)
   genes <- readDNAStringSet(gene_file)
   highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
-  codon_stats <- getCodonStatistics(genes, highly_expressed)
-  return(as.list(codon_stats))
+  # print(table(highly_expressed))
+  if(sum(highly_expressed)<10){
+    return(NULL)
+  } else {
+    codon_stats <- try(getCodonStatistics(genes,
+                                          highly_expressed,
+                                          genetic_code = genetic_code))
+    codon_stats[["File"]] <- basename(gene_file)
+    if(!inherits(codon_stats,"try-error")){
+      return(as.list(codon_stats))
+    } else {
+      return(NULL)
+    }
+  }
 }
 
 #' Get Codon Statistics for All Genomes In a Directory
@@ -18,13 +31,16 @@ getStatistics <- function(gene_file){
 #' It is assumed that gene names contain annotations of ribosomal proteins.
 #'
 #' @param directory path to directory containing annotated CDS files
-getStatisticsBatch <- function(directory, mc.cores = 1){
+getStatisticsBatch <- function(directory, genetic_code="11", mc.cores = 1){
   gene_files <- list.files(directory)
   gene_paths <- paste0(directory,gene_files)
-  cu <- mclapply(X = gene_paths, FUN = getStatistics, mc.cores = mc.cores) %>%
+  cu <- mclapply(X = gene_paths,
+                 FUN = getStatistics,
+                 genetic_code=genetic_code,
+                 mc.cores = mc.cores) %>%
     do.call("rbind", .) %>%
-    as.data.frame(stringsAsFactors = FALSE) %>%
-    mutate(File=gene_files)
+    as.data.frame(stringsAsFactors = FALSE) #%>%
+    # dplyr::mutate(File=gene_files)
   return(cu)
 }
 
@@ -35,7 +51,9 @@ getStatisticsBatch <- function(directory, mc.cores = 1){
 #' @param stat_data dataframe with codon usage statistics and known doubling times
 fitModels <- function(stat_data, stat_data_extremo){
   bc_milc <- boxcox(d~CUBHE+ConsistencyHE+CPB,data=stat_data)
+  bc_milc_euk <- boxcox(d~CUBHE,data=stat_data)
   lambda_milc <- bc_milc$x[which.max(bc_milc$y)]
+  lambda_milc_euk <- bc_milc_euk$x[which.max(bc_milc_euk$y)]
 
   #Full gRodon
   gRodon_model_base <-
@@ -55,11 +73,20 @@ fitModels <- function(stat_data, stat_data_extremo){
   gRodon_model_meta_temp <-
     lm(boxcoxTransform(d, lambda_milc) ~ CUBHE+OGT,data=stat_data_extremo)
 
+  # Eukaryotic mode
+  gRodon_model_euk <-
+    lm(boxcoxTransform(d, lambda_milc_euk) ~ CUBHE,data=stat_data)
+  gRodon_model_euk_temp <-
+    lm(boxcoxTransform(d, lambda_milc_euk) ~ CUBHE+OGT,data=stat_data)
+
   return(list(gRodon_model_base,
               gRodon_model_temp,
               gRodon_model_partial,
               gRodon_model_partial_temp,
               gRodon_model_meta,
               gRodon_model_meta_temp,
-              lambda_milc))
+              lambda_milc,
+              gRodon_model_euk,
+              gRodon_model_euk_temp,
+              lambda_milc_euk))
 }

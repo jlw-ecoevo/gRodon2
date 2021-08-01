@@ -1,0 +1,300 @@
+,Species.name,OGT,Growth.rate,Trophy,MMETSP,MMETSP.Strain
+1,Acanthamoeba polyphaga,20,3.6,Heterotrophic,NA,NA
+2,Actinocyclus octonarius,30,0.79,Phototrophic,NA,NA
+3,Actinomonas mirabilis,20,5.76,Heterotrophic,NA,NA
+4,Actinoptychus senarius,30,0.73,Phototrophic,NA,NA
+5,Agmenellum quadruplicatum,18,0.33,Phototrophic,NA,NA
+6,Alexandrium ostenfeldii,20.3,0.22,Phototrophic,NA,NA
+7,Amoeba algonquinensis,12,0.29,Heterotrophic,NA,NA
+8,Amphidinium carteri,18,0.57,Phototrophic,NA,NA
+9,Amphidinium klebsii,19,0.6,Phototrophic,"MMETSP0258,MMETSP0398,MMETSP0259","Amphidinium carterae, Strain CCMP1314"
+10,Amphidinium sp.,13,0.47,Heterotrophic,NA,NA
+11,Amphiprora sp.,25,1.57,Phototrophic,NA,NA
+12,Ankistrodesmus braunii,25,1.11,Phototrophic,NA,NA
+13,Arcella vulgaris,22.5,0.26,Heterotrophic,NA,NA
+14,Aspidisca angulata,20,3.7,Heterotrophic,NA,NA
+15,Aspidisca sp.,22,1.15,Heterotrophic,NA,NA
+16,Asterionella formosa,18.5,0.91,Phototrophic,NA,NA
+17,Asterionella glacialis,24,3.6,Phototrophic,NA,NA
+18,Asterionella japonica,25,0.82,Phototrophic,NA,NA
+19,Asterionella kariana,20,0.36,Phototrophic,NA,NA
+20,Asterococcus sp.,16,0.53,Phototrophic,NA,NA
+21,Bacillaria paxillifer,12,0.56,Phototrophic,NA,NA
+22,Bacteriastrum delicatulum,24,2.5,Phototrophic,NA,NA
+23,Balanion comatum,15,2.63,Heterotrophic,NA,NA
+24,Balanion planctonicum,15,1.7,Heterotrophic,NA,NA
+25,Bellerochea malleus,12,0.26,Phototrophic,NA,NA
+26,Biddulphia aurita,12,0.96,Phototrophic,MMETSP0015,Odontella aurita
+27,Biddulphia regia,12,0.68,Phototrophic,NA,NA
+28,Biddulphia sinensis,30,0.99,Phototrophic,MMETSP0160,Odontella sinensis
+29,Biddulphia sp.,24,1.73,Phototrophic,NA,NA
+30,Biddulphia weissflogii,0,0.46,Phototrophic,NA,NA
+31,Bodo designis,20,3.84,Heterotrophic,MMETSP1114,Neobodo designis
+32,Bodo saliens,10,0.34,Heterotrophic,NA,NA
+33,Bodo saltans,20,4.8,Heterotrophic,NA,NA
+34,Botrydiopsis intercedens,25,0.72,Phototrophic,NA,NA
+35,Bumilleriopsis brevis,25,1.39,Phototrophic,NA,NA
+36,Bursaridium difficile,20,0.85,Heterotrophic,NA,NA
+37,Caecitellus parvulus,10,0.81,Heterotrophic,NA,NA
+38,Cafeteria roenbergensis,10,0.54,Heterotrophic,MMETSP0942,Cafeteria roenbergensis
+39,Cerataulina bergonii,18,0.71,Phototrophic,NA,NA
+40,Ceratium candelabrum,24,0.11,Phototrophic,NA,NA
+41,Ceratium platycorne,24,0.48,Phototrophic,NA,NA
+42,Ceratium ranipes,24,0.35,Phototrophic,NA,NA
+43,Chaetoceros brevis,1.5,0.39,Phototrophic,MMETSP1435,"Chaetoceros brevis, Strain CCMP164"
+44,Chaetoceros calcitrans,25,3.4,Phototrophic,NA,NA
+45,Chaetoceros criophilum,0,0.32,Phototrophic,NA,NA
+46,Chaetoceros curvisetum,25,1.39,Phototrophic,"MMETSP0719,MMETSP0716,MMETSP0718,MMETSP0717",Chaetoceros curvisetus
+47,Chaetoceros debilis,12,1.14,Phototrophic,"MMETSP0150,MMETSP0149","Chaetoceros debilis, Strain MM31A-1"
+48,Chaetoceros decipiens,6,0.74,Phototrophic,NA,NA
+49,Chaetoceros deflandrei,5,1.04,Phototrophic,NA,NA
+50,Chaetoceros densus,6,0.31,Phototrophic,NA,NA
+51,Chaetoceros diadema,6,0.95,Phototrophic,NA,NA
+52,Chaetoceros diadema ,6,0.95,Phototrophic,NA,NA
+53,Chaetoceros dichaeta,1.5,0.62,Phototrophic,MMETSP1447,"Chaetoceros dichaeta, Strain CCMP1751"
+54,Chaetoceros didymus,12,1.07,Phototrophic,NA,NA
+55,Chaetoceros furcellatus,-0.5,0.49,Phototrophic,NA,NA
+56,Chaetoceros gracilis,25,1.89,Phototrophic,"MMETSP0754,MMETSP0752,MMETSP0751,MMETSP0753","Chaetoceros neogracile, Strain CCMP1317"
+57,Chaetoceros simplex,25,2.4,Phototrophic,NA,NA
+58,Chaetoceros sp.,29,4.4,Phototrophic,NA,NA
+59,Chaetoceros sp. ,5,0.6,Phototrophic,NA,NA
+60,Chaetoceros teres,12,1.21,Phototrophic,NA,NA
+61,Chaetoceros tortissimus,12,0.98,Phototrophic,NA,NA
+62,Chilodonella uncinata,20,1.56,Heterotrophic,NA,NA
+63,Chlamydomonas alpina,12.5,1.42,Phototrophic,NA,NA
+64,Chlamydomonas globosa,18,1.82,Phototrophic,NA,NA
+65,Chlamydomonas intermedia,18,1.58,Phototrophic,NA,NA
+66,Chlamydomonas subcaudata,12.5,1.35,Phototrophic,NA,NA
+67,Chlorella ellipsoidea,25,1.73,Phototrophic,NA,NA
+68,Chlorella pyrenoidosa,39.2,5.65,Phototrophic,NA,NA
+69,Chlorella sp.,25,1.88,Phototrophic,NA,NA
+70,Chlorella vulgaris,25,1.2,Phototrophic,NA,NA
+71,Chroomonas salina,25,2.3,Phototrophic,NA,NA
+72,Clydonella rosenfieldi,20,1.34,Heterotrophic,NA,NA
+73,Cochliopodium minus,25,2.3,Heterotrophic,NA,NA
+74,Coelastrum sp.,26,1.43,Phototrophic,NA,NA
+75,Colpidium campylum,20,1.32,Heterotrophic,NA,NA
+76,Condylostoma arenarium,29,0.78,Heterotrophic,NA,NA
+77,Condylostoma patulum,20,0.37,Heterotrophic,NA,NA
+78,Corethron criophilum,24,2.22,Phototrophic,NA,NA
+79,Coscinodiscus centralis,12,0.74,Phototrophic,NA,NA
+80,Coscinodiscus concinnus,12,0.59,Phototrophic,NA,NA
+81,Coscinodiscus granii,30,0.7,Phototrophic,NA,NA
+82,Coscinodiscus jonesianus var. commutata,30,0.74,Phototrophic,NA,NA
+83,Coscinodiscus lacustris ,5,0.8,Phototrophic,NA,NA
+84,Coscinodiscus pavillardii,30,0.88,Phototrophic,NA,NA
+85,Coscinodiscus radiatus,30,0.83,Phototrophic,NA,NA
+86,Coscinodiscus sp.,24,1.11,Phototrophic,NA,NA
+87,Cryptomonas erosa,20,0.83,Phototrophic,NA,NA
+88,Cryptomonas ovata,20,0.6,Phototrophic,NA,NA
+89,Cyclidium glaucoma,20,2.37,Heterotrophic,NA,NA
+90,Cyclidium sp.,20,3.84,Heterotrophic,NA,NA
+91,Cyclococcolinthinia leptopora,24,0.68,Phototrophic,NA,NA
+92,Cyclotella nana,20,2.36,Phototrophic,NA,NA
+93,Cyptoperidiopsis sp.,23,0.22,Heterotrophic,NA,NA
+94,Dactylamoeba sp.,20,0.49,Heterotrophic,NA,NA
+95,Detonula confervacea,7,1.1,Phototrophic,MMETSP1058,"Detonula confervacea, Strain CCMP 353"
+96,Diophrys scutum,27,1.6,Heterotrophic,NA,NA
+97,Dissodinium lunula,24,0.23,Phototrophic,MMETSP0229,"Pyrocystis lunula, Strain CCCM 517"
+98,Ditylum brightwellii,24,1.32,Phototrophic,"MMETSP1002,MMETSP1005,MMETSP1062,MMETSP1063",Ditylum brightwellii GSO103;Ditylum brightwellii Pop1 (SS4);Ditylum brightwellii Strain Pop2 (SS10)
+99,Dunaliella salina,18,0.35,Phototrophic,NA,NA
+100,Dunaliella tertiolecta,25,1.8,Phototrophic,"MMETSP1126,MMETSP1128,MMETSP1127",Dunaliella tertiolecta CCMP1320
+101,Emiliana huxleyi,24,1.94,Phototrophic,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM219
+102,Entosiphon sulcatum,20,3.12,Heterotrophic,NA,NA
+103,Eucampia zodiacus,0,0.38,Phototrophic,NA,NA
+104,Eucampia zoodiacus,12,0.95,Phototrophic,NA,NA
+105,Euglena gracilis,25,1.05,Phototrophic,NA,NA
+106,Euglena gracilis var. bacillaris,25,0.72,Phototrophic,NA,NA
+107,Euplotes antarcticus,7.5,0.28,Heterotrophic,NA,NA
+108,Euplotes balteatus,29.5,5.04,Heterotrophic,NA,NA
+109,Euplotes crassus,23,2.5,Heterotrophic,MMETSP1380,"Euplotes crassus, Strain CT5"
+110,Euplotes eurystomus,20,0.45,Heterotrophic,,NA
+111,Euplotes focardii,4,0.23,Heterotrophic,"MMETSP0205,MMETSP0206",Euplotes focardii TN1
+112,Euplotes harpa,30,0.79,Heterotrophic,MMETSP0213,Euplotes harpa
+113,Euplotes minuta,23,2.95,Heterotrophic,NA,NA
+114,Euplotes sp.,22,0.6,Heterotrophic,NA,NA
+115,Euplotes trisulcatus,33,1.34,Heterotrophic,NA,NA
+116,Euplotes vannus,26,2.31,Heterotrophic,NA,NA
+117,Euplotes woodruffii,23,0.86,Heterotrophic,NA,NA
+118,Exuviella sp.,18,0.15,Phototrophic,NA,NA
+119,Fabrea salina,20,0.71,Heterotrophic,MMETSP1345,Fabrea Fabrea salina
+120,Favella azorica,20,2.4,Heterotrophic,NA,NA
+121,Favella ehrenbergii,15,0.52,Heterotrophic,MMETSP0123,"Favella ehrenbergii, Strain Fehren 1"
+122,Favella sp.,21.1,0.97,Heterotrophic,NA,NA
+123,Favella taraikaensis,20,2.6,Heterotrophic,"MMETSP0436,MMETSP0434","Favella taraikaensis, Strain Fe Narragansett Bay"
+124,Fragilariopsis kerguelensis,5,0.33,Phototrophic,"MMETSP0906,MMETSP0909,MMETSP0907,MMETSP0908,MMETSP0734,MMETSP0735,MMETSP0736,MMETSP0733","Fragilariopsis kerguelensis, Strain L2-C3;Fragilariopsis kerguelensis L26_C5"
+125,Gephyrocapsa oceanica,24,1.66,Phototrophic,"MMETSP1366,MMETSP1363,MMETSP1364,MMETSP1365",Gephyrocapsa oceanica RCC1303
+126,Glaseria mira,25,3.3,Heterotrophic,NA,NA
+127,Gonyaulax polyedra,24,0.69,Phototrophic,"MMETSP1034,MMETSP1032,MMETSP1035,MMETSP1033",Lingulodinium polyedra CCMP1738
+128,Gonyaulax tamarensis,20,0.48,Phototrophic,"MMETSP0378,MMETSP0380,MMETSP0384,MMETSP0382",Alexandrium temarense CCMP1771
+129,Guinardia flaccida,20,0.66,Phototrophic,NA,NA
+130,Guinarida flaccida,6,0.27,Phototrophic,NA,NA
+131,Gymnodinium catenatum,22,0.37,Phototrophic,MMETSP0784,Gymnodinium catenatum
+132,Gymnodinium sp.,15,1.08,Heterotrophic,NA,NA
+133,Gyrodinium dominans,15,1.1,Heterotrophic,MMETSP1148,"Gyrodinium dominans, Strain SPMC 103"
+134,Gyrodinium fusiforme,11,0.39,Heterotrophic,NA,NA
+135,Halteria sp.,20,1.37,Heterotrophic,NA,NA
+136,Hemiaulus hauckii,24,2.7,Phototrophic,NA,NA
+137,Heterocapsa triquetra,17.6,0.85,Phototrophic,MMETSP0448,Heterocapsa triquetra
+138,Holosticha sp,-2,0.12,Heterotrophic,NA,NA
+139,Hymenomonas carterae,24,1.73,Phototrophic,NA,NA
+140,Hymenostome ciliate,18,3.6,Heterotrophic,NA,NA
+141,Isochrysis galbana,25,1.9,Phototrophic,"MMETSP0944,MMETSP0943,MMETSP0595",Isochrysis galbana CCMP1323
+142,Isochrysis sp.,25,3.5,Phototrophic,NA,NA
+143,Jakoba libera,20,0.62,Heterotrophic,NA,NA
+144,Katodinium glaucum,11,0.13,Heterotrophic,NA,NA
+145,Keronopsis rubra,20,0.51,Heterotrophic,NA,NA
+146,Lacrymaria marina,15,0.43,Heterotrophic,NA,NA
+147,Lauderia annulata,16,1.71,Phototrophic,NA,NA
+148,Leptocylindrus danicus,20,1.84,Phototrophic,"MMETSP0321,MMETSP0322",Leptocylindrus danicus var. danicus B650;Leptocylindrus danicus CCMP1856
+149,Lithodesmium undulatum,12,0.69,Phototrophic,NA,NA
+150,Litonotus lamella,23,1.7,Heterotrophic,NA,NA
+151,Lohmanniella spiralis,12,1.06,Heterotrophic,NA,NA
+152,Loxocephalus plagius,20,1.19,Heterotrophic,NA,NA
+153,Mayorella sp.,-2,0.19,Heterotrophic,NA,NA
+154,Melosira juergensii ,5,0.9,Phototrophic,NA,NA
+155,Melosira moniliformis,6,0.48,Phototrophic,NA,NA
+156,Melosira monoliformis,12,0.82,Phototrophic,NA,NA
+157,Melosira nummuloides,6,0.43,Phototrophic,NA,NA
+158,Metachaos sp.,0,0.21,Heterotrophic,NA,NA
+159,Monas sp.,23.5,3.3,Heterotrophic,NA,NA
+160,Monochrysis lutheri,25,1.83,Phototrophic,NA,NA
+161,Monosiga ovata,20,1.75,Heterotrophic,NA,NA
+162,Monosiga sp. ,20,2.88,Heterotrophic,NA,NA
+163,Nannochloris sp.,31.5,3,Phototrophic,NA,NA
+164,Navicula arenaria,16,1,Phototrophic,NA,NA
+165,Navicula comoides,20,0.52,Phototrophic,NA,NA
+166,Navicula minima,25,0.67,Phototrophic,NA,NA
+167,Navicula sp.,12,1.13,Phototrophic,NA,NA
+168,Navicula transitans ,5,0.45,Phototrophic,NA,NA
+169,Nitzschia actinastroides,23,2.06,Phototrophic,NA,NA
+170,Nitzschia cylindrus,5,0.86,Phototrophic,NA,NA
+171,Nitzschia delicatissima,-0.5,0.5,Phototrophic,"MMETSP0327,MMETSP1432","Pseudo-nitzschia delicatissima B596;Pseudo-nitzschia delicatissima, Strain UNC1205"
+172,Nitzschia dissipata,25,1.75,Phototrophic,NA,NA
+173,Nitzschia frigida ,0.066666667,0.4,Phototrophic,NA,NA
+174,Nitzschia grunowii,-0.5,0.56,Phototrophic,NA,NA
+175,Nitzschia kerguelensis,4,0.78,Phototrophic,NA,NA
+176,Nitzschia palea,25,1.01,Phototrophic,NA,NA
+177,Nitzschia seriata,0,0.55,Phototrophic,NA,NA
+178,Nitzschia seriata ,10,0.57,Phototrophic,NA,NA
+179,Nitzschia sigma,25,0.43,Phototrophic,NA,NA
+180,Nitzschia sp. ,6,0.26,Phototrophic,NA,NA
+181,Nitzschia turgiduloides,3,0.71,Phototrophic,NA,NA
+182,Nitzschia vanhoeffenii,-0.5,0.51,Phototrophic,NA,NA
+183,Noctiluca scintillans,20,0.61,Heterotrophic,MMETSP0253,Noctiluca scintillans
+184,Ochromonas sp.,20,4.32,Heterotrophic,NA,NA
+185,Olisthodiscus luteus,25,0.84,Phototrophic,NA,NA
+186,Oxyrrhis marina,15,0.87,Heterotrophic,"MMETSP0044,MMETSP0471,MMETSP0469,MMETSP0470,MMETSP0468,MMETSP0451,MMETSP1426,MMETSP1424,MMETSP1425","Oxyrrhis marina, Strain CCMP1788;Oxyrrhis marina;Oxyrrhis marina, Strain CCMP1795;Oxyrrhis marina LB1974"
+187,Paraflabellula reniformis,20,0.96,Heterotrophic,NA,NA
+188,Paramecium aurelia,20,0.96,Heterotrophic,NA,NA
+189,Paramecium bursaria,20,0.82,Heterotrophic,NA,NA
+190,Paraphysomonas bandaiensis,18,1.2,Heterotrophic,MMETSP1103,"Paraphysomonas bandaiensis, Strain Caron Lab Isolate"
+191,Paraphysomonas imperforata,20,6,Heterotrophic,"MMETSP0104,MMETSP0103",Paraphysomonas imperforata PA2
+193,Paraphysomonas sp.,18,5.5,Heterotrophic,NA,NA
+194,Paraphysomonas vestita,20,5.04,Heterotrophic,MMETSP1107,"Paraphysomonas vestita, Strain GFlagA"
+195,Paratetrahymena wassi,34,2.24,Heterotrophic,NA,NA
+196,Parauronema acutum,18,2.62,Heterotrophic,NA,NA
+197,Pavlova lutheri,25,2.4,Phototrophic,MMETSP1463,"Pavlova lutheri, Strain RCC1537"
+198,Pelagostrombidium fallax,21.5,0.9,Heterotrophic,NA,NA
+199,Pfiesteria piscicida,23,0.78,Heterotrophic,NA,NA
+200,Phaeocystis pouchetii,0,0.71,Phototrophic,NA,NA
+201,Phaeodactylum tricornutum,22,2.1,Phototrophic,NA,NA
+202,Platyamoeba australis,2,0.4,Heterotrophic,NA,NA
+203,Platyamoeba sp.,20,1.49,Heterotrophic,NA,NA
+204,Polyedriella helvetica,25,0.53,Phototrophic,NA,NA
+205,Porosira glacialis,-0.5,0.42,Phototrophic,NA,NA
+206,Porosira glacialis ,5,0.95,Phototrophic,NA,NA
+207,Porphyridium aerugineum,21,0.67,Phototrophic,MMETSP0313,Porphyridium aerugineum
+208,Prorocentrum micans,24,0.9,Phototrophic,MMETSP0251,"Prorocentrum micans, Strain CCCM 845"
+209,Pseudo-nitzschia pseudodelicatissima,25,2.36,Phototrophic,NA,NA
+210,Pseudobalanion planctonicum,18.5,1.52,Heterotrophic,NA,NA
+211,Pseudonitzschia seriata,6,0.49,Phototrophic,NA,NA
+212,Psuedobodo tremulans,20,3.12,Heterotrophic,NA,NA
+213,Psuedonitzschia seriata ,6,0.27,Phototrophic,NA,NA
+214,Pteridomonas danica,10,1.29,Heterotrophic,"MMETSP0101,MMETSP0102",Pteridomonas danica PT
+215,Pyramimonas sp.,0,0.53,Phototrophic,NA,NA
+216,Pyramimonas tychotreta ,4.6,0.45,Phototrophic,NA,NA
+217,Rhizamoeba sp.,20,0.55,Heterotrophic,NA,NA
+219,Rhizosolenia alata f. indica,20,0.7,Phototrophic,"MMETSP0174,MMETSP0176","Proboscia alata, Strain PI-D3"
+220,Rhizosolenia fragilissima,21.5,0.84,Phototrophic,MMETSP0580,Dactyliosolen fragilissimus
+221,Rhizosolenia hebetata,0,0.34,Phototrophic,NA,NA
+222,Rhizosolenia imbricata,30,1.08,Phototrophic,NA,NA
+223,Rhizosolenia robusta,20,0.64,Phototrophic,NA,NA
+224,Rhizosolenia setigera,12,0.83,Phototrophic,MMETSP0789,"Rhizosolenia setigera, Strain CCMP 1694"
+225,Rhizosolenia stolterfothii,12,0.97,Phototrophic,NA,NA
+226,Rhizosolenia truncata,0,0.45,Phototrophic,NA,NA
+227,Rimostrombidium caudatum,15,0.61,Heterotrophic,NA,NA
+228,Rimostrombidium veniliae,15,1.06,Heterotrophic,NA,NA
+229,Saccamoeba limax,20,2.2,Heterotrophic,NA,NA
+231,Scenedesmus obliquus,25,1.05,Phototrophic,NA,NA
+232,Scenedesmus quadricauda,27,2.29,Phototrophic,NA,NA
+233,Scuticociliate,18,7,Heterotrophic,NA,NA
+234,Selenastrum capricornutum,27,2.45,Phototrophic,NA,NA
+235,Skeletonema costatum,20,3.47,Phototrophic,MMETSP0013,Skeletonema costatum
+236,Spirostomum teres,20,0.2,Heterotrophic,NA,NA
+237,Spumella sp.,20,4.8,Heterotrophic,NA,NA
+238,Stellarima microtrias,4,0.85,Phototrophic,NA,NA
+239,Stentor polymorphus,20,0.39,Heterotrophic,NA,NA
+240,Stephanoeca diplocostata,20,1.27,Heterotrophic,NA,NA
+241,Stephanopyxis palmeriana,20,0.79,Phototrophic,NA,NA
+242,Stereomyxa ramosa,15,0.38,Heterotrophic,MMETSP0439,"Stereomyxa ramosa, Strain Chinc5"
+243,Streptotheca tamesis,24,1.52,Phototrophic,MMETSP1171,"Helicotheca tamensis, Strain CCMP826"
+244,Strobilidium gyrans,20,0.87,Heterotrophic,NA,NA
+245,Strobilidium lacustris,21.5,1.42,Heterotrophic,NA,NA
+246,Strobilidium neptuni,16,1.5,Heterotrophic,NA,NA
+247,Strobilidium veniliae,16,0.72,Heterotrophic,NA,NA
+248,Strombidinopsis acuminatum,13,0.77,Heterotrophic,MMETSP0126,Strombidinopsis acuminata
+249,Strombidinopsis sp.,20,0.95,Heterotrophic,NA,NA
+250,Strombidium capitatum,16,0.83,Heterotrophic,NA,NA
+251,Strombidium reticulatum,12,0.86,Heterotrophic,NA,NA
+252,Strombidium sp.,20,3.05,Heterotrophic,NA,NA
+253,Strombidium sulcatum,20,2.4,Heterotrophic,NA,NA
+254,Synedra sp.,5,0.56,Phototrophic,NA,NA
+255,Synedra tabulata,20,0.41,Phototrophic,NA,NA
+256,Syracosphaera carterae,18,0.25,Phototrophic,"MMETSP1137,MMETSP1136,MMETSP1138",Pleurochrysis carterae CCMP645
+257,Tabellaria flocculosa var. flocculosa,20,0.67,Phototrophic,NA,NA
+258,Tetraedron sp.,26,0.83,Phototrophic,NA,NA
+259,Tetrahymena pyriformis,20,2.05,Heterotrophic,NA,NA
+260,Tetraselmis maculata,18,0.65,Phototrophic,NA,NA
+261,Tetryhymena pyriformis,20,3.84,Heterotrophic,NA,NA
+262,Thalassiosira antarctica,-0.5,0.6,Phototrophic,"MMETSP0902,MMETSP0903,MMETSP0905,MMETSP0904","Thalassiosira antarctica, Strain CCMP982"
+264,Thalassiosira bioculata,-0.5,0.43,Phototrophic,NA,NA
+265,Thalassiosira bulbosa,-0.5,0.6,Phototrophic,NA,NA
+266,Thalassiosira decipiens,18,1.13,Phototrophic,NA,NA
+267,Thalassiosira eccentrica,16,1,Phototrophic,NA,NA
+268,Thalassiosira fluviatilis,25,3.6,Phototrophic,"MMETSP0880,MMETSP0878,MMETSP0879,MMETSP0881",Thalassiosira weissflogii CCMP1336
+269,Thalassiosira hendeyi,20,0.71,Phototrophic,NA,NA
+270,Thalassiosira levanderi,12,1.13,Phototrophic,NA,NA
+271,Thalassiosira nordenskioeldii,6,1.12,Phototrophic,NA,NA
+272,Thalassiosira nordenskioeldii ,6,1.12,Phototrophic,NA,NA
+273,Thalassiosira nordenskioldii,10,1.25,Phototrophic,NA,NA
+274,Thalassiosira polychorda,12,1.16,Phototrophic,NA,NA
+275,Thalassiosira pseudonana,24,3.4,Phototrophic,NA,NA
+276,Thalassiosira rotula,25,2.4,Phototrophic,"MMETSP0404,MMETSP0403,MMETSP0910,MMETSP0911,MMETSP0912,MMETSP0913",Thalassiosira rotula CCMP3096;Thalassiosira rotula GSO102
+277,Thalassiosira sp.,24,1.87,Phototrophic,NA,NA
+278,Thalassiosira subtilis,0,0.46,Phototrophic,NA,NA
+280,Thalassiothrix longissima,0,0.41,Phototrophic,NA,NA
+281,Tribonema aequale,25,0.33,Phototrophic,NA,NA
+282,Tribonema minus,25,0.48,Phototrophic,NA,NA
+283,Triceratium alternans,12,0.74,Phototrophic,NA,NA
+284,UnID chrysomonad,25,4.4,Heterotrophic,NA,NA
+285,UnID cryptophyte,1,0.84,Phototrophic,NA,NA
+286,UNID kinetoplastid,25,1,Heterotrophic,NA,NA
+287,Unidentified amoeba,2,0.7,Heterotrophic,NA,NA
+288,Uronema elegans,18,2.26,Heterotrophic,NA,NA
+289,Uronema marina,20,6.8,Heterotrophic,NA,NA
+290,Uronema marinum,25,8.32,Heterotrophic,NA,NA
+291,Uronema nigricans,18,3.24,Heterotrophic,NA,NA
+292,Uronema sp.,18,3.22,Heterotrophic,NA,NA
+293,Urotricha castalia,12,0.65,Heterotrophic,NA,NA
+294,Urotricha farcta,21,3.9,Heterotrophic,NA,NA
+295,Urotricha furcata,25,1.3,Heterotrophic,NA,NA
+296,Vahlkampfia baltica,20,1.05,Heterotrophic,NA,NA
+297,Vahlkampfia damariscottae,20,1.32,Heterotrophic,NA,NA
+298,Vanella sp.,25,1.9,Heterotrophic,NA,NA
+299,Vannella caledonica,20,0.7,Heterotrophic,NA,NA
+300,Vannella sp.,20,1.09,Heterotrophic,NA,NA
+301,Vexillifera bacillipedes,25,3.2,Heterotrophic,NA,NA
+302,Vischeria stellata,20,0.42,Phototrophic,NA,NA
+303,Vorticella microstoma,20,2.61,Heterotrophic,NA,NA
+304,Vorticella similis,20,2.26,Heterotrophic,NA,NA

@@ -25,10 +25,9 @@ rgrep <- function(big,small_vec){
 # Calculate Codon Usage Statistics ---------------------------------------------
 
 cu <- gRodon:::getStatisticsBatch("~/gRodon/inst/extdata/vs_genomes/",
-                         mc.cores = 6)
+                         mc.cores = 1)
 setwd("~/gRodon/inst/extdata/")
 save(cu, file = "CodonStatistics.rda")
-
 
 # Load Growth Dataset ----------------------------------------------------------
 

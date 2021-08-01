@@ -1,0 +1,174 @@
+,Species.name,OGT,Growth.rate,MMETSP,MMETSP.Strain,NCBI.Assembly
+1,Akashiwo sanguinea,27,0.295280699,MMETSP0223,"Akashiwo sanguinea, Strain CCCM 885",NA
+2,Alexandrium catenella strain ACC02,14,0.207944154,MMETSP0790,"Alexandrium catenella, Strain OF101",NA
+3,Alexandrium fundyense strain BoF,15,0.28,"MMETSP0196,MMETSP0347",Alexandrium fundyense CCMP1719,NA
+4,Alexandrium fundyense strain MI,15,0.462,"MMETSP0196,MMETSP0347",Alexandrium fundyense CCMP1719,NA
+5,Alexandrium minutum,20,0.301519024,MMETSP0328,Alexandrium minutum,NA
+6,Alexandrium monilatum,25,0.599,"MMETSP0096,MMETSP0095,MMETSP0093,MMETSP0097","Alexandrium monilatum, Strain CCMP3105",NA
+7,Alexandrium ostenfeldii clone LF-37,20.3,0.221807098,NA,NA,NA
+8,Alexandrium tamarense clone GTMP,20,0.319,"MMETSP0378,MMETSP0380,MMETSP0384,MMETSP0382",Alexandrium temarense CCMP1771,NA
+9,Amphiprora sp.,28,0.901091335,NA,NA,NA
+10,Apedinella radians,20,1.186667973,NA,NA,NA
+11,Asterionellopsis glacialis,24.3333333333333,1.635827346,"MMETSP0705,MMETSP0708,MMETSP0707,MMETSP0706,MMETSP1394,MMETSP0713",Asterionellopsis glacialis CCMP134;Asterionellopsis glacialis,NA
+12,Calcidiscus leptoporus strain N482-1,20,0.442,MMETSP1334,"Calcidiscus leptoporus, Strain RCC1130",NA
+13,Calcidiscus leptoporus strain NS10-2,12,0.569,MMETSP1334,"Calcidiscus leptoporus, Strain RCC1130",NA
+14,Calciodinellum albatrosianum Geob*26/5,28.6,0.189922327,NA,NA,NA
+15,Chaetoceros deflandrei,5,0.60719693,NA,NA,NA
+16,Chaetoceros didymus,21,1.441746136,NA,NA,NA
+17,Chaetoceros lorenzianus clone Bermuda,30,2.218070978,NA,NA,NA
+18,Chaetoceros lorenzianus clone Bushehr,24.5,1.386294361,NA,NA,NA
+19,Chaetoceros lorenzianus clone Slope water,27,1.732867951,NA,NA,NA
+20,Chaetoceros pseudocurvisetus,25,1.622,NA,NA,NA
+21,Chaetoceros sp.,17,2.489782019,NA,NA,NA
+22,Chaetoceros sp. strain CS256,30,0.87,NA,NA,NA
+23,Chattonella marina,25,0.415195161,NA,NA,NA
+24,Chattonella marina var. antiqua strain Ho-1,25,0.508,NA,NA,NA
+25,Chlamydomonas strain UMACC 229,9,0.4,NA,NA,NA
+26,Chlorella sp. strain MFD-1,25,0.147085832,NA,NA,NA
+27,Chrysochromulina polylepis strain B3,14,0.892773569,"MMETSP0146,MMETSP0147,MMETSP0143,MMETSP0145,MMETSP0286","Chrysochromulina polylepis CCMP1757;Chrysochromulina polylepis, Strain UIO037",NA
+28,Chrysochromulina polylepis strain B4,19,0.804743877,"MMETSP0146,MMETSP0147,MMETSP0143,MMETSP0145,MMETSP0286","Chrysochromulina polylepis CCMP1757;Chrysochromulina polylepis, Strain UIO037",NA
+29,Chrysochromulina polylepis strain K,19,0.891387274,"MMETSP0146,MMETSP0147,MMETSP0143,MMETSP0145,MMETSP0286","Chrysochromulina polylepis CCMP1757;Chrysochromulina polylepis, Strain UIO037",NA
+30,Coccolithus pelagicus ssp. braarudii,15,0.388,MMETSP0164,"Coccolithus pelagicus ssp braarudi, Strain PLY182g",NA
+31,Cochlodinium polykrikoides strain 02B1,27.5,0.572,NA,NA,NA
+32,Cochlodinium polykrikoides strain 02B2,27.5,0.576,NA,NA,NA
+33,Cochlodinium polykrikoides strain 03H1,27.5,0.614,NA,NA,NA
+34,Cochlodinium polykrikoides strain KG8-ND14,27.5,0.615,NA,NA,NA
+35,Conticribra guillardii clone 7-15,15,1.476403495,NA,NA,NA
+36,Corethron pennatum,4,0.259930193,"MMETSP0171,MMETSP0169","Corethron pennatum, Strain L29A3",NA
+37,Cryptomonas sp. strain CRFI01,26,0.33,NA,NA,NA
+38,Cryptomonas sp. strain F,22,0.96624717,NA,NA,NA
+39,Cylindrotheca closterium,22.5,0.569766982,MMETSP0017,Cylindrotheca closterium,NA
+40,Cylindrotheca closterium strain NT-6,22.5,0.38,MMETSP0017,Cylindrotheca closterium,NA
+41,Dactyliosolen fragilissimus,18,0.84563956,MMETSP0580,Dactyliosolen fragilissimus,NA
+42,Detonula confervacea,11,0.9648603855,MMETSP1058,"Detonula confervacea, Strain CCMP 353",NA
+43,Dunaliella tertiolecta strain CCAP 19/6B,20,1.4,"MMETSP1126,MMETSP1128,MMETSP1127",Dunaliella tertiolecta CCMP1320,NA
+44,Emiliania huxleyi,20,0.97595123,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM219,NA
+45,Emiliania huxleyi clone M,20,0.493520793,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM220,NA
+46,Emiliania huxleyi R strain TQ26,20,1.377,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM221,NA
+47,Emiliania huxleyi strain B92/21,18,0.94891849,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM222,NA
+48,Emiliania huxleyi strain CCMP373,18,0.882376361,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM223,NA
+49,Emiliania huxleyi strain G1779Ga,21,1.21439386,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM224,NA
+50,"Emiliania huxleyi strain M181, Bigelow 1A1",24,1.014074325,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM225,NA
+51,Emiliania huxleyi strain S. Africa,24,0.879603772,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM226,NA
+52,Emiliania huxleyi strain Van556,18,0.756916721,"MMETSP1007,MMETSP1009,MMETSP1006,MMETSP1008,MMETSP0994,MMETSP0996,MMETSP0997,MMETSP0995,MMETSP1155,MMETSP1154,MMETSP1156,MMETSP1157,MMETSP1153,MMETSP1151,MMETSP1152,MMETSP1150",Emiliania huxleyi 374;Emiliania huxleyi 379;Emiliania huxleyi CCMP370;Emiliania huxleyi PLYM227,NA
+53,Eucampia zodiacus,20,3.08,NA,NA,NA
+54,Eutreptiella gymnastica,20,1.524923797,"MMETSP0810,MMETSP0809,MMETSP0811,MMETSP0039","Eutreptiella gymnastica-like, Strain CCMP1594;Eutreptiella gymnastica-like NIES-381",NA
+55,Fibrocapsa japonica,25,0.460942875,MMETSP1339,Fibrocapsa japonica,NA
+56,Fibrocapsa japonica strain CAWR-19,24.5,0.305,MMETSP1339,Fibrocapsa japonica,NA
+57,Fibrocapsa japonica strain CCRuG-C13,24.5,0.403,MMETSP1339,Fibrocapsa japonica,NA
+58,Fibrocapsa japonica strain CS-332,24.5,0.355,MMETSP1339,Fibrocapsa japonica,NA
+59,Fragilariopsis cylindrus,5,0.590561398,NA,NA,GCA_001750085.1
+60,Fragilariopsis kerguelensis,4,0.540654801,"MMETSP0906,MMETSP0909,MMETSP0907,MMETSP0908,MMETSP0734,MMETSP0735,MMETSP0736,MMETSP0733","Fragilariopsis kerguelensis, Strain L2-C3;Fragilariopsis kerguelensis L26_C5",NA
+61,"Gephyrocapsa oceanica strain AB1, CAWPOT",20,1.178350207,"MMETSP1366,MMETSP1363,MMETSP1364,MMETSP1365",Gephyrocapsa oceanica RCC1303,NA
+62,Gephyrocapsa oceanica var. typica strain A4725,27,1.233801981,"MMETSP1366,MMETSP1363,MMETSP1364,MMETSP1365",Gephyrocapsa oceanica RCC1303,NA
+63,Gephyrocapsa oceanica var. typica strain A4727,27,1.296185228,"MMETSP1366,MMETSP1363,MMETSP1364,MMETSP1365",Gephyrocapsa oceanica RCC1303,NA
+64,Gymnodinium aureolum,20,0.404797953,NA,NA,NA
+65,Gymnodinium catenatum,22.5,0.372220036,MMETSP0784,Gymnodinium catenatum,NA
+66,Gymnodinium catenatum strain GCCV-10,29,0.212,MMETSP0784,Gymnodinium catenatum,NA
+67,Gymnodinium corollarium clone GCTV-B4,4,0.326472322,NA,NA,NA
+68,Gymnodinium isolate 581 (probably G. simplex),28,0.855343621,NA,NA,NA
+69,Gymnodinium isolate 582 (probably G. simplex),23,1.173498177,NA,NA,NA
+70,Helicotheca tamesis,25,0.9231657,MMETSP1171,"Helicotheca tamensis, Strain CCMP826",NA
+71,Heterocapsa rotundata,20,1.455609079,MMETSP0503,"Heterocapsa rotundata, Strain SCCAP K-0483",NA
+72,Heteromastix pyriformis,22,1.305196141,NA,NA,NA
+73,Heterosigma akashiwo,25,1.01,"MMETSP0292,MMETSP0294,MMETSP0295,MMETSP0296,MMETSP0411,MMETSP0409,MMETSP0410,MMETSP0896,MMETSP0894,MMETSP0897,MMETSP0895,MMETSP0414,MMETSP0415,MMETSP0416","Heterosigma akashiwo CCMP2393;Heterosigma akashiwo CCMP3107;Heterosigma akashiwo CCMP452;Heterosigma akashiwo, Strain NB",NA
+74,"Isochrysis galbana clone T-ISO, NEPCC 601",27,0.97,NA,NA,NA
+75,"Isochrysis galbana strain CCMP1323, Iso.",20,1.316979643,"MMETSP0944,MMETSP0943,MMETSP0595",Isochrysis galbana CCMP1323,NA
+76,Isochrysis sp. strain PS11,20,0.55,NA,NA,NA
+77,Karenia brevis strain APA,25,0.21626192,"MMETSP0027,MMETSP0031,MMETSP0029,MMETSP0030,MMETSP0573,MMETSP0574,MMETSP0528,MMETSP0527,MMETSP0202,MMETSP0201,MMETSP0648,MMETSP0649",Karenia brevis CCMP2229;Karenia brevis SP1;Karenia brevis SP3;Karenia brevis Wilson,NA
+78,Karenia brevis strain MAN,23,0.156651263,"MMETSP0027,MMETSP0031,MMETSP0029,MMETSP0030,MMETSP0573,MMETSP0574,MMETSP0528,MMETSP0527,MMETSP0202,MMETSP0201,MMETSP0648,MMETSP0649",Karenia brevis CCMP2229;Karenia brevis SP1;Karenia brevis SP3;Karenia brevis Wilson,NA
+79,Karenia mikimotoi,25,0.632150229,NA,NA,NA
+80,Karlodinium veneficum strain KT76E,20,0.47,NA,NA,NA
+81,Klebsormidium strain UMACC 227,14,0.25,NA,NA,NA
+82,Koliella antarctica strain SAG 2030,12.5,0.3,NA,NA,NA
+83,Leonella granifera strain GeoB*38,29,0.192001769,NA,NA,NA
+84,Leonella granifera strain GeoB*39,28,0.396480187,NA,NA,NA
+85,Leptocylindrus danicus,28,1.524923797,"MMETSP0321,MMETSP0322,MMETSP1362",Leptocylindrus danicus var. danicus B650;Leptocylindrus danicus var. apora B651;Leptocylindrus danicus CCMP1856,NA
+86,Men. 5 (Diatom),27,1.871497388,NA,NA,NA
+87,Micromonas pusilla,20,2.847448618,"MMETSP1401,MMETSP1402,MMETSP1403,MMETSP1404,MMETSP1327",Micromonas pusilla CCAC1681;Micromonas pusilla RCC1614;Micromonas pusilla CCMP1723;Micromonas pusilla CCMP494;Micromonas pusilla RCC2306,NA
+88,Micromonas sp. strain CCMP2099,6,0.553,NA,NA,NA
+89,N-fixing unicellular cyanobacterium strain A 2.5,29,1.2,NA,NA,NA
+90,N-fixing unicellular cyanobacterium strain P-3,30,1.06,NA,NA,NA
+91,N-fixing unicellular cyanobacterium strain P-7,28.5,0.491,NA,NA,NA
+92,Nannochloris (possibly Stichococcus) sp.,33,3.13441155,NA,NA,NA
+93,Neoceratium furca,22,0.4037953,NA,NA,NA
+94,Neoceratium fusus,20.5,0.3636994885,"MMETSP1075,MMETSP1074","Ceratium fusus, Strain PA161109",NA
+95,Neoceratium lineatum,20,0.2335906,NA,NA,NA
+96,Neoceratium tripos,20,0.195467505,NA,NA,NA
+97,Nitzschia frigida,2,0.421,NA,NA,NA
+98,Nitzschia paleacea strain NT7,15,0.38,NA,NA,NA
+99,Odontella mobiliensis,27,1.351637002,NA,NA,NA
+100,Olisthodiscus luteus,15,0.821379409,NA,NA,NA
+101,Olisthodiscus luteus clone OLMS,25,0.966940317,NA,NA,NA
+102,Peridinium sp. 1,18,0.727065399,NA,NA,NA
+103,Pernambugia tuberosa strain GeoB*74,21.7,0.361129681,NA,NA,NA
+104,Phaeocystis antarctica strain CCMP 1871,4,0.35,"MMETSP1100,MMETSP1444","Phaeocystis antarctica Caron Lab;Phaeocystis antarctica, Strain CCMP1374",NA
+105,Phaeocystis globosa strain CCMP 1528,20,1.1,NA,NA,NA
+106,Phaeocystis globosa strain CCMP 1528,15,2.287385696,NA,NA,NA
+107,Phaeodactylum tricornutum,15,0.332710647,NA,NA,GCF_000150955.2
+108,Phaeodactylum tricornutum clone Pet Pd,23,1.508981412,NA,NA,GCF_000150955.2
+109,Phaeodactylum tricornutum strain CCAP 1052/1A,21,0.799891846,NA,NA,GCF_000150955.2
+110,Phaeodactylum tricornutum strain CCMP633,24,0.956543109,NA,NA,GCF_000150955.2
+111,Phaeodactylum tricornutum strain NEPCC 640,18,0.49906597,NA,NA,GCF_000150955.2
+112,Picochlorum atomus,20,0.554517744,NA,NA,NA
+120,Prorocentrum gracile,18,0.642905964,NA,NA,NA
+121,Prorocentrum micans,25,0.554459661,MMETSP0251,"Prorocentrum micans, Strain CCCM 845",NA
+122,Prorocentrum minimum,26.5,0.782563167,"MMETSP0053,MMETSP0055,MMETSP0056,MMETSP0057,MMETSP0269,MMETSP0267,MMETSP0268",Prorocentrum minimum CCMP1329;Prorocentrum minimum CCMP2233,NA
+123,Prymnesium parvum f. patelliferum strain RHpat93,15,0.356277651,"MMETSP1083,MMETSP0008,MMETSP0006,MMETSP0815,MMETSP0814,MMETSP0007",Prymnesium parvum Texoma1,NA
+124,Prymnesium parvum strain RL10parv93,15,0.258543898,"MMETSP1083,MMETSP0008,MMETSP0006,MMETSP0815,MMETSP0814,MMETSP0007",Prymnesium parvum Texoma1,NA
+125,Pseudo-nitzschia americana,25,2.768,NA,NA,NA
+126,Pseudo-nitzschia granii,14,0.949,NA,NA,NA
+127,Pseudo-nitzschia multiseries,20,0.450545667,NA,NA,NA
+128,Pseudo-nitzschia turgiduloides,3,0.504611147,NA,NA,NA
+129,Pseudopedinella pyriformis,11,0.960701992,NA,NA,NA
+130,Pyramimonas disomata,15,1.103490311,NA,NA,NA
+131,Pyrodinium bahamense var. compressum strain PbSA01,28.5,0.266861665,MMETSP0796,Pyrodinium bahamense,NA
+132,Rhizosolenia setigera,18,0.953077373,MMETSP0789,"Rhizosolenia setigera, Strain CCMP 1694",NA
+133,Scrippsiella trochoidea strain ScrpMxB,16.5,0.474,"MMETSP0270,MMETSP0271,MMETSP0272",Scrippsiella trochoidea CCMP3099,NA
+134,Skeletonema ardens strain FDK003,35,2.32,NA,NA,NA
+135,Skeletonema ardens strain FDK004,30,1.452,NA,NA,NA
+136,Skeletonema ardens strain FDK005,35,2.258,NA,NA,NA
+137,Skeletonema ardens strain FDK006,35,2.245,NA,NA,NA
+138,Skeletonema ardens strain FDK007,35,2.22,NA,NA,NA
+139,Skeletonema costatum,21.6666666666667,0.803263556666667,MMETSP0013,Skeletonema costatum,NA
+140,Skeletonema costatum clone FHS 3,13,1.275390812,MMETSP0014,Skeletonema costatum,NA
+141,Skeletonema costatum clone FHS 7,27.5,1.642758818,MMETSP0015,Skeletonema costatum,NA
+142,Skeletonema costatum clone SK6C,24,1.171418735,MMETSP0016,Skeletonema costatum,NA
+143,Skeletonema costatum s.s. strain FDK009,25,1.29,MMETSP0017,Skeletonema costatum,NA
+144,Skeletonema japonicum strain FDK154,20,1.59,MMETSP0593,"Skeletonema japonicum, Strain CCMP2506",NA
+145,Skeletonema japonicum strain FDK157,25,1.532,MMETSP0594,"Skeletonema japonicum, Strain CCMP2507",NA
+146,Skeletonema japonicum strain FDK158,25,1.63,MMETSP0595,"Skeletonema japonicum, Strain CCMP2508",NA
+147,Skeletonema japonicum strain FDK159,20,1.526,MMETSP0596,"Skeletonema japonicum, Strain CCMP2509",NA
+148,Skeletonema japonicum strain FDK161,25,1.551,MMETSP0597,"Skeletonema japonicum, Strain CCMP2510",NA
+149,Skeletonema marinoi�dohrnii complex strain FDK031,30,1.69,"MMETSP0319,MMETSP0320,MMETSP1040,MMETSP1039,MMETSP1428,MMETSP0918,MMETSP0920",Skeletonema marinoi SM1012Hels-07;Skeletonema marinoi SM1012Den-03;Skeletonema marinoi FE7;Skeletonema marinoi FE60;Skeletonema marinoi UNC1201;Skeletonema marinoi SkelA,NA
+150,Skeletonema marinoi�dohrnii complex strain FDK032,30,1.629,"MMETSP0319,MMETSP0320,MMETSP1040,MMETSP1039,MMETSP1428,MMETSP0918,MMETSP0921",Skeletonema marinoi SM1012Hels-07;Skeletonema marinoi SM1012Den-03;Skeletonema marinoi FE7;Skeletonema marinoi FE60;Skeletonema marinoi UNC1201;Skeletonema marinoi SkelA,NA
+151,Skeletonema marinoi�dohrnii complex strain FDK033,30,1.623,"MMETSP0319,MMETSP0320,MMETSP1040,MMETSP1039,MMETSP1428,MMETSP0918,MMETSP0922",Skeletonema marinoi SM1012Hels-07;Skeletonema marinoi SM1012Den-03;Skeletonema marinoi FE7;Skeletonema marinoi FE60;Skeletonema marinoi UNC1201;Skeletonema marinoi SkelA,NA
+152,Skeletonema marinoi�dohrnii complex strain FDK035,25,1.649,"MMETSP0319,MMETSP0320,MMETSP1040,MMETSP1039,MMETSP1428,MMETSP0918,MMETSP0923",Skeletonema marinoi SM1012Hels-07;Skeletonema marinoi SM1012Den-03;Skeletonema marinoi FE7;Skeletonema marinoi FE60;Skeletonema marinoi UNC1201;Skeletonema marinoi SkelA,NA
+153,Skeletonema marinoi�dohrnii complex strain FDK039,25,1.668,"MMETSP0319,MMETSP0320,MMETSP1040,MMETSP1039,MMETSP1428,MMETSP0918,MMETSP0924",Skeletonema marinoi SM1012Hels-07;Skeletonema marinoi SM1012Den-03;Skeletonema marinoi FE7;Skeletonema marinoi FE60;Skeletonema marinoi UNC1201;Skeletonema marinoi SkelA,NA
+154,Skeletonema menzelii strain DM08080630,25,2.119,"MMETSP0603,MMETSP0604",Skeletonema menzelii CCMP79,NA
+155,Skeletonema menzelii strain DM08080730,35,2.58,"MMETSP0603,MMETSP0605",Skeletonema menzelii CCMP80,NA
+156,Skeletonema menzelii strain FDK221,30,2.114,"MMETSP0603,MMETSP0606",Skeletonema menzelii CCMP81,NA
+157,Skeletonema menzelii strain FDK222,30,1.961,"MMETSP0603,MMETSP0607",Skeletonema menzelii CCMP82,NA
+158,Skeletonema pseudocostatum strain FDK225,30,1.9,NA,NA,NA
+159,Skeletonema tropicum clone 21-L,31,1.663553233,NA,NA,NA
+160,Skeletonema tropicum clone fall,31,1.642758818,NA,NA,NA
+161,Skeletonema tropicum clone S. trop.,25,2.079441542,NA,NA,NA
+162,Skeletonema tropicum clone spring,31,1.642758818,NA,NA,NA
+163,Skeletonema tropicum strain FDK199,25,1.219,NA,NA,NA
+164,Skeletonema tropicum strain FDK202,25,1.303,NA,NA,NA
+165,Skeletonema tropicum strain FDK204,30,1.55,NA,NA,NA
+166,Skeletonema tropicum strain FDK205,30,1.561,NA,NA,NA
+167,Skeletonema tropicum strain FDK207,25,1.55,NA,NA,NA
+168,Stellarima microtrias,4,0.586402515,NA,NA,NA
+169,Stephanopyxis palmeriana,20,0.950997932,NA,NA,NA
+170,Stichococcus (possibly S. cylindricus),17.5,0.332710647,NA,NA,NA
+172,Synedra sp.,5,0.388855568,NA,NA,NA
+173,Tetraselmis sp. clone BT-2,22.5,0.335483235,NA,NA,NA
+174,Thalassionema nitzschioides,22.15,1.521458061,"MMETSP0693,MMETSP0156,MMETSP0158","Thalassionema nitzschioides, Strain Unknown;Thalassionema nitzschioides L26_B",NA
+175,Thalassiosira nordenskioeldii,15,0.947,NA,NA,NA
+176,Thalassiosira nordenskioeldii clone TN-2,10,1.238654012,NA,NA,NA
+177,"Thalassiosira pseudonana clone 3H, NEPCC 58",25,2.385,NA,NA,GCF_000149405.2 
+178,Thalassiosira pseudonana clone 5A,20,1.869417946,NA,NA,GCF_000149405.2 
+179,Thalassiosira rotula clone A8,25,1.292719492,"MMETSP0404,MMETSP0403,MMETSP0910,MMETSP0911,MMETSP0912,MMETSP0913",Thalassiosira rotula CCMP3096;Thalassiosira rotula GSO102,NA
+180,Thalassiosira rotula clone C8,25,1.630975316,"MMETSP0404,MMETSP0403,MMETSP0910,MMETSP0911,MMETSP0912,MMETSP0913",Thalassiosira rotula CCMP3096;Thalassiosira rotula GSO102,NA
+184,Unidentified prymnesiophyte strain NT19,27,0.56,NA,NA,NA

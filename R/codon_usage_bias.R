@@ -1,19 +1,19 @@
 
 
-getCUB <- function(fna_tab, highly_expressed, method = "MILC"){
+getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "11"){
 
   if(method == "MILC"){
     # MILC estimate of codon usage bias from coRdon
     #   - Bias of highly expessed genes, with genome-wide codon usage considered
     #     expected codon usage
-    x <- MILC(fna_tab,id_or_name2 = "11")
+    x <- MILC(fna_tab,id_or_name2 = genetic_code)
     x[highly_expressed, 1] %>% median() %>% return()
 
   } else if(method == "MILCgenomic"){
     # MILC estimate of codon usage bias from coRdon
     #   - Bias of all genes, with genome-wide codon usage considered
     #     expected codon usage
-    x <- MILC(fna_tab,id_or_name2 = "11")
+    x <- MILC(fna_tab,id_or_name2 = genetic_code)
     x[, 1] %>% median() %>% return()
 
   } else if(method == "consistency"){
@@ -22,7 +22,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC"){
     #     gene set considered expected codon usage
     milc <- MILC(fna_tab,
                  subsets = list(HE = highly_expressed),
-                 id_or_name2 = "11")
+                 id_or_name2 = genetic_code)
     milc[highly_expressed, 2] %>% mean() %>% return()
 
   } else {
@@ -30,15 +30,15 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC"){
   }
 }
 
-getWeightedCUB <- function(fna_tab, highly_expressed, depth_of_coverage){
-    x <- MILC(fna_tab,id_or_name2 = "11")
+getWeightedCUB <- function(fna_tab, highly_expressed, depth_of_coverage, genetic_code = "11"){
+    x <- MILC(fna_tab,id_or_name2 = genetic_code)
     x[highly_expressed, 1] %>%
       weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
       return()
 }
 
 
-getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL){
+getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL, genetic_code = "11"){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -63,25 +63,30 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth
   codon_table <- codonTable(genes)
 
   # codon pair counts
-  codon_pair_table <- getPairCounts(genes)
+  codon_pair_table <- getPairCounts(genes, genetic_code = genetic_code)
 
   if(!is.null(depth_of_coverage)){
     return(data.frame(CUBHE = getWeightedCUB(codon_table,
                                      highly_expressed,
-                                     depth_of_coverage),
+                                     depth_of_coverage,
+                                     genetic_code = genetic_code),
                       ConsistencyHE = NA,
                       CPB = NA,
                       FilteredSequences = filtered$Filtered,
+                      nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
   } else {
     return(data.frame(CUBHE = getCUB(codon_table,
                                      highly_expressed,
-                                     method = "MILC"),
+                                     method = "MILC",
+                                     genetic_code = genetic_code),
                       ConsistencyHE = getCUB(codon_table,
                                              highly_expressed,
-                                             method = "consistency"),
+                                             method = "consistency",
+                                             genetic_code = genetic_code),
                       CPB = getCPB(codon_pair_table),
                       FilteredSequences = filtered$Filtered,
+                      nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
   }
 }
