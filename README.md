@@ -1,6 +1,6 @@
 # `gRodon`
 
-`gRodon` is an R package to estimate maximal growth rates of protkaryotes and microbial eukaryotes (**new in v2.0.0**) from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
+`gRodon` is an R package to estimate maximal growth rates of prokaryotes and microbial eukaryotes (**new in v2.0.0**) from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
 
 You can use `gRodon` to get maximal growth rate predictions from individual **genomes**, as well-as bulk community-wide average growth rates from **metagenomes**. 
 
