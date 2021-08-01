@@ -46,7 +46,7 @@
 #' # included with gRodon
 #' path_to_genome <- system.file('extdata',
 #'   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
-#'   package = 'gRodon')
+#'   package = 'gRodon2')
 #' genes <- readDNAStringSet(path_to_genome)
 #'
 #' # Search pre-existing annotations for ribosomal proteins, which we

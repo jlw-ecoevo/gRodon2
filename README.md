@@ -10,7 +10,7 @@ To run `gRodon` you will need a fasta file with your coding sequence (ORFs), as 
 
 The easiest way to install `gRodon` is with [`devtools`](https://github.com/r-lib/devtools).
 
-`devtools::install_github("jlw-ecoevo/gRodon")`
+`devtools::install_github("jlw-ecoevo/gRodon2")`
 
 gRodon has a few dependencies - namely the Biostrings, coRdon, and matrixStats packages which are bioconductor packages and cannot be installed via CRAN. To install them run the following:
 
@@ -32,11 +32,13 @@ To see the details of how this function works type `?predictGrowth()`.
 A minimal example with data included in the package is:
 
 ```
+library(gRodon2)
+
 # Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
 # included with gRodon
 path_to_genome <- system.file('extdata',
   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna',
-  package = 'gRodon')
+  package = 'gRodon2')
 genes <- readDNAStringSet(path_to_genome)
 
 # Search pre-existing annotations for ribosomal proteins, which we

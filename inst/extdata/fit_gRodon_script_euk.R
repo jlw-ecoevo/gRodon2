@@ -41,7 +41,7 @@ cu <- cu %>% mutate_all(unlist)
 cu$Accession <- cu$File %>% gsub(pattern="[.].*",replace="")
 
 ### MMETSP Data
-setwd("~/gRodon/inst/extdata/")
+setwd("~/gRodon2/inst/extdata/")
 # Rose and Caron and Thomas et al.
 x1 <- read.csv("euk_growth_ogt_Thomas_MMETSP.csv",stringsAsFactors = F) %>%
   subset(select=c("MMETSP.Strain","Growth.rate","OGT"))
