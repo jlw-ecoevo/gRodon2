@@ -1,6 +1,6 @@
 # `gRodon`
 
-`gRodon` is an R package to estimate maximal growth rates of prokaryotic organisms from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
+`gRodon` is an R package to estimate maximal growth rates of protkaryotes and microbial eukaryotes (**new in v2.0.0**) from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
 
 You can use `gRodon` to get maximal growth rate predictions from individual **genomes**, as well-as bulk community-wide average growth rates from **metagenomes**. 
 
@@ -49,7 +49,7 @@ predictGrowth(genes, highly_expressed)
 
 ## Using `gRodon` with [`docker`](https://www.docker.com/)
 
-We have compiled a docker image for `gRodon` to ease the installation process. You can pull it to your local computer and run it like this:
+We have compiled a docker image for `gRodon` v1.0.0 (**no eukaryotes**) to ease the installation process. You can pull it to your local computer and run it like this:
 
 ```bash
 # pull the image
@@ -82,7 +82,7 @@ If you want to modify and build your own docker image, the source code can be fo
 
 ## `gRodon` with conda
 
-[Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
+[Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon)  v1.0.0 (**no eukaryotes**) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
 
 ## Citation
 If you find `gRodon` is useful to your study, please cite the [`gRodon` paper](https://doi.org/10.1073/pnas.2016810118): 
