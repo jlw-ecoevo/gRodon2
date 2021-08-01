@@ -11,31 +11,41 @@ predictGrowth(
   temperature = "none",
   training_set = "vs",
   depth_of_coverage = NULL,
-  fragments = FALSE
+  fragments = FALSE,
+  genetic_code = NULL
 )
 }
 \arguments{
-\item{genes}{DNAStringSet object holding all nucleotide sequences from a
-genome. See Biostrings package.}
+\item{genes}{DNAStringSet object holding all in-frame coding sequences (nucleotide sequences)
+from a genome. See Biostrings package.}
 
 \item{highly_expressed}{Logical vector describing the set of highly expressed
-genes. Must be of same length as \code{genes}.}
+genes. Must be of same length as \code{genes}. Typically these are ribosomal proteins
+(all models were trained using ribosomal proteins as the highly expressed set.)}
 
-\item{mode}{Whether to run prediction in full, partial, or metagenome mode
+\item{mode}{Whether to run prediction in full, partial, metagenome, or eukaryote mode
 (by default gRodon applies the full model)}
 
 \item{temperature}{Optimal growth temperature. By default this is set as
-"none" and we do not guarantee good results for non-mesophilic organisms since
-few were used to fit the model.}
+"none" for prokaryotes and we do not guarantee good results for non-mesophilic
+since prokaryotes few were used to fit the model. For eukaryotes, though, including
+an optimal growth temperature drastically improves model predictions as there is
+a very strong relationship between OGT and max. growth rate for these organisms.}
 
 \item{training_set}{Whether to use models trained on the original Vieira-Silva et al.
-doubling time dataset or doubling times drawn from the Madin et al. database.}
+doubling time dataset or doubling times drawn from the Madin et al. database. This
+setting is only used for prokaryotic modes (eukaryotic models based on their own
+training set from Weissman et al. TBD)}
 
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing
 the coverage of your ORFs to improve your estimate}
 
 \item{fragments}{If using gene fragments predicted from reads, will use a
 more permissive length filter (120bp as opposed to 240bp)}
+
+\item{genetic_code}{The genetic code of the organism to be used in codon usage
+calculations (see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By
+default code "1" is used for eukaryote mode and code "11" for prokaryotic modes.}
 }
 \value{
 gRodon returns a list with the following elements:
@@ -49,20 +59,20 @@ expected bias}
 \item{FilteredSequences}{Number of gene sequences filtered out during
 calulation (due to length and/or presence of ambiguous bases)}
 \item{d}{Predicted doubling time in hours}
-\item{LowerCI}{Lower CI of \code{d} (2.5\%)}
-\item{UpperCI}{Upper CI of \code{d} (97.5\%)}
+\item{LowerCI}{Lower CI of \code{d} (2.5\%) from linear model}
+\item{UpperCI}{Upper CI of \code{d} (97.5\%) from linear model}
 }
 }
 \description{
-This function predicts the growth rate of a prokaryotic organism based on
-genomic codon usage patterns (Weissman et. al. TBD).
+This function predicts the growth rate of prokaryotic or eukaryotic organisms based on
+genomic codon usage patterns (Weissman et. al. 2021; Weissman et al. TBD).
 }
 \examples{
 # Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
 # included with gRodon
 path_to_genome <- system.file('extdata',
   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
-  package = 'gRodon')
+  package = 'gRodon2')
 genes <- readDNAStringSet(path_to_genome)
 
 # Search pre-existing annotations for ribosomal proteins, which we
