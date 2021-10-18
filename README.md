@@ -87,7 +87,9 @@ If you want to modify and build your own docker image, the source code can be fo
 [Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon)  v1.0.0 (**no eukaryotes**) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
 
 ## Citation
-If you find `gRodon` is useful to your study, please cite the [`gRodon` paper](https://doi.org/10.1073/pnas.2016810118): 
+If you find `gRodon` is useful to your study, please cite us!
+
+#### For prokaryotic prediction: the [`gRodon` paper](https://doi.org/10.1073/pnas.2016810118): 
 
 > Jake L. Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences Mar 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
 
@@ -108,7 +110,25 @@ If you find `gRodon` is useful to your study, please cite the [`gRodon` paper](h
 }
 ```
 
-We also encourage you to cite `gRodon`'s dependencies:
+#### For eukaryotic prediction: the [`gRodon2` paper](https://doi.org/10.1101/2021.10.15.464604): 
+
+> Jake L Weissman, Edward-Robert O Dimbo, Arianna I Krinos, Christopher Neely, Yuniba Yagues, Delaney Nolin, Shengwei Hou, Sarah Laperriere, David A Caron, Benjamin L Tully, Harriet Alexander, Jed A Fuhrman. bioRxiv 2021.10.15.464604; DOI: https://doi.org/10.1101/2021.10.15.464604
+
+```
+@article {Weissman2021.10.15.464604,
+	author = {Weissman, Jake L and Dimbo, Edward-Robert O and Krinos, Arianna I and Neely, Christopher and Yagues, Yuniba and Nolin, Delaney and Hou, Shengwei and Laperriere, Sarah and Caron, David A and Tully, Benjamin L and Alexander, Harriet and Fuhrman, Jed A},
+	title = {Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns},
+	elocation-id = {2021.10.15.464604},
+	year = {2021},
+	doi = {10.1101/2021.10.15.464604},
+	publisher = {Cold Spring Harbor Laboratory},
+	URL = {https://www.biorxiv.org/content/early/2021/10/16/2021.10.15.464604},
+	eprint = {https://www.biorxiv.org/content/early/2021/10/16/2021.10.15.464604.full.pdf},
+	journal = {bioRxiv}
+}
+```
+
+#### We also encourage you to cite `gRodon`'s dependencies:
 
 > Elek A, Kuzman M, Vlahovicek K (2020). coRdon: Codon Usage Analysis and Prediction of Gene Expressivity. R package version 1.8.0, https://github.com/BioinfoHR/coRdon
 
