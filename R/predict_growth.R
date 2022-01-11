@@ -155,7 +155,7 @@ predictGrowth <- function(genes,
     pred_back_transformed <- boxcoxTransform(pred,
                                              lambda_milc,
                                              back_transform = TRUE)
-  } else if(mode!="eukaryote"){
+  } else if(mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
     if(temperature == "none" & mode=="full"){
       pred <- stats::predict.lm(gRodon_model_base_madin,
                                 newdata = codon_stats,
