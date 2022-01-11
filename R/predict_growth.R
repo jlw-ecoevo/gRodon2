@@ -75,7 +75,7 @@ predictGrowth <- function(genes,
                           fragments = FALSE,
                           genetic_code = NULL){
 
-  if(! mode %in% c("full","partial","metagenome","eukaryote")){
+  if(! mode %in% c("full","partial","metagenome","eukaryote","meta_testing","meta_nogc_testing")){
     stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome\", \"eukaryote\")")
   }
 
