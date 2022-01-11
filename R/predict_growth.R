@@ -117,7 +117,7 @@ predictGrowth <- function(genes,
                                     genetic_code = genetic_code)
 
   # Predict growth rate (stored models - sysdata.rda)
-  if(training_set=="vs" & mode!="eukaryote"){
+  if(training_set=="vs" & mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
     if(temperature == "none" & mode=="full"){
       pred <- stats::predict.lm(gRodon_model_base,
                                 newdata = codon_stats,
@@ -193,7 +193,7 @@ predictGrowth <- function(genes,
     pred_back_transformed <- boxcoxTransform(pred,
                                              lambda_milc_madin,
                                              back_transform = TRUE)
-  } else {
+  } else if(mode=="eukaryote"){
     if(temperature == "none"){
       pred <- stats::predict.lm(gRodon_model_base_euk,
                                 newdata = codon_stats,
@@ -208,7 +208,38 @@ predictGrowth <- function(genes,
     pred_back_transformed <- boxcoxTransform(pred,
                                              lambda_milc_euk,
                                              back_transform = TRUE)
+  } else if(mode=="meta_testing"){
+    if(temperature == "none"){
+      pred <- stats::predict.lm(gRodon_model_newmeta,
+                                newdata = codon_stats,
+                                interval = "confidence")
+    } else {
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_newmeta_temp,
+                                newdata = codon_stats,
+                                interval = "confidence")
+    }
+    #Transform back from box-cox
+    pred_back_transformed <- boxcoxTransform(pred,
+                                             lambda_newmeta,
+                                             back_transform = TRUE)
+  } else if(mode=="meta_nogc_testing"){
+    if(temperature == "none"){
+      pred <- stats::predict.lm(gRodon_model_newmeta_nogc,
+                                newdata = codon_stats,
+                                interval = "confidence")
+    } else {
+      codon_stats$OGT <- temperature
+      pred <- stats::predict.lm(gRodon_model_newmeta_nogc_temp,
+                                newdata = codon_stats,
+                                interval = "confidence")
+    }
+    #Transform back from box-cox
+    pred_back_transformed <- boxcoxTransform(pred,
+                                             lambda_newmeta,
+                                             back_transform = TRUE)
   }
+
   #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
   codon_stats$LowerCI <- pred_back_transformed[,"lwr"]

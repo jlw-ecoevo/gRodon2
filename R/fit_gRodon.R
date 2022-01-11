@@ -90,3 +90,38 @@ fitModels <- function(stat_data, stat_data_extremo){
               gRodon_model_euk_temp,
               lambda_milc_euk))
 }
+
+
+#' Fit gRodon GC-corrected models
+#'
+#' This function fits the gRodon GC-corrected metagenome mode models
+#'
+#' @param stat_data dataframe with codon usage statistics and known doubling times
+fitGCModels <- function(stat_data, stat_data_extremo){
+
+  stat_data <- stat_data %>%
+    mutate(dCUB=(CUB-CUBHE)/CUB)
+  stat_data_extremo <- stat_data_extremo %>%
+    mutate(dCUB=(CUB-CUBHE)/CUB)
+
+  bc_meta <- boxcox(d~dCUB+GCdiv,data=stat_data)
+  lambda_meta <- bc_meta$x[which.max(bc_meta$y)]
+
+  #new metagenome mode
+  meta_model_base <-
+    lm(boxcoxTransform(d, lambda_meta) ~ dCUB+GCdiv,data=stat_data)
+  meta_model_temp <-
+    lm(boxcoxTransform(d, lambda_meta) ~ dCUB+GCdiv+OGT,data=stat_data_extremo)
+
+  #new metagenome mode without gc cor
+  meta_nogc_model_base <-
+    lm(boxcoxTransform(d, lambda_meta) ~ dCUB,data=stat_data)
+  meta_nogc_model_temp <-
+    lm(boxcoxTransform(d, lambda_meta) ~ dCUB+OGT,data=stat_data_extremo)
+
+  return(list(meta_model_base,
+              meta_model_temp,
+              meta_nogc_model_base,
+              meta_nogc_model_temp,
+              lambda_meta))
+}
