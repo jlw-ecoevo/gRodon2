@@ -115,6 +115,7 @@ predictGrowth <- function(genes,
                                     fragments = fragments,
                                     depth_of_coverage = depth_of_coverage,
                                     genetic_code = genetic_code)
+  codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
 
   # Predict growth rate (stored models - sysdata.rda)
   if(training_set=="vs" & mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
