@@ -87,7 +87,7 @@ predictGrowth <- function(genes,
     warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
 
-  if(mode!="metagenome" & !is.null(depth_of_coverage)){
+  if((mode!="metagenome" | mode!="meta_testing" | mode!="meta_nogc_testing") & !is.null(depth_of_coverage)){
     warning("Ignoring depth_of_coverage because not in metagenome mode")
     depth_of_coverage <- NULL
   }
