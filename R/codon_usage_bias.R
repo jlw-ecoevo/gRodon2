@@ -16,7 +16,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     #     expected codon usage
     x <- MILC(fna_tab,id_or_name2 = genetic_code)
     x[, 1] %>% median() %>% return()
-    
+
   } else if(method == "MILC_i"){
     # MILC estimate of codon usage bias from coRdon
     #   - Bias of all genes, with genome-wide codon usage considered
@@ -27,7 +27,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     }
     y <- MILC(fna_tab,id_or_name2 = genetic_code)
     y[highly_expressed, 1] %>% mean() %>% return()
-    
+
   } else if(method == "MILCgenomic_i"){
     # MILC estimate of codon usage bias from coRdon
     #   - Bias of all genes, with genome-wide codon usage considered
@@ -38,14 +38,14 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     }
     y <- MILC(fna_tab,id_or_name2 = genetic_code)
     y[, 1] %>% mean() %>% return()
-    
+
   } else if(method == "MILCgenomic"){
     # MILC estimate of codon usage bias from coRdon
     #   - Bias of all genes, with genome-wide codon usage considered
     #     expected codon usage
     x <- MILC(fna_tab,id_or_name2 = genetic_code)
     x[, 1] %>% median() %>% return()
-    
+
 
   } else if(method == "consistency"){
     # Consistency of CUB across highly expressed genes
@@ -103,7 +103,7 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth
   genes <- filtered$Genes
   highly_expressed <- filtered$HE
   depth_of_coverage <- filtered$Depth
-  
+
   # codon table
   codon_table <- codonTable(genes)
 
@@ -120,11 +120,11 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth
                       GCdiv = abs(0.5-gc),
                       ConsistencyHE = getWeightedConsistency(codon_table,
                                                      highly_expressed,
-                                                     method = "MILCgenomic",
+                                                     depth_of_coverage,
                                                      genetic_code = genetic_code),
                       CUB = getWeightedCUB(codon_table,
                                    highly_expressed,
-                                   method = "MILCgenomic",
+                                   depth_of_coverage,
                                    genetic_code = genetic_code),
                       CPB = NA,
                       FilteredSequences = filtered$Filtered,
