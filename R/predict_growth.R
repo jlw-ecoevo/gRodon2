@@ -73,7 +73,8 @@ predictGrowth <- function(genes,
                           training_set = "vs",
                           depth_of_coverage = NULL,
                           fragments = FALSE,
-                          genetic_code = NULL){
+                          genetic_code = NULL,
+                          bg = "all"){
 
   if(! mode %in% c("full","partial","metagenome","eukaryote","meta_testing","meta_nogc_testing")){
     stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome\", \"eukaryote\")")
@@ -110,11 +111,22 @@ predictGrowth <- function(genes,
   }
 
   # Calculate codon data
-  codon_stats <- getCodonStatistics(genes = genes,
-                                    highly_expressed = highly_expressed,
-                                    fragments = fragments,
-                                    depth_of_coverage = depth_of_coverage,
-                                    genetic_code = genetic_code)
+  if(bg=="all"){
+    codon_stats <- getCodonStatistics(genes = genes,
+                                      highly_expressed = highly_expressed,
+                                      fragments = fragments,
+                                      depth_of_coverage = depth_of_coverage,
+                                      genetic_code = genetic_code)
+  } else if(bg=="individual"){
+    codon_stats <- getCodonStatistics_i(genes = genes,
+                                      highly_expressed = highly_expressed,
+                                      fragments = fragments,
+                                      depth_of_coverage = depth_of_coverage,
+                                      genetic_code = genetic_code)
+  } else{
+    stop("Feature in testing, please set bg==\"all\" for normal gRodon behavior")
+  }
+
   codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
 
   # Predict growth rate (stored models - sysdata.rda)
