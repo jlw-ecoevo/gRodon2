@@ -25,7 +25,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     for(i in 1:sum(highly_expressed)){
       y <- c(y,MILC(fna_tab[highly_expressed][i]))
     }
-    y[, 1] %>% median() %>% return()
+    y %>% median() %>% return()
 
   } else if(method == "MILCgenomic_i"){
     # MILC estimate of codon usage bias from coRdon
@@ -35,7 +35,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     for(i in 1:length(fna_tab)){
       y <- c(y,MILC(fna_tab[i]))
     }
-    y[, 1] %>% median() %>% return()
+    y %>% median() %>% return()
 
   } else if(method == "MILCgenomic"){
     # MILC estimate of codon usage bias from coRdon
@@ -79,7 +79,7 @@ getWeightedCUBHE_i <- function(fna_tab, highly_expressed, depth_of_coverage, gen
   for(i in 1:sum(highly_expressed)){
     y <- c(y,MILC(fna_tab[highly_expressed][i]))
   }
-  y[, 1] %>%
+  y %>%
     weightedMedian(., w = depth_of_coverage) %>%
     return()
 }
@@ -89,7 +89,7 @@ getWeightedCUB_i <- function(fna_tab, highly_expressed, depth_of_coverage, genet
   for(i in 1:length(fna_tab)){
     y <- c(y,MILC(fna_tab[i]))
   }
-  y[, 1] %>%
+  y %>%
     weightedMedian(., w = depth_of_coverage) %>%
     return()
 }
