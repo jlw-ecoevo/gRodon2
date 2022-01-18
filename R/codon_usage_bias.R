@@ -80,7 +80,7 @@ getWeightedCUBHE_i <- function(fna_tab, highly_expressed, depth_of_coverage, gen
     y <- c(y,MILC(fna_tab[highly_expressed][i]))
   }
   y %>%
-    weightedMedian(., w = depth_of_coverage) %>%
+    weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
     return()
 }
 
