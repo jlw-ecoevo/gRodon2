@@ -5,7 +5,7 @@
 #' It is assumed that gene names contain annotations of ribosomal proteins.
 #'
 #' @param gene_file  path to CDS-containing fasta file
-getStatistics <- function(gene_file, genetic_code = "11"){
+getStatistics <- function(gene_file, genetic_code = "11", bg = "all"){
   print(gene_file)
   genes <- readDNAStringSet(gene_file)
   highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
@@ -13,9 +13,17 @@ getStatistics <- function(gene_file, genetic_code = "11"){
   if(sum(highly_expressed)<10){
     return(NULL)
   } else {
-    codon_stats <- try(getCodonStatistics(genes,
-                                          highly_expressed,
-                                          genetic_code = genetic_code))
+    if(bg=="all"){
+      codon_stats <- try(getCodonStatistics(genes,
+                                            highly_expressed,
+                                            genetic_code = genetic_code))
+    } else if(bg=="individual"){
+      codon_stats <- try(getCodonStatistics_i(genes,
+                                            highly_expressed,
+                                            genetic_code = genetic_code))
+    } else{
+      stop("Feature in testing, please set bg==\"all\" for normal gRodon behavior")
+    }
     codon_stats[["File"]] <- basename(gene_file)
     if(!inherits(codon_stats,"try-error")){
       return(as.list(codon_stats))
@@ -31,12 +39,13 @@ getStatistics <- function(gene_file, genetic_code = "11"){
 #' It is assumed that gene names contain annotations of ribosomal proteins.
 #'
 #' @param directory path to directory containing annotated CDS files
-getStatisticsBatch <- function(directory, genetic_code="11", mc.cores = 1){
+getStatisticsBatch <- function(directory, genetic_code="11", mc.cores = 1, bg = "all"){
   gene_files <- list.files(directory)
   gene_paths <- paste0(directory,gene_files)
   cu <- mclapply(X = gene_paths,
                  FUN = getStatistics,
-                 genetic_code=genetic_code,
+                 genetic_code = genetic_code,
+                 bg = bg,
                  mc.cores = mc.cores) %>%
     do.call("rbind", .) %>%
     as.data.frame(stringsAsFactors = FALSE) #%>%

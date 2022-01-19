@@ -117,141 +117,179 @@ predictGrowth <- function(genes,
                                       fragments = fragments,
                                       depth_of_coverage = depth_of_coverage,
                                       genetic_code = genetic_code)
+
+    codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
+
+    # Predict growth rate (stored models - sysdata.rda)
+    if(training_set=="vs" & mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
+      if(temperature == "none" & mode=="full"){
+        pred <- stats::predict.lm(gRodon_model_base,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature == "none" & mode=="metagenome"){
+        pred <- stats::predict.lm(gRodon_model_meta,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature == "none" & mode=="partial"){
+        pred <- stats::predict.lm(gRodon_model_partial,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="full"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_temp,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="metagenome"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_meta_temp,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="partial"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_partial_temp,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_milc,
+                                               back_transform = TRUE)
+    } else if(mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
+      if(temperature == "none" & mode=="full"){
+        pred <- stats::predict.lm(gRodon_model_base_madin,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature == "none" & mode=="metagenome"){
+        pred <- stats::predict.lm(gRodon_model_meta_madin,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature == "none" & mode=="partial"){
+        pred <- stats::predict.lm(gRodon_model_partial_madin,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="full"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_temp_madin,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="metagenome"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_meta_temp_madin,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="partial"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_partial_temp_madin,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_milc_madin,
+                                               back_transform = TRUE)
+    } else if(mode=="eukaryote"){
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_base_euk,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_temp_euk,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_milc_euk,
+                                               back_transform = TRUE)
+    } else if(mode=="meta_testing"){
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_newmeta,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_newmeta_temp,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_newmeta,
+                                               back_transform = TRUE)
+    } else if(mode=="meta_nogc_testing"){
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_newmeta_nogc,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_newmeta_nogc_temp,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_newmeta,
+                                               back_transform = TRUE)
+    }
+
+
   } else if(bg=="individual"){
+    if(!(mode %in% c("metagenome","meta_testing","meta_nogc_testing"))){
+      stop("Mode not compatible with gene-level CUB calculations")
+    }
     codon_stats <- getCodonStatistics_i(genes = genes,
-                                      highly_expressed = highly_expressed,
-                                      fragments = fragments,
-                                      depth_of_coverage = depth_of_coverage,
-                                      genetic_code = genetic_code)
+                                        highly_expressed = highly_expressed,
+                                        fragments = fragments,
+                                        depth_of_coverage = depth_of_coverage,
+                                        genetic_code = genetic_code)
+    if(mode=="meta_testing"){
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_newmeta_i,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_newmeta_temp_i,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_newmeta_i,
+                                               back_transform = TRUE)
+    } else if(mode=="meta_nogc_testing"){
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_newmeta_nogc_i,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_newmeta_nogc_temp_i,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_newmeta_i,
+                                               back_transform = TRUE)
+    }
   } else{
     stop("Feature in testing, please set bg==\"all\" for normal gRodon behavior")
   }
 
-  codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
 
-  # Predict growth rate (stored models - sysdata.rda)
-  if(training_set=="vs" & mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
-    if(temperature == "none" & mode=="full"){
-      pred <- stats::predict.lm(gRodon_model_base,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature == "none" & mode=="metagenome"){
-      pred <- stats::predict.lm(gRodon_model_meta,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature == "none" & mode=="partial"){
-      pred <- stats::predict.lm(gRodon_model_partial,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature != "none" & mode=="full"){
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_temp,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature != "none" & mode=="metagenome"){
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_meta_temp,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature != "none" & mode=="partial"){
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_partial_temp,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    }
-    #Transform back from box-cox
-    pred_back_transformed <- boxcoxTransform(pred,
-                                             lambda_milc,
-                                             back_transform = TRUE)
-  } else if(mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
-    if(temperature == "none" & mode=="full"){
-      pred <- stats::predict.lm(gRodon_model_base_madin,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature == "none" & mode=="metagenome"){
-      pred <- stats::predict.lm(gRodon_model_meta_madin,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature == "none" & mode=="partial"){
-      pred <- stats::predict.lm(gRodon_model_partial_madin,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature != "none" & mode=="full"){
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_temp_madin,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature != "none" & mode=="metagenome"){
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_meta_temp_madin,
-                                newdata = codon_stats,
-                                interval = "confidence")
-
-    } else if(temperature != "none" & mode=="partial"){
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_partial_temp_madin,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    }
-    #Transform back from box-cox
-    pred_back_transformed <- boxcoxTransform(pred,
-                                             lambda_milc_madin,
-                                             back_transform = TRUE)
-  } else if(mode=="eukaryote"){
-    if(temperature == "none"){
-      pred <- stats::predict.lm(gRodon_model_base_euk,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    } else {
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_temp_euk,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    }
-    #Transform back from box-cox
-    pred_back_transformed <- boxcoxTransform(pred,
-                                             lambda_milc_euk,
-                                             back_transform = TRUE)
-  } else if(mode=="meta_testing"){
-    if(temperature == "none"){
-      pred <- stats::predict.lm(gRodon_model_newmeta,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    } else {
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_newmeta_temp,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    }
-    #Transform back from box-cox
-    pred_back_transformed <- boxcoxTransform(pred,
-                                             lambda_newmeta,
-                                             back_transform = TRUE)
-  } else if(mode=="meta_nogc_testing"){
-    if(temperature == "none"){
-      pred <- stats::predict.lm(gRodon_model_newmeta_nogc,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    } else {
-      codon_stats$OGT <- temperature
-      pred <- stats::predict.lm(gRodon_model_newmeta_nogc_temp,
-                                newdata = codon_stats,
-                                interval = "confidence")
-    }
-    #Transform back from box-cox
-    pred_back_transformed <- boxcoxTransform(pred,
-                                             lambda_newmeta,
-                                             back_transform = TRUE)
-  }
 
   #attach prediction
   codon_stats$d <- pred_back_transformed[,"fit"]
