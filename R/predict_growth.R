@@ -246,7 +246,7 @@ predictGrowth <- function(genes,
 
 
   } else if(bg=="individual"){
-    if(!(mode %in% c("metagenome","meta_testing","meta_nogc_testing"))){
+    if(!(mode %in% c("meta_testing","meta_nogc_testing"))){
       stop("Mode not compatible with gene-level CUB calculations")
     }
     codon_stats <- getCodonStatistics_i(genes = genes,
@@ -254,6 +254,9 @@ predictGrowth <- function(genes,
                                         fragments = fragments,
                                         depth_of_coverage = depth_of_coverage,
                                         genetic_code = genetic_code)
+
+    codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
+
     if(mode=="meta_testing"){
       if(temperature == "none"){
         pred <- stats::predict.lm(gRodon_model_newmeta_i,
