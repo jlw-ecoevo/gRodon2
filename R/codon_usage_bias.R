@@ -35,7 +35,7 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     #   - Bias of highly expessed genes, with genome-wide codon usage considered
     #     expected codon usage
     x <- MILC(fna_tab,id_or_name2 = genetic_code)
-    print(x[highly_expressed, 1])
+    # print(x[highly_expressed, 1])
     x[highly_expressed, 1] %>% median() %>% return()
 
   } else if(method == "MILCgenomic"){
