@@ -16,11 +16,11 @@ singleMILC <- function(gene,n=10){
 }
 
 
-CUBi <- function(genes,highly_expressed,n_le=100){
+CUBi <- function(genes,highly_expressed,n_le=10){
   genes_list <- as.list(as.character(genes)) %>%
     lapply(DNAString)
   genes_list_HE <- genes_list[highly_expressed]
-  genes_list_LE <- genes_list[!highly_expressed][sample(1:sum(!highly_expressed),n_le)]
+  genes_list_LE <- genes_list[!highly_expressed][sample(1:sum(!highly_expressed),n_le,replace=T)]
 
   x_HE <- lapply(genes_list_HE,singleMILC) %>% unlist()
   x_LE <- lapply(genes_list_LE,singleMILC) %>% unlist()
@@ -104,10 +104,10 @@ getWeightedCUBHE <- function(fna_tab, highly_expressed, depth_of_coverage, genet
 }
 
 
-getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=100){
+getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=10){
   genes_list <- as.list(as.character(genes)) %>%
     lapply(DNAString)
-  samp_le <- sample(1:sum(!highly_expressed),n_le)
+  samp_le <- sample(1:sum(!highly_expressed),n_le,replace=T)
   genes_list_HE <- genes_list[highly_expressed]
   genes_list_LE <- genes_list[!highly_expressed][samp_le]
 
