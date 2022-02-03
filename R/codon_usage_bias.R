@@ -4,7 +4,7 @@ shuffleGenes <- function(gene){
     return()
 }
 
-singleMILC <- function(gene,n=10){
+singleMILC <- function(gene,n=100){
   bg <- replicate(n,shuffleGenes(gene)) %>% DNAStringSet()
   # print(bg)
   # print(gene)
@@ -16,7 +16,7 @@ singleMILC <- function(gene,n=10){
 }
 
 
-CUBi <- function(genes,highly_expressed,n_le=10){
+CUBi <- function(genes,highly_expressed,n_le=100){
   genes_list <- as.list(as.character(genes)) %>%
     lapply(DNAString)
   genes_list_HE <- genes_list[highly_expressed]
@@ -104,7 +104,7 @@ getWeightedCUBHE <- function(fna_tab, highly_expressed, depth_of_coverage, genet
 }
 
 
-getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=10){
+getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=100){
   genes_list <- as.list(as.character(genes)) %>%
     lapply(DNAString)
   samp_le <- sample(1:sum(!highly_expressed),n_le,replace=T)
