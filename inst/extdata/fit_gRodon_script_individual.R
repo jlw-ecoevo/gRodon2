@@ -86,6 +86,9 @@ gRodon_model_newmeta_temp_i <- model_list[[2]]
 gRodon_model_newmeta_nogc_i <- model_list[[3]]
 gRodon_model_newmeta_nogc_temp_i <- model_list[[4]]
 lambda_newmeta_i <- model_list[[5]]
+gRodon_model_meta_madin_i <- model_list[[6]]
+gRodon_model_meta_temp_madin_i <- model_list[[7]]
+lambda_milc_madin_i <- model_list[[8]]
 
 setwd("~/gRodon2/R/")
 load("sysdata.rda")
@@ -108,6 +111,9 @@ save(gRodon_model_base_madin,
      gRodon_model_newmeta_nogc,
      gRodon_model_newmeta_nogc_temp,
      lambda_newmeta,
+     gRodon_model_meta_madin_i,
+     gRodon_model_meta_temp_madin_i,
+     lambda_milc_madin_i,
      gRodon_model_newmeta_i,
      gRodon_model_newmeta_temp_i,
      gRodon_model_newmeta_nogc_i,

@@ -128,9 +128,20 @@ fitGCModels <- function(stat_data, stat_data_extremo){
   meta_nogc_model_temp <-
     lm(boxcoxTransform(d, lambda_meta) ~ dCUB+OGT,data=stat_data_extremo)
 
+  #old metagenome mode (for individual-gene fitting)
+  bc_oldmeta <- boxcox(d~CUBHE,data=stat_data)
+  lambda_oldmeta <- bc_oldmeta$x[which.max(bc_oldmeta$y)]
+  meta_old_model_base <-
+    lm(boxcoxTransform(d, lambda_oldmeta) ~ CUBHE,data=stat_data)
+  meta_old_model_temp <-
+    lm(boxcoxTransform(d, lambda_oldmeta) ~ CUBHE+OGT,data=stat_data_extremo)
+
   return(list(meta_model_base,
               meta_model_temp,
               meta_nogc_model_base,
               meta_nogc_model_temp,
-              lambda_meta))
+              lambda_meta,
+              meta_old_model_base,
+              meta_model_temp,
+              lambda_oldmeta))
 }
