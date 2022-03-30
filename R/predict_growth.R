@@ -246,7 +246,7 @@ predictGrowth <- function(genes,
 
 
   } else if(bg=="individual"){
-    if(!(mode %in% c("meta_testing","meta_nogc_testing"))){
+    if(!(mode %in% c("meta_testing","meta_nogc_testing","metagenome"))){
       stop("Mode not compatible with gene-level CUB calculations")
     }
     codon_stats <- getCodonStatistics_i(genes = genes,
@@ -286,6 +286,21 @@ predictGrowth <- function(genes,
       #Transform back from box-cox
       pred_back_transformed <- boxcoxTransform(pred,
                                                lambda_newmeta_i,
+                                               back_transform = TRUE)
+    } else if(mode=="metagenome"){
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_meta_madin_i,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_meta_temp_madin_i,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_milc_madin_i,
                                                back_transform = TRUE)
     }
   } else{
