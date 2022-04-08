@@ -182,7 +182,7 @@ predictGrowth <- function(genes,
                                   interval = "confidence")
 
       } else if(temperature == "none" & mode=="metagenome_v2"){
-        if(codon_stats$Consistency<0.6){
+        if(codon_stats$ConsistencyHE<0.6){
           pred <- stats::predict.lm(gRodon_model_meta_madin,
                                     newdata = codon_stats,
                                     interval = "confidence")
@@ -218,7 +218,7 @@ predictGrowth <- function(genes,
                                   interval = "confidence")
 
       } else if(temperature != "none" & mode=="metagenome_v2"){
-        if(codon_stats$Consistency<0.6){
+        if(codon_stats$ConsistencyHE<0.6){
           codon_stats$OGT <- temperature
           pred <- stats::predict.lm(gRodon_model_meta_temp_madin,
                                     newdata = codon_stats,
