@@ -10,7 +10,8 @@
 #' genes. Must be of same length as \code{genes}. Typically these are ribosomal proteins
 #' (all models were trained using ribosomal proteins as the highly expressed set.)
 #' @param mode Whether to run prediction in full, partial, metagenome_v1, metagenome_v2, or eukaryote mode
-#' (by default gRodon applies the full model)
+#' (by default gRodon applies the full model). Mode metagenome_v2 may run slower
+#' than the other prediction modes when consistency>0.6.
 #' @param temperature Optimal growth temperature. By default this is set as
 #' "none" for prokaryotes and we do not guarantee good results for non-mesophilic
 #'  since prokaryotes few were used to fit the model. For eukaryotes, though, including
@@ -29,6 +30,11 @@
 #' @param genetic_code The genetic code of the organism to be used in codon usage
 #' calculations (see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By
 #' default code "1" is used for eukaryote mode and code "11" for prokaryotic modes.
+#' @param n_le The number of genes to sample to generate a background estimate of
+#' codon usage against which to calculate the codon usage of the highly expressed
+#' genes. Only used by metagenome_v2 mode and only when consistency>0.6. Increasing
+#' will make prediction slower, but may decrease variance. Decreasing is not recommended
+#' but will increase speed.
 #' @param bg Feature in testing, do not change
 #' @return gRodon returns a list with the following elements:
 #' \describe{
@@ -78,6 +84,7 @@ predictGrowth <- function(genes,
                           depth_of_coverage = NULL,
                           fragments = FALSE,
                           genetic_code = NULL,
+                          n_le = 100,
                           bg = "all"){
 
   if(! mode %in% c("full","partial","metagenome_v1","metagenome_v2","eukaryote","meta_testing","meta_nogc_testing")){
@@ -191,7 +198,8 @@ predictGrowth <- function(genes,
                                               highly_expressed = highly_expressed,
                                               fragments = fragments,
                                               depth_of_coverage = depth_of_coverage,
-                                              genetic_code = genetic_code)
+                                              genetic_code = genetic_code,
+                                              n_le = n_le)
           codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
           pred <- stats::predict.lm(gRodon_model_newmeta_i,
                                     newdata = codon_stats,
@@ -228,7 +236,8 @@ predictGrowth <- function(genes,
                                               highly_expressed = highly_expressed,
                                               fragments = fragments,
                                               depth_of_coverage = depth_of_coverage,
-                                              genetic_code = genetic_code)
+                                              genetic_code = genetic_code,
+                                              n_le = n_le)
           codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
           codon_stats$OGT <- temperature
           pred <- stats::predict.lm(gRodon_model_newmeta_temp_i,

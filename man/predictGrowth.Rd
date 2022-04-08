@@ -13,6 +13,7 @@ predictGrowth(
   depth_of_coverage = NULL,
   fragments = FALSE,
   genetic_code = NULL,
+  n_le = 100,
   bg = "all"
 )
 }
@@ -25,7 +26,8 @@ genes. Must be of same length as \code{genes}. Typically these are ribosomal pro
 (all models were trained using ribosomal proteins as the highly expressed set.)}
 
 \item{mode}{Whether to run prediction in full, partial, metagenome_v1, metagenome_v2, or eukaryote mode
-(by default gRodon applies the full model)}
+(by default gRodon applies the full model). Mode metagenome_v2 may run slower
+than the other prediction modes when consistency>0.6.}
 
 \item{temperature}{Optimal growth temperature. By default this is set as
 "none" for prokaryotes and we do not guarantee good results for non-mesophilic
@@ -49,6 +51,12 @@ more permissive length filter (120bp as opposed to 240bp)}
 \item{genetic_code}{The genetic code of the organism to be used in codon usage
 calculations (see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By
 default code "1" is used for eukaryote mode and code "11" for prokaryotic modes.}
+
+\item{n_le}{The number of genes to sample to generate a background estimate of
+codon usage against which to calculate the codon usage of the highly expressed
+genes. Only used by metagenome_v2 mode and only when consistency>0.6. Increasing
+will make prediction slower, but may decrease variance. Decreasing is not recommended
+but will increase speed.}
 
 \item{bg}{Feature in testing, do not change}
 }

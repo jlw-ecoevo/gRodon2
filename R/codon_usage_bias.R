@@ -221,7 +221,7 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth
 
 
 
-getCodonStatistics_i <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL, genetic_code = "11"){
+getCodonStatistics_i <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL, genetic_code = "11",n_le=100){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -250,7 +250,7 @@ getCodonStatistics_i <- function(genes, highly_expressed, fragments = FALSE, dep
 
   if(!is.null(depth_of_coverage)){
     gc <- sum(alphabetFrequency(genes)[,2:3]*depth_of_coverage)/sum(alphabetFrequency(genes)*depth_of_coverage)
-    cubi <- getWeightedCUBi(genes,highly_expressed,depth_of_coverage)
+    cubi <- getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le)
     return(data.frame(CUBHE = cubi[2],
                       GC = gc,
                       GCdiv = abs(0.5-gc),
@@ -264,7 +264,7 @@ getCodonStatistics_i <- function(genes, highly_expressed, fragments = FALSE, dep
                       nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
   } else {
-    cubi <- CUBi(genes,highly_expressed)
+    cubi <- CUBi(genes,highly_expressed,n_le=n_le)
     gc <- sum(alphabetFrequency(genes)[,2:3])/sum(alphabetFrequency(genes))
     return(data.frame(CUBHE = cubi[2],
                       GC = gc,
