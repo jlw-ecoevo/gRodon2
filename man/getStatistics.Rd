@@ -4,7 +4,7 @@
 \alias{getStatistics}
 \title{Get Codon Statistics}
 \usage{
-getStatistics(gene_file, genetic_code = "11")
+getStatistics(gene_file, genetic_code = "11", bg = "all")
 }
 \arguments{
 \item{gene_file}{path to CDS-containing fasta file}

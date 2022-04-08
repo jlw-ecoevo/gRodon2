@@ -182,7 +182,7 @@ cases we discuss below that require a slightly more thoughful application of
 `gRodon`. These are:
 
 *  The use of partial genomic data (e.g., incomplete SAGs or MAGs)  
-*  The use of metagenomic data  (**if using metagenomes you MUST use metagenome mode or risk getting some very strange results**)
+*  The use of metagenomic data  (**if using metagenomes you MUST use metagenome mode (v1 or v2) or risk getting some very strange results**)
 *  Predicting maximal growth rates when maximal growth is very slow  
 *  Predicting the maximal growth rate of a psychrophile or thermophile  
 
@@ -196,7 +196,8 @@ estimate the codon pair bias (since there are many possible codon pairs). In
 this case you can set `gRodon` to "partial" mode, which excludes pair-bias 
 from the prediction. This is probably a good choice when working with incomplete
 SAGs and MAGs. The expected decrease in accuracy is quite small (see 
-`gRodon` paper).
+`gRodon` paper). If you suspect your MAGs are contaminated, metagenome mode
+may be a better option.
 
 ```{r PredP}
 predictGrowth(genes, highly_expressed, mode="partial")
@@ -220,6 +221,11 @@ genes optimized in different ways, and gRodon will severely underestimate your m
 growth rate. If you are getting really long minimal doubling times check to make sure
 you are using metagenome mode.
 
+**Metagenome mode is currently being updated. The metagenome_v1 mode is the one
+described in the original paper, but suffers from GC-bias (unlike gRodon's 
+full mode). We have implemented metagenome_v2 mode which corrects for this, with
+a preprint coming soon describing a number of benchmarking experiments.
+
 Let's try this on one of the samples from [Okie et al.](https://doi.org/10.7554/eLife.49816), as discussed in the
 `gRodon` manuscript:
 
@@ -229,7 +235,7 @@ path_to_metagenome <- system.file('extdata',
   package = 'gRodon')
 genes <- readDNAStringSet(path_to_metagenome)
 highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
-predictGrowth(genes, highly_expressed, mode = "metagenome")
+predictGrowth(genes, highly_expressed, mode = "metagenome_v1")
 ```
 
 You may also want to incorporate a correction for the relative abundance of different
@@ -258,7 +264,7 @@ And now let's run weighted metagenome mode:
 ```{r weightedM}
 predictGrowth(genes, 
               highly_expressed, 
-              mode = "metagenome", 
+              mode = "metagenome_v1", 
               depth_of_coverage = depth_of_coverage)
 ```
 

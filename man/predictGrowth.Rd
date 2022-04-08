@@ -9,10 +9,11 @@ predictGrowth(
   highly_expressed,
   mode = "full",
   temperature = "none",
-  training_set = "vs",
+  training_set = "madin",
   depth_of_coverage = NULL,
   fragments = FALSE,
-  genetic_code = NULL
+  genetic_code = NULL,
+  bg = "all"
 )
 }
 \arguments{
@@ -23,7 +24,7 @@ from a genome. See Biostrings package.}
 genes. Must be of same length as \code{genes}. Typically these are ribosomal proteins
 (all models were trained using ribosomal proteins as the highly expressed set.)}
 
-\item{mode}{Whether to run prediction in full, partial, metagenome, or eukaryote mode
+\item{mode}{Whether to run prediction in full, partial, metagenome_v1, metagenome_v2, or eukaryote mode
 (by default gRodon applies the full model)}
 
 \item{temperature}{Optimal growth temperature. By default this is set as
@@ -35,17 +36,21 @@ a very strong relationship between OGT and max. growth rate for these organisms.
 \item{training_set}{Whether to use models trained on the original Vieira-Silva et al.
 doubling time dataset or doubling times drawn from the Madin et al. database. This
 setting is only used for prokaryotic modes (eukaryotic models based on their own
-training set from Weissman et al. TBD)}
+training set from Weissman et al. TBD). For metagenome_v1 mode, only the madin
+set is available.}
 
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing
 the coverage of your ORFs to improve your estimate}
 
-\item{fragments}{If using gene fragments predicted from reads, will use a
+\item{fragments}{Do not change (performance will suffer, publication forthcoming).
+If using gene fragments predicted from reads, will use a
 more permissive length filter (120bp as opposed to 240bp)}
 
 \item{genetic_code}{The genetic code of the organism to be used in codon usage
 calculations (see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By
 default code "1" is used for eukaryote mode and code "11" for prokaryotic modes.}
+
+\item{bg}{Feature in testing, do not change}
 }
 \value{
 gRodon returns a list with the following elements:
@@ -70,14 +75,15 @@ genomic codon usage patterns (Weissman et. al. 2021; Weissman et al. TBD).
 \examples{
 # Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
 # included with gRodon
+library(Biostrings)
 path_to_genome <- system.file('extdata',
   'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
-  package = 'gRodon2')
+  package = 'gRodon')
 genes <- readDNAStringSet(path_to_genome)
 
 # Search pre-existing annotations for ribosomal proteins, which we
 # will use as our set of highly expressed genes
-highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
+highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = TRUE)
 
 # Run the gRodon growth prediction pipeline
 predictGrowth(genes, highly_expressed)

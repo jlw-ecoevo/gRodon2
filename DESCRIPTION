@@ -1,8 +1,8 @@
 Package: gRodon
-Title: Inference of prokaryotic growth rates with codon usage statistics
-Version: 2.0.1
+Title: Inference of prokaryotic and eukaryotic growth rates with codon usage statistics
+Version: 2.1.0
 Authors@R: 
-    person(given = "Jake",
+    person(given = "JL",
            family = "Weissman",
            role = c("aut", "cre"),
            email = "jakeweis@usc.edu",
@@ -21,7 +21,8 @@ Imports:
     dplyr,
     Biostrings,
     coRdon,
-    matrixStats
+    matrixStats,
+    magrittr
 Suggests: 
     knitr,
     rmarkdown
