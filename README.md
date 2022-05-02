@@ -51,7 +51,7 @@ predictGrowth(genes, highly_expressed)
 
 ## Using `gRodon` with [`docker`](https://www.docker.com/)
 
-We have compiled a docker image for `gRodon` v1.0.0 (**no eukaryotes**) to ease the installation process. You can pull it to your local computer and run it like this:
+We have compiled a docker image for `gRodon` v1.0.0 (**no eukaryotes, no metagenome_v2 mode**) to ease the installation process. You can pull it to your local computer and run it like this:
 
 ```bash
 # pull the image
@@ -84,7 +84,7 @@ If you want to modify and build your own docker image, the source code can be fo
 
 ## `gRodon` with conda
 
-[Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon)  v1.0.0 (**no eukaryotes**) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
+[Susheel Busi has setup a conda environment to run `gRodon`](https://github.com/susheelbhanu/gRodon)  v1.0.0 (**no eukaryotes, no metagenome_v2 mode**) with some helper scripts that made be useful to some users. The `gRodon` developers take no responsibility for the functioning of this code though and all questions should be submitted directly to the author.
 
 ## Citation
 If you find `gRodon` is useful to your study, please cite us!
@@ -112,7 +112,7 @@ If you find `gRodon` is useful to your study, please cite us!
 
 #### For eukaryotic prediction: the [`gRodon2` paper](https://doi.org/10.1101/2021.10.15.464604): 
 
-> Jake L Weissman, Edward-Robert O Dimbo, Arianna I Krinos, Christopher Neely, Yuniba Yagues, Delaney Nolin, Shengwei Hou, Sarah Laperriere, David A Caron, Benjamin L Tully, Harriet Alexander, Jed A Fuhrman. bioRxiv 2021.10.15.464604; DOI: https://doi.org/10.1101/2021.10.15.464604
+> Jake L Weissman, Edward-Robert O Dimbo, Arianna I Krinos, Christopher Neely, Yuniba Yagues, Delaney Nolin, Shengwei Hou, Sarah Laperriere, David A Caron, Benjamin L Tully, Harriet Alexander, Jed A Fuhrman. Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns. bioRxiv 2021.10.15.464604; DOI: https://doi.org/10.1101/2021.10.15.464604
 
 ```
 @article {Weissman2021.10.15.464604,
@@ -124,6 +124,24 @@ If you find `gRodon` is useful to your study, please cite us!
 	publisher = {Cold Spring Harbor Laboratory},
 	URL = {https://www.biorxiv.org/content/early/2021/10/16/2021.10.15.464604},
 	eprint = {https://www.biorxiv.org/content/early/2021/10/16/2021.10.15.464604.full.pdf},
+	journal = {bioRxiv}
+}
+```
+
+#### For metagenomic prediction: the [`Metagenome Mode v2` paper](https://doi.org/10.1101/2022.04.12.488109): 
+
+> Jake L Weissman, Marie Peras, Tyler P Barnum, Jed A Fuhrman. Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics. bioRxiv 2022.04.12.488109; DOI: https://doi.org/10.1101/2022.04.12.488109
+
+```
+@article {Weissman2022.04.12.488109,
+	author = {Weissman, Jake L. and Peras, Marie and Barnum, Tyler P. and Fuhrman, Jed A.},
+	title = {Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics},
+	elocation-id = {2022.04.12.488109},
+	year = {2022},
+	doi = {10.1101/2022.04.12.488109},
+	publisher = {Cold Spring Harbor Laboratory},
+	URL = {https://www.biorxiv.org/content/early/2022/04/13/2022.04.12.488109},
+	eprint = {https://www.biorxiv.org/content/early/2022/04/13/2022.04.12.488109.full.pdf},
 	journal = {bioRxiv}
 }
 ```
