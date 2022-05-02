@@ -53,6 +53,32 @@ getStatisticsBatch <- function(directory, genetic_code="11", mc.cores = 1, bg = 
   return(cu)
 }
 
+
+getStatisticsBatchWindows <- function(directory, genetic_code="11", mc.cores = 1, bg = "all"){
+  gene_files <- list.files(directory)
+  gene_paths <- paste0(directory,gene_files)
+  cl <- makeCluster(mc.cores)
+  clusterEvalQ(cl, c(library(dplyr),
+                     library(Biostrings),
+                     library(coRdon),
+                     library(gRodon),
+                     library(matrixStats)))
+  clusterExport(cl=cl, as.list(ls()),
+                envir=environment())
+  cu <- parLapply(cl = cl,
+                  X = gene_paths,
+                  fun = getStatistics,
+                  genetic_code = genetic_code,
+                  bg = bg)
+  stopCluster(cl)
+  # cu <- cu %>%
+  #   do.call("rbind", .) %>%
+  #   as.data.frame(stringsAsFactors = FALSE)
+  return(cu)
+}
+
+
+
 #' Fit gRodon models
 #'
 #' This function fits the gRodon models

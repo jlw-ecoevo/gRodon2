@@ -264,6 +264,7 @@ predictGrowth <- function(genes,
       }
 
     } else if(mode=="eukaryote"){
+      codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
       if(temperature == "none"){
         pred <- stats::predict.lm(gRodon_model_base_euk,
                                   newdata = codon_stats,

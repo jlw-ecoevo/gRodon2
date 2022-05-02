@@ -221,7 +221,7 @@ genes optimized in different ways, and gRodon will severely underestimate your m
 growth rate. If you are getting really long minimal doubling times check to make sure
 you are using metagenome mode.
 
-**Metagenome mode is currently being updated. The metagenome_v1 mode is the one
+**Metagenome mode is currently being updated.** The metagenome_v1 mode is the one
 described in the original paper, but suffers from GC-bias (unlike gRodon's 
 full mode). We have implemented metagenome_v2 mode which corrects for this, with
 a preprint coming soon describing a number of benchmarking experiments.

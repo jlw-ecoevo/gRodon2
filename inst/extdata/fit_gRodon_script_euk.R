@@ -9,6 +9,7 @@ library(data.table)
 library(MASS)
 library(gRodon)
 library(parallel)
+library(parallelsugar)
 library(Biostrings)
 library(coRdon)
 library(matrixStats)
@@ -27,11 +28,15 @@ rgrep <- function(big,small_vec){
 
 # Calculate Codon Usage Statistics ---------------------------------------------
 
-cu <- getStatisticsBatch("~/gRodon/inst/extdata/euk_genomes/",
+cu <- gRodon:::getStatisticsBatch("~/gRodon2/inst/extdata/euk_genomes/",
                          genetic_code = "1",
-                         mc.cores = 1)
-setwd("~/gRodon/inst/extdata/")
-save(cu, file = "CodonStatistics_euk.rda")
+                         mc.cores = 6)
+cui <- gRodon:::getStatisticsBatch("~/gRodon2/inst/extdata/euk_genomes/",
+                         genetic_code = "1",
+                         mc.cores = 8,
+                         bg = "individual")
+setwd("~/gRodon2/inst/extdata/")
+save(cu,cui, file = "CodonStatistics_euk.rda")
 
 # Load Growth Dataset ----------------------------------------------------------
 
@@ -39,6 +44,8 @@ save(cu, file = "CodonStatistics_euk.rda")
 load("CodonStatistics_euk.rda")
 cu <- cu %>% mutate_all(unlist)
 cu$Accession <- cu$File %>% gsub(pattern="[.].*",replace="")
+cui <- cui %>% mutate_all(unlist)
+cui$Accession <- cui$File %>% gsub(pattern="[.].*",replace="")
 
 ### MMETSP Data
 setwd("~/gRodon2/inst/extdata/")
@@ -114,37 +121,58 @@ for(i in 1:nrow(x)){
                                      gsub(pattern="[.].*",replace="")))
 }
 
-### merge and average over species
-mmetsp_d <- merge.easy(mmetsp_d,cu,key="Accession") %>%
+### merge and average over species ---------------------------------------------
+
+mmetsp_da <- merge.easy(mmetsp_d,cu,key="Accession") %>%
   subset(nHE>10) %>%
   group_by(Species) %>%
   summarise_all(mean,na.rm=T) %>%
   subset(!is.na(Species)) %>%
   subset(!is.na(CUBHE))
-ncbi_d <- merge.easy(ncbi_d,cu,key="Accession") %>%
+ncbi_da <- merge.easy(ncbi_d,cu,key="Accession") %>%
   subset(nHE>10) %>%
   group_by(Species) %>%
   summarise_all(mean,na.rm=T) %>%
   subset(!is.na(Species)) %>%
   subset(!is.na(CUBHE))
-stat_data <- rbind(mmetsp_d,ncbi_d)
+stat_data <- rbind(mmetsp_da,ncbi_da)
+
+mmetsp_di <- merge.easy(mmetsp_d,cui,key="Accession") %>%
+  subset(nHE>10) %>%
+  group_by(Species) %>%
+  summarise_all(mean,na.rm=T) %>%
+  subset(!is.na(Species)) %>%
+  subset(!is.na(CUBHE))
+ncbi_di <- merge.easy(ncbi_d,cui,key="Accession") %>%
+  subset(nHE>10) %>%
+  group_by(Species) %>%
+  summarise_all(mean,na.rm=T) %>%
+  subset(!is.na(Species)) %>%
+  subset(!is.na(CUBHE))
+stat_data_i <- rbind(mmetsp_di,ncbi_di)
 
 
 # Test for outliers
 test_outliers <- EnvStats::rosnerTest(stat_data$d %>% log10())
 outlier_ind <- test_outliers$all.stats$Obs.Num[test_outliers$all.stats$Outlier==T]
 stat_data <- stat_data[-outlier_ind,]
+stat_data_i <- stat_data_i[-outlier_ind,]
 
 # Fit Models -------------------------------------------------------------------
 
-model_list <- fitModels(stat_data, stat_data)
+model_list <- fitGCModels(stat_data, stat_data)
 
-gRodon_model_base_euk <- model_list[[8]]
-gRodon_model_temp_euk <- model_list[[9]]
-lambda_milc_euk <- model_list[[10]]
+gRodon_model_base_euk <- model_list[[3]]
+gRodon_model_temp_euk <- model_list[[4]]
+lambda_milc_euk <- model_list[[5]]
 
+model_list <- fitGCModels(stat_data_i, stat_data_i)
 
-setwd("~/gRodon/R/")
+gRodon_model_base_euk_i <- model_list[[3]]
+gRodon_model_temp_euk_i <- model_list[[4]]
+lambda_milc_euk_i <- model_list[[5]]
+
+setwd("~/gRodon2/R/")
 load("sysdata.rda")
 save(gRodon_model_base_madin,
      gRodon_model_temp_madin,
@@ -160,7 +188,23 @@ save(gRodon_model_base_madin,
      gRodon_model_meta,
      gRodon_model_meta_temp,
      lambda_milc,
+     gRodon_model_newmeta,
+     gRodon_model_newmeta_temp,
+     gRodon_model_newmeta_nogc,
+     gRodon_model_newmeta_nogc_temp,
+     lambda_newmeta,
+     gRodon_model_meta_madin_i,
+     gRodon_model_meta_temp_madin_i,
+     lambda_milc_madin_i,
+     gRodon_model_newmeta_i,
+     gRodon_model_newmeta_temp_i,
+     gRodon_model_newmeta_nogc_i,
+     gRodon_model_newmeta_nogc_temp_i,
+     lambda_newmeta_i,
      gRodon_model_base_euk,
      gRodon_model_temp_euk,
      lambda_milc_euk,
+     gRodon_model_base_euk_i,
+     gRodon_model_temp_euk_i,
+     lambda_milc_euk_i,
      file="sysdata.rda")
