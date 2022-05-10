@@ -313,7 +313,7 @@ predictGrowth <- function(genes,
 
 
   } else if(bg=="individual"){
-    if(!(mode %in% c("meta_testing","meta_nogc_testing","metagenome","eukaryotes"))){
+    if(!(mode %in% c("meta_testing","meta_nogc_testing","metagenome","eukaryote"))){
       stop("Mode not compatible with gene-level CUB calculations")
     }
     codon_stats <- getCodonStatistics_i(genes = genes,
