@@ -25,7 +25,8 @@ from a genome. See Biostrings package.}
 genes. Must be of same length as \code{genes}. Typically these are ribosomal proteins
 (all models were trained using ribosomal proteins as the highly expressed set.)}
 
-\item{mode}{Whether to run prediction in full, partial, metagenome_v1, metagenome_v2, or eukaryote mode
+\item{mode}{Whether to run prediction in full, partial, metagenome_v1, metagenome_v2,
+eukaryote, or metagenome_euk mode
 (by default gRodon applies the full model). Mode metagenome_v2 may run slower
 than the other prediction modes when consistency>0.6.}
 
@@ -38,7 +39,7 @@ a very strong relationship between OGT and max. growth rate for these organisms.
 \item{training_set}{Whether to use models trained on the original Vieira-Silva et al.
 doubling time dataset or doubling times drawn from the Madin et al. database. This
 setting is only used for prokaryotic modes (eukaryotic models based on their own
-training set from Weissman et al. TBD). For metagenome_v1 mode, only the madin
+training set from Weissman et al. TBD). For metagenome_v2 mode, only the madin
 set is available.}
 
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing

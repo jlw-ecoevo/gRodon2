@@ -9,7 +9,8 @@
 #' @param highly_expressed Logical vector describing the set of highly expressed
 #' genes. Must be of same length as \code{genes}. Typically these are ribosomal proteins
 #' (all models were trained using ribosomal proteins as the highly expressed set.)
-#' @param mode Whether to run prediction in full, partial, metagenome_v1, metagenome_v2, or eukaryote mode
+#' @param mode Whether to run prediction in full, partial, metagenome_v1, metagenome_v2,
+#' eukaryote, or metagenome_euk mode
 #' (by default gRodon applies the full model). Mode metagenome_v2 may run slower
 #' than the other prediction modes when consistency>0.6.
 #' @param temperature Optimal growth temperature. By default this is set as
@@ -20,7 +21,7 @@
 #' @param training_set Whether to use models trained on the original Vieira-Silva et al.
 #' doubling time dataset or doubling times drawn from the Madin et al. database. This
 #' setting is only used for prokaryotic modes (eukaryotic models based on their own
-#'  training set from Weissman et al. TBD). For metagenome_v1 mode, only the madin
+#'  training set from Weissman et al. TBD). For metagenome_v2 mode, only the madin
 #'  set is available.
 #' @param depth_of_coverage When using metagenome mode, provide a vector containing
 #' the coverage of your ORFs to improve your estimate
@@ -87,11 +88,11 @@ predictGrowth <- function(genes,
                           n_le = 100,
                           bg = "all"){
 
-  if(! mode %in% c("full","partial","metagenome_v1","metagenome_v2","eukaryote","meta_testing","meta_nogc_testing")){
+  if(! mode %in% c("full","partial","metagenome_v1","metagenome_v2","metagenome_euk","eukaryote","meta_testing","meta_nogc_testing")){
     stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome_v1\", \"metagenome_v2\", \"eukaryote\")")
   }
 
-  if((! training_set  %in% c("vs","madin")) & mode!="eukaryote"){
+  if((! training_set  %in% c("vs","madin")) & !mode %in% c("eukaryote","metagenome_euk")){
     stop("Invalid training set. Please pick an available model (\"vs\", \"madin\")")
   }
 
@@ -99,16 +100,16 @@ predictGrowth <- function(genes,
     warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
 
-  if(!(mode %in% c("metagenome_v1","metagenome_v2","meta_testing","meta_nogc_testing")) & !is.null(depth_of_coverage)){
+  if(!(mode %in% c("metagenome_v1","metagenome_v2","meta_testing","meta_nogc_testing","metagenome_euk")) & !is.null(depth_of_coverage)){
     warning("Ignoring depth_of_coverage because not in metagenome mode")
     depth_of_coverage <- NULL
   }
 
-  if(mode %in% c("metagenome_v1","metagenome_v2") & is.null(depth_of_coverage)){
+  if(mode %in% c("metagenome_v1","metagenome_v2","metagenome_euk") & is.null(depth_of_coverage)){
     warning("Provide depth_of_coverage for your ORFs for a more realistic average community growth rate")
   }
 
-  if(is.null(genetic_code) & mode=="eukaryote"){
+  if(is.null(genetic_code) & mode %in% c("eukaryote","metagenome_euk")){
     genetic_code <- "1"
   } else if(is.null(genetic_code)){
     genetic_code <- "11"
@@ -117,7 +118,7 @@ predictGrowth <- function(genes,
     warning("Models were trained with a default genetic code of '1' for eukaryotes and '11' for prokaryotes. See https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi")
   }
 
-  if(temperature=="none" & mode=="eukaryote"){
+  if(temperature=="none" & mode %in% c("eukaryote","metagenome_euk")){
     warning("For best results for eukaryotes an optimal growth temperature must be provided. Much of the variation in max. growth rate between species is explained by temperature, independent of any diffferences in codon usage.")
   }
 
@@ -206,7 +207,24 @@ predictGrowth <- function(genes,
                                     interval = "confidence")
           i_flag <- 1
         }
-
+      } else if(temperature == "none" & mode=="metagenome_euk"){
+        if(codon_stats$ConsistencyHE<0.6){
+          pred <- stats::predict.lm(gRodon_model_base_euk,
+                                    newdata = codon_stats,
+                                    interval = "confidence")
+        } else {
+          codon_stats <- getCodonStatistics_i(genes = genes,
+                                              highly_expressed = highly_expressed,
+                                              fragments = fragments,
+                                              depth_of_coverage = depth_of_coverage,
+                                              genetic_code = genetic_code,
+                                              n_le = n_le)
+          codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
+          pred <- stats::predict.lm(gRodon_model_base_euk_i,
+                                    newdata = codon_stats,
+                                    interval = "confidence")
+          i_flag <- 1
+        }
 
       } else if(temperature == "none" & mode=="partial"){
         pred <- stats::predict.lm(gRodon_model_partial_madin,
@@ -245,7 +263,26 @@ predictGrowth <- function(genes,
                                     interval = "confidence")
           i_flag <- 1
         }
-
+      } else if(temperature != "none" & mode=="metagenome_euk"){
+        if(codon_stats$ConsistencyHE<0.6){
+          codon_stats$OGT <- temperature
+          pred <- stats::predict.lm(gRodon_model_temp_euk,
+                                    newdata = codon_stats,
+                                    interval = "confidence")
+        } else {
+          codon_stats <- getCodonStatistics_i(genes = genes,
+                                              highly_expressed = highly_expressed,
+                                              fragments = fragments,
+                                              depth_of_coverage = depth_of_coverage,
+                                              genetic_code = genetic_code,
+                                              n_le = n_le)
+          codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
+          codon_stats$OGT <- temperature
+          pred <- stats::predict.lm(gRodon_model_temp_euk_i,
+                                    newdata = codon_stats,
+                                    interval = "confidence")
+          i_flag <- 1
+        }
       } else if(temperature != "none" & mode=="partial"){
         codon_stats$OGT <- temperature
         pred <- stats::predict.lm(gRodon_model_partial_temp_madin,
