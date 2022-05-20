@@ -32,7 +32,8 @@ To see the details of how this function works type `?predictGrowth()`.
 A minimal example with data included in the package is:
 
 ```
-library(gRodon2)
+library(gRodon)
+library(Biostrings)
 
 # Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
 # included with gRodon
