@@ -1,3 +1,5 @@
+** Do you have growth rates matched to genomes for cultured isolates? Email JL <jakeweis@usc.edu, jw4336@terpmail.umd.edu> and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
+
 # `gRodon`
 
 `gRodon` is an R package to estimate maximal growth rates of prokaryotes and microbial eukaryotes (**new in v2.0.0**) from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
