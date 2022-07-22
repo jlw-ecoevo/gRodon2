@@ -96,11 +96,11 @@ If you find `gRodon` is useful to your study, please cite us!
 
 #### For prokaryotic prediction: the [`gRodon` paper](https://doi.org/10.1073/pnas.2016810118): 
 
-> Jake L. Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences Mar 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
+> JL Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences Mar 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
 
 ```
 @article {Weissmane2016810118,
-	author = {Weissman, Jake L. and Hou, Shengwei and Fuhrman, Jed A.},
+	author = {Weissman, JL and Hou, Shengwei and Fuhrman, Jed A.},
 	title = {Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns},
 	volume = {118},
 	number = {12},
@@ -117,11 +117,11 @@ If you find `gRodon` is useful to your study, please cite us!
 
 #### For eukaryotic prediction: the [`gRodon2` paper](https://doi.org/10.1101/2021.10.15.464604): 
 
-> Jake L Weissman, Edward-Robert O Dimbo, Arianna I Krinos, Christopher Neely, Yuniba Yagues, Delaney Nolin, Shengwei Hou, Sarah Laperriere, David A Caron, Benjamin L Tully, Harriet Alexander, Jed A Fuhrman. Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns. bioRxiv 2021.10.15.464604; DOI: https://doi.org/10.1101/2021.10.15.464604
+> JL Weissman, Edward-Robert O Dimbo, Arianna I Krinos, Christopher Neely, Yuniba Yagues, Delaney Nolin, Shengwei Hou, Sarah Laperriere, David A Caron, Benjamin L Tully, Harriet Alexander, Jed A Fuhrman. Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns. bioRxiv 2021.10.15.464604; DOI: https://doi.org/10.1101/2021.10.15.464604
 
 ```
 @article {Weissman2021.10.15.464604,
-	author = {Weissman, Jake L and Dimbo, Edward-Robert O and Krinos, Arianna I and Neely, Christopher and Yagues, Yuniba and Nolin, Delaney and Hou, Shengwei and Laperriere, Sarah and Caron, David A and Tully, Benjamin L and Alexander, Harriet and Fuhrman, Jed A},
+	author = {Weissman, JL and Dimbo, Edward-Robert O and Krinos, Arianna I and Neely, Christopher and Yagues, Yuniba and Nolin, Delaney and Hou, Shengwei and Laperriere, Sarah and Caron, David A and Tully, Benjamin L and Alexander, Harriet and Fuhrman, Jed A},
 	title = {Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns},
 	elocation-id = {2021.10.15.464604},
 	year = {2021},
@@ -135,11 +135,11 @@ If you find `gRodon` is useful to your study, please cite us!
 
 #### For metagenomic prediction: the [`Metagenome Mode v2` paper](https://doi.org/10.1101/2022.04.12.488109): 
 
-> Jake L Weissman, Marie Peras, Tyler P Barnum, Jed A Fuhrman. Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics. bioRxiv 2022.04.12.488109; DOI: https://doi.org/10.1101/2022.04.12.488109
+> JL Weissman, Marie Peras, Tyler P Barnum, Jed A Fuhrman. Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics. bioRxiv 2022.04.12.488109; DOI: https://doi.org/10.1101/2022.04.12.488109
 
 ```
 @article {Weissman2022.04.12.488109,
-	author = {Weissman, Jake L. and Peras, Marie and Barnum, Tyler P. and Fuhrman, Jed A.},
+	author = {Weissman, JL and Peras, Marie and Barnum, Tyler P. and Fuhrman, Jed A.},
 	title = {Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics},
 	elocation-id = {2022.04.12.488109},
 	year = {2022},
