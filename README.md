@@ -1,4 +1,4 @@
-**Do you think gRodon is cool? Would you like to work on projects like this? JL is opening a lab in 2023 and [will be recruiting postdocs and a masters student](https://microbialgamut.com/join.html).**
+**Do you think gRodon is cool? Would you like to work on projects like this? JL is opening a lab in 2023 and [will be recruiting postdocs](https://microbialgamut.com/join.html). In particular, I would love to recruit a teaching postdoc (30/70 teaching/research split) through this [really awesome fellowship](https://academicjobsonline.org/ajo/jobs/23015), and I also have 3 years of funding available for a research-only postdoc in addition**
 
 **Do you have growth rates matched to genomes for cultured isolates? Email JL <jakeweis@usc.edu, jw4336@terpmail.umd.edu> and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
 
