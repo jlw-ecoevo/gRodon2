@@ -98,7 +98,7 @@ If you find `gRodon` is useful to your study, please cite us!
 
 #### For prokaryotic prediction: the [`gRodon` paper](https://doi.org/10.1073/pnas.2016810118): 
 
-> JL Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences Mar 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
+> JL Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
 
 ```
 @article {Weissmane2016810118,
@@ -137,7 +137,7 @@ If you find `gRodon` is useful to your study, please cite us!
 
 #### For metagenomic prediction: the [`Metagenome Mode v2` paper](https://doi.org/10.1101/2022.04.12.488109): 
 
-> JL Weissman, Marie Peras, Tyler P Barnum, Jed A Fuhrman. Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics. bioRxiv 2022.04.12.488109; DOI: https://doi.org/10.1101/2022.04.12.488109
+> JL Weissman, Marie Peras, Tyler P Barnum, Jed A Fuhrman. Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics. mSystems 2022, 7 (5) e00745-22; DOI: https://doi.org/10.1128/msystems.00745-22
 
 ```
 @article {Weissman2022.04.12.488109,
