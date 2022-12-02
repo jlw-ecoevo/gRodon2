@@ -2,9 +2,9 @@
 
 # `gRodon`
 
-`gRodon` is an R package to estimate maximal growth rates of prokaryotes and microbial eukaryotes (**new in v2.0.0**) from genome-wide codon usage statistics. You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).
+`gRodon` is an R package to estimate maximal growth rates of prokaryotes and microbial eukaryotes (**new in v2**) from genome-wide codon usage statistics. **You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).**
 
-You can use `gRodon` to get maximal growth rate predictions from individual **genomes**, as well-as bulk community-wide average growth rates from **metagenomes**. 
+You can use `gRodon` to get maximal growth rate predictions from individual *genomes*, as well-as bulk community-wide average growth rates from *metagenomes*. 
 
 To run `gRodon` you will need a fasta file with your coding sequence (ORFs), as well as a list of highly expressed proteins (typically ribosomal proteins). If you would like to run abundance-weighted metagenome mode you will also need mean depth of coverage estimates for each of your ORFs.
 
@@ -51,6 +51,10 @@ highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
 # Run the gRodon growth prediction pipeline
 predictGrowth(genes, highly_expressed)
 ```
+
+## Documentation
+
+**You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).**
 
 ## Using `gRodon` with [`docker`](https://www.docker.com/)
 
@@ -138,14 +142,15 @@ If you find `gRodon` is useful to your study, please cite us!
 ```
 @article {Weissman2022.04.12.488109,
 	author = {Weissman, JL and Peras, Marie and Barnum, Tyler P. and Fuhrman, Jed A.},
-	title = {Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics},
-	elocation-id = {2022.04.12.488109},
+	title = {Benchmarking Community-Wide Estimates of Growth Potential from Metagenomes Using Codon Usage Statistics},
+	journal = {mSystems},
+	volume = {7},
+	number = {5},
+	pages = {e00745-22},
 	year = {2022},
-	doi = {10.1101/2022.04.12.488109},
-	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2022/04/13/2022.04.12.488109},
-	eprint = {https://www.biorxiv.org/content/early/2022/04/13/2022.04.12.488109.full.pdf},
-	journal = {bioRxiv}
+	doi = {10.1128/msystems.00745-22},
+	URL = {https://journals.asm.org/doi/abs/10.1128/msystems.00745-22},
+	eprint = {https://journals.asm.org/doi/pdf/10.1128/msystems.00745-22}
 }
 ```
 
