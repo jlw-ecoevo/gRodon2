@@ -62,7 +62,7 @@
 #'
 #' # Search pre-existing annotations for ribosomal proteins, which we
 #' # will use as our set of highly expressed genes
-#' highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = TRUE)
+#' highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
 #'
 #' # Run the gRodon growth prediction pipeline
 #' predictGrowth(genes, highly_expressed)
