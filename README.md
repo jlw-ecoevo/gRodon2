@@ -60,7 +60,7 @@ predictGrowth(genes, highly_expressed)
 
 ## Using `gRodon` with [`docker`](https://www.docker.com/)
 
-We have compiled a docker image for `gRodon` v1.0.0 (**no eukaryotes, no metagenome_v2 mode**) and v2.0.0 to ease the installation process. You can pull it to your local computer and run it like this:
+We have compiled two docker images for `gRodon` v1.0.0 (**no eukaryotes, no metagenome_v2 mode**) and v2.0.0, respectively, to ease the installation process. You can pull the preferred version to your local computer and run it like this:
 
 ```bash
 # pull the image 
@@ -71,12 +71,12 @@ $ docker pull shengwei/grodon2:latest
 $ docker run -ti --rm shengwei/grodon2:latest
 ```
 
-Now you're inside of docker container, let's start an `R` session
+Now you're inside of the docker container, let's start an `R` session
 ```bash
 $ root@5218b31cd695:/mnt# R
 ```
 
-Now you're inside of `R` REPL of the docker container, let's test `gRodon`: 
+Now you're inside of the `R` REPL of the docker container, let's test `gRodon`: 
 ```
 > library(gRodon)
 > library(Biostrings)
