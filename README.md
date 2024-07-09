@@ -64,10 +64,10 @@ We have compiled a docker image for `gRodon` v1.0.0 (**no eukaryotes, no metagen
 
 ```bash
 # pull the image
-$ docker pull shengwei/grodon:latest
+$ docker pull shengwei/grodon2:latest
 
 # start an interactive container
-$ docker run -ti --rm shengwei/grodon:latest
+$ docker run -ti --rm shengwei/grodon2:latest
 ```
 
 Now you're inside of docker container, let's start an `R` session
@@ -88,8 +88,6 @@ Now you're inside of `R` REPL of the docker container, let's test `gRodon`:
 ```
 
 To mount your own data volume and run in non-interactive mode, please refer to [this](https://hub.docker.com/r/shengwei/das_tool/) example.
-
-If you want to modify and build your own docker image, the source code can be found [here](https://github.com/housw/Bioinfo-Dockerfiles/blob/master/gRodon).
 
 ## `gRodon` with conda
 
