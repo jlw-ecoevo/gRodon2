@@ -314,7 +314,9 @@ If working with thermophiles or psychrophiles you might consider using `gRodon`'
 alternative training set (below) which includes more extremophiles than
 the default training set.
 
-### Alternative Training Set from [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4)
+### Alternative Training Sets 
+
+#### From [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4)
 
 We also include a version of `gRodon` trained on an alternative set of minimal
 doubling time estimates from a trait database compiled by [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4). This is a larger training
@@ -331,3 +333,23 @@ highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
 predictGrowth(genes, highly_expressed, training_set = "madin")
 ```
 
+#### Including AOA and NOB
+
+We have added several AOA and NOB to the Madin training set (some measurements from enrichment cultures) to augment gRodon's suitability for predicting growth rates in these groups. In particular, data for the following species were added:
+- *Nitrososphaera viennensis*
+- *Candidatus Nitrosocosmicus hydrocola*
+- *Nitrosopumilus maritimus SCM1*
+- *Nitrolancea hollandica*
+- *Candidatus Nitrotoga arctica*
+- *Nitrococcus mobilis*
+- *Nitrospina gracilis*
+- *Nitrospinae watsonii*
+
+```{r AOA_NOB}
+path_to_genome <- system.file('extdata',
+  'GCF_000349925.2_ASM34992v2_cds_from_genomic.fna.gz',
+  package = 'gRodon')
+genes <- readDNAStringSet(path_to_genome)
+highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
+predictGrowth(genes, highly_expressed, training_set = "AOA_NOB")
+```

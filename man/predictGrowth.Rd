@@ -40,7 +40,8 @@ a very strong relationship between OGT and max. growth rate for these organisms.
 doubling time dataset or doubling times drawn from the Madin et al. database. This
 setting is only used for prokaryotic modes (eukaryotic models based on their own
 training set from Weissman et al. TBD). For metagenome_v2 mode, only the madin
-set is available.}
+set is available.By default training set is now set to Madin. For AOA and NOB try AOA_NOB
+which includes an expanded set of these organisms (including some measurements from enrichment cultures)}
 
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing
 the coverage of your ORFs to improve your estimate}
@@ -92,7 +93,7 @@ genes <- readDNAStringSet(path_to_genome)
 
 # Search pre-existing annotations for ribosomal proteins, which we
 # will use as our set of highly expressed genes
-highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = TRUE)
+highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
 
 # Run the gRodon growth prediction pipeline
 predictGrowth(genes, highly_expressed)

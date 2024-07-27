@@ -1,6 +1,6 @@
 Package: gRodon
 Title: Inference of prokaryotic and eukaryotic growth rates with codon usage statistics
-Version: 2.3.0
+Version: 2.4.0
 Authors@R: 
     person(given = "JL",
            family = "Weissman",
@@ -16,7 +16,7 @@ License: use_mit_license()
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1
 Imports:
     dplyr,
     Biostrings,
