@@ -1,4 +1,6 @@
-**Do you have growth rates matched to genomes for cultured isolates? Email JL <jw4336@terpmail.umd.edu> and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
+**JL will be [hiring a postdoc and recruiting PhD students](https://microbialgamut.com/join.html) starting Fall 2024 - please reach out (<jackie.weissman@stonybrook.edu>) if you are interested in working on projects like this one!**
+
+**Do you have growth rates matched to genomes for cultured isolates? Email JL (<jackie.weissman@stonybrook.edu>) and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
 
 # `gRodon`
 
@@ -58,22 +60,23 @@ predictGrowth(genes, highly_expressed)
 
 ## Using `gRodon` with [`docker`](https://www.docker.com/)
 
-We have compiled a docker image for `gRodon` v1.0.0 (**no eukaryotes, no metagenome_v2 mode**) to ease the installation process. You can pull it to your local computer and run it like this:
+We have compiled two docker images for `gRodon` v1.0.0 (**no eukaryotes, no metagenome_v2 mode**) and v2.0.0, respectively, to ease the installation process. You can pull the preferred version to your local computer and run it like this:
 
 ```bash
-# pull the image
-$ docker pull shengwei/grodon:latest
+# pull the image 
+# shengwei/grodon:latest for gRodon v1.0.0
+$ docker pull shengwei/grodon2:latest
 
 # start an interactive container
-$ docker run -ti --rm shengwei/grodon:latest
+$ docker run -ti --rm shengwei/grodon2:latest
 ```
 
-Now you're inside of docker container, let's start an `R` session
+Now you're inside of the docker container, let's start an `R` session
 ```bash
 $ root@5218b31cd695:/mnt# R
 ```
 
-Now you're inside of `R` REPL of the docker container, let's test `gRodon`: 
+Now you're inside of the `R` REPL of the docker container, let's test `gRodon`: 
 ```
 > library(gRodon)
 > library(Biostrings)
@@ -86,8 +89,6 @@ Now you're inside of `R` REPL of the docker container, let's test `gRodon`:
 ```
 
 To mount your own data volume and run in non-interactive mode, please refer to [this](https://hub.docker.com/r/shengwei/das_tool/) example.
-
-If you want to modify and build your own docker image, the source code can be found [here](https://github.com/housw/Bioinfo-Dockerfiles/blob/master/gRodon).
 
 ## `gRodon` with conda
 

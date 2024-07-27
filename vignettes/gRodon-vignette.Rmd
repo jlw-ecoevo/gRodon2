@@ -110,7 +110,7 @@ gene_IDs <- gsub(" .*","",names(genes)) #Just look at first part of name before 
 genes <- genes[gene_IDs %in% CDS_IDs]
 
 #Search for genes annotated as ribosomal proteins
-highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
+highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
 ```
 
 You are now ready to run gRodon.
