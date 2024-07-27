@@ -335,7 +335,8 @@ predictGrowth(genes, highly_expressed, training_set = "madin")
 
 #### Including AOA and NOB
 
-We have added several AOA and NOB to the Madin training set (some measurements from enrichment cultures) to augment gRodon's suitability for predicting growth rates in these groups. In particular, data for the following species were added:
+We have added several AOA and NOB to the Madin training set (some measurements from enrichment cultures) to augment gRodon's suitability for predicting growth rates in these groups. TO use this augmented training set use `training_set="AOA_NOB`. In particular, data for the following species were added:
+
 - *Nitrososphaera viennensis*
 - *Candidatus Nitrosocosmicus hydrocola*
 - *Nitrosopumilus maritimus SCM1*
@@ -344,6 +345,7 @@ We have added several AOA and NOB to the Madin training set (some measurements f
 - *Nitrococcus mobilis*
 - *Nitrospina gracilis*
 - *Nitrospinae watsonii*
+
 
 ```{r AOA_NOB}
 path_to_genome <- system.file('extdata',
