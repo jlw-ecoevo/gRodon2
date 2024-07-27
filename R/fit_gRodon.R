@@ -112,7 +112,7 @@ fitModels <- function(stat_data, stat_data_extremo){
   gRodon_model_euk <-
     lm(boxcoxTransform(d, lambda_milc_euk) ~ CUBHE,data=stat_data)
   gRodon_model_euk_temp <-
-    lm(boxcoxTransform(d, lambda_milc_euk) ~ CUBHE+OGT,data=stat_data)
+    lm(boxcoxTransform(d, lambda_milc_euk) ~ CUBHE+OGT,data=stat_data_extremo)
 
   return(list(gRodon_model_base,
               gRodon_model_temp,

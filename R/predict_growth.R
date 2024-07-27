@@ -92,8 +92,8 @@ predictGrowth <- function(genes,
     stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome_v1\", \"metagenome_v2\", \"eukaryote\")")
   }
 
-  if((! training_set  %in% c("vs","madin")) & !mode %in% c("eukaryote","metagenome_euk")){
-    stop("Invalid training set. Please pick an available model (\"vs\", \"madin\")")
+  if((! training_set  %in% c("vs","madin","AOA_NOB")) & !mode %in% c("eukaryote","metagenome_euk")){
+    stop("Invalid training set. Please pick an available model (\"vs\", \"madin\", \"AOA_NOB\")")
   }
 
   if(sum(highly_expressed)<10){
@@ -122,7 +122,7 @@ predictGrowth <- function(genes,
     warning("For best results for eukaryotes an optimal growth temperature must be provided. Much of the variation in max. growth rate between species is explained by temperature, independent of any diffferences in codon usage.")
   }
 
-  if(mode=="metagenome_v2" & training_set=="vs"){
+  if(mode=="metagenome_v2" & training_set %in% c("vs","AOA_NOB")){
     training_set <- "madin"
     warning("Training set automatically set to \"madin\" for metagenome_v2 mode")
   }
@@ -177,6 +177,44 @@ predictGrowth <- function(genes,
       #Transform back from box-cox
       pred_back_transformed <- boxcoxTransform(pred,
                                                lambda_milc,
+                                               back_transform = TRUE)
+    } else if(training_set=="AOA_NOB" & mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
+      if(temperature == "none" & mode=="full"){
+        pred <- stats::predict.lm(gRodon_model_base_AOANOB,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature == "none" & mode=="metagenome_v1"){
+        pred <- stats::predict.lm(gRodon_model_meta_AOANOB,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature == "none" & mode=="partial"){
+        pred <- stats::predict.lm(gRodon_model_partial_AOANOB,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="full"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_temp_AOANOB,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="metagenome_V1"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_meta_temp_AOANOB,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+
+      } else if(temperature != "none" & mode=="partial"){
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_partial_temp_AOANOB,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_milc_AOANOB,
                                                back_transform = TRUE)
     } else if(mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
       if(temperature == "none" & mode=="full"){
