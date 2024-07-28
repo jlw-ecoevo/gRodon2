@@ -119,6 +119,11 @@ predictGrowth <- function(genes,
     warning("Models were trained with a default genetic code of '1' for eukaryotes and '11' for prokaryotes. See https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi")
   }
 
+  if(is.na(temperature) | is.null(temperature)){
+    temperature="none"
+    warning("Missing temperature. Flag set to `temperature=\"none\"`.")
+  }
+
   if(temperature=="none" & mode %in% c("eukaryote","metagenome_euk")){
     warning("For best results for eukaryotes an optimal growth temperature must be provided. Much of the variation in max. growth rate between species is explained by temperature, independent of any diffferences in codon usage.")
   }
