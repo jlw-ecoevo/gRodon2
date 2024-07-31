@@ -144,7 +144,6 @@ predictGrowth <- function(genes,
                                       genetic_code = genetic_code)
 
     codon_stats$dCUB <- (codon_stats$CUB-codon_stats$CUBHE)/codon_stats$CUB
-
     # Predict growth rate (stored models - sysdata.rda)
     if(training_set=="vs" & mode!="eukaryote" & mode!="meta_testing" & mode!="meta_nogc_testing"){
       if(temperature == "none" & mode=="full"){
@@ -168,7 +167,7 @@ predictGrowth <- function(genes,
                                   newdata = codon_stats,
                                   interval = "confidence")
 
-      } else if(temperature != "none" & mode=="metagenome_V1"){
+      } else if(temperature != "none" & mode=="metagenome_v1"){
         codon_stats$OGT <- temperature
         pred <- stats::predict.lm(gRodon_model_meta_temp,
                                   newdata = codon_stats,
@@ -206,7 +205,7 @@ predictGrowth <- function(genes,
                                   newdata = codon_stats,
                                   interval = "confidence")
 
-      } else if(temperature != "none" & mode=="metagenome_V1"){
+      } else if(temperature != "none" & mode=="metagenome_v1"){
         codon_stats$OGT <- temperature
         pred <- stats::predict.lm(gRodon_model_meta_temp_AOANOB,
                                   newdata = codon_stats,
