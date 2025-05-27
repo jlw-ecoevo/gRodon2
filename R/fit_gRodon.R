@@ -8,6 +8,7 @@
 getStatistics <- function(gene_file,
                           genetic_code = "11",
                           bg = "all",
+                          fragments = FALSE,
                           trimlen = NA,
                           trimside = "start"){
   print(gene_file)
@@ -21,12 +22,14 @@ getStatistics <- function(gene_file,
       codon_stats <- try(getCodonStatistics(genes,
                                             highly_expressed,
                                             genetic_code = genetic_code,
+                                            fragments = fragments,
                                             trimlen = trimlen,
                                             trimside = trimside))
     } else if(bg=="individual"){
       codon_stats <- try(getCodonStatistics_i(genes,
                                             highly_expressed,
                                             genetic_code = genetic_code,
+                                            fragments = fragments,
                                             trimlen = trimlen,
                                             trimside = trimside))
     } else{
@@ -51,6 +54,7 @@ getStatisticsBatch <- function(directory,
                                genetic_code="11",
                                mc.cores = 1,
                                bg = "all",
+                               fragments = FALSE,
                                trimlen = NA,
                                trimside = "start"){
   gene_files <- list.files(directory)
@@ -58,6 +62,7 @@ getStatisticsBatch <- function(directory,
   cu <- mclapply(X = gene_paths,
                  FUN = getStatistics,
                  genetic_code = genetic_code,
+                 fragments = fragments,
                  bg = bg,
                  trimlen = trimlen,
                  trimside = trimside,
@@ -73,6 +78,7 @@ getStatisticsBatchWindows <- function(directory,
                                       genetic_code="11",
                                       mc.cores = 1,
                                       bg = "all",
+                                      fragments = FALSE,
                                       trimlen = NA,
                                       trimside = "start"){
   gene_files <- list.files(directory)
@@ -89,6 +95,7 @@ getStatisticsBatchWindows <- function(directory,
                   X = gene_paths,
                   fun = getStatistics,
                   genetic_code = genetic_code,
+                  fragments = fragments,
                   bg = bg,
                   trimlen = trimlen,
                   trimside = trimside)
