@@ -149,7 +149,13 @@ getWeightedConsistency <- function(fna_tab, highly_expressed, depth_of_coverage,
     return()
 }
 
-getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL, genetic_code = "11"){
+getCodonStatistics <- function(genes,
+                               highly_expressed,
+                               fragments = FALSE,
+                               depth_of_coverage = NULL,
+                               genetic_code = "11",
+                               trimlen = NA ,
+                               trimside = "start"){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -166,7 +172,16 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth
                           highly_expressed = highly_expressed,
                           depth_of_coverage = depth_of_coverage)
   }
-  genes <- filtered$Genes
+
+  if(is.na(trimlen)){
+    genes <- filtered$Genes
+  } else if (trimside == "start"){
+    genes <- subseq(filtered$Genes, 1, trimlen)
+  } else if (trimside == "end"){
+    genes <- subseq(filtered$Genes, width(filtered$Genes)-trimlen, width(filtered$Genes))
+  } else {
+    stop("trimside must be set to \"start\" or \"end\"")
+  }
   highly_expressed <- filtered$HE
   depth_of_coverage <- filtered$Depth
 
@@ -221,7 +236,14 @@ getCodonStatistics <- function(genes, highly_expressed, fragments = FALSE, depth
 
 
 
-getCodonStatistics_i <- function(genes, highly_expressed, fragments = FALSE, depth_of_coverage = NULL, genetic_code = "11",n_le=100){
+getCodonStatistics_i <- function(genes,
+                                 highly_expressed,
+                                 fragments = FALSE,
+                                 depth_of_coverage = NULL,
+                                 genetic_code = "11",
+                                 n_le=100,
+                                 trimlen = NA ,
+                                 trimside = "start"){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -238,7 +260,15 @@ getCodonStatistics_i <- function(genes, highly_expressed, fragments = FALSE, dep
                           highly_expressed = highly_expressed,
                           depth_of_coverage = depth_of_coverage)
   }
-  genes <- filtered$Genes
+  if(is.na(trimlen)){
+    genes <- filtered$Genes
+  } else if (trimside == "start"){
+    genes <- subseq(filtered$Genes, 1, trimlen)
+  } else if (trimside == "end"){
+    genes <- subseq(filtered$Genes, width(filtered$Genes)-trimlen, width(filtered$Genes))
+  } else {
+    stop("trimside must be set to \"start\" or \"end\"")
+  }
   highly_expressed <- filtered$HE
   depth_of_coverage <- filtered$Depth
 
