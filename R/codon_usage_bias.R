@@ -154,7 +154,7 @@ getCodonStatistics <- function(genes,
                                fragments = FALSE,
                                depth_of_coverage = NULL,
                                genetic_code = "11",
-                               trimlen = NA ,
+                               trimlen = NA,
                                trimside = "start"){
 
   if(sum(highly_expressed) == 0){
@@ -242,7 +242,7 @@ getCodonStatistics_i <- function(genes,
                                  depth_of_coverage = NULL,
                                  genetic_code = "11",
                                  n_le=100,
-                                 trimlen = NA ,
+                                 trimlen = NA,
                                  trimside = "start"){
 
   if(sum(highly_expressed) == 0){

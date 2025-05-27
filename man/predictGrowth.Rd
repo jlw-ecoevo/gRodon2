@@ -93,7 +93,7 @@ genes <- readDNAStringSet(path_to_genome)
 
 # Search pre-existing annotations for ribosomal proteins, which we
 # will use as our set of highly expressed genes
-highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
+highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = TRUE, perl = TRUE)
 
 # Run the gRodon growth prediction pipeline
 predictGrowth(genes, highly_expressed)

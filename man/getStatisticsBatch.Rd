@@ -4,7 +4,14 @@
 \alias{getStatisticsBatch}
 \title{Get Codon Statistics for All Genomes In a Directory}
 \usage{
-getStatisticsBatch(directory, genetic_code = "11", mc.cores = 1, bg = "all")
+getStatisticsBatch(
+  directory,
+  genetic_code = "11",
+  mc.cores = 1,
+  bg = "all",
+  trimlen = NA,
+  trimside = "start"
+)
 }
 \arguments{
 \item{directory}{path to directory containing annotated CDS files}

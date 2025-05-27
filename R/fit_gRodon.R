@@ -5,7 +5,11 @@
 #' It is assumed that gene names contain annotations of ribosomal proteins.
 #'
 #' @param gene_file  path to CDS-containing fasta file
-getStatistics <- function(gene_file, genetic_code = "11", bg = "all"){
+getStatistics <- function(gene_file,
+                          genetic_code = "11",
+                          bg = "all",
+                          trimlen = NA,
+                          trimside = "start"){
   print(gene_file)
   genes <- readDNAStringSet(gene_file)
   highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
@@ -16,11 +20,15 @@ getStatistics <- function(gene_file, genetic_code = "11", bg = "all"){
     if(bg=="all"){
       codon_stats <- try(getCodonStatistics(genes,
                                             highly_expressed,
-                                            genetic_code = genetic_code))
+                                            genetic_code = genetic_code,
+                                            trimlen = trimlen,
+                                            trimside = trimside))
     } else if(bg=="individual"){
       codon_stats <- try(getCodonStatistics_i(genes,
                                             highly_expressed,
-                                            genetic_code = genetic_code))
+                                            genetic_code = genetic_code,
+                                            trimlen = trimlen,
+                                            trimside = trimside))
     } else{
       stop("Feature in testing, please set bg==\"all\" for normal gRodon behavior")
     }
@@ -39,13 +47,20 @@ getStatistics <- function(gene_file, genetic_code = "11", bg = "all"){
 #' It is assumed that gene names contain annotations of ribosomal proteins.
 #'
 #' @param directory path to directory containing annotated CDS files
-getStatisticsBatch <- function(directory, genetic_code="11", mc.cores = 1, bg = "all"){
+getStatisticsBatch <- function(directory,
+                               genetic_code="11",
+                               mc.cores = 1,
+                               bg = "all",
+                               trimlen = NA,
+                               trimside = "start"){
   gene_files <- list.files(directory)
   gene_paths <- paste0(directory,gene_files)
   cu <- mclapply(X = gene_paths,
                  FUN = getStatistics,
                  genetic_code = genetic_code,
                  bg = bg,
+                 trimlen = trimlen,
+                 trimside = trimside,
                  mc.cores = mc.cores) %>%
     do.call("rbind", .) %>%
     as.data.frame(stringsAsFactors = FALSE) #%>%
@@ -54,7 +69,12 @@ getStatisticsBatch <- function(directory, genetic_code="11", mc.cores = 1, bg = 
 }
 
 
-getStatisticsBatchWindows <- function(directory, genetic_code="11", mc.cores = 1, bg = "all"){
+getStatisticsBatchWindows <- function(directory,
+                                      genetic_code="11",
+                                      mc.cores = 1,
+                                      bg = "all",
+                                      trimlen = NA,
+                                      trimside = "start"){
   gene_files <- list.files(directory)
   gene_paths <- paste0(directory,gene_files)
   cl <- makeCluster(mc.cores)
@@ -69,7 +89,9 @@ getStatisticsBatchWindows <- function(directory, genetic_code="11", mc.cores = 1
                   X = gene_paths,
                   fun = getStatistics,
                   genetic_code = genetic_code,
-                  bg = bg)
+                  bg = bg,
+                  trimlen = trimlen,
+                  trimside = trimside)
   stopCluster(cl)
   # cu <- cu %>%
   #   do.call("rbind", .) %>%
