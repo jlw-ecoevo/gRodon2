@@ -162,23 +162,35 @@ getCodonStatistics <- function(genes,
   }
 
   #Remove short sequences and sequences that are not multiples of 3
-  if(fragments == TRUE){
-    filtered <- filterSeq(genes = genes,
-                          highly_expressed = highly_expressed,
-                          length_threshold = 120,
-                          depth_of_coverage = depth_of_coverage)
+  if(!is.na(fragments)){
+    if(fragments == TRUE){
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            length_threshold = 120,
+                            depth_of_coverage = depth_of_coverage)
+    } else {
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            depth_of_coverage = depth_of_coverage)
+    }
   } else {
     filtered <- filterSeq(genes = genes,
                           highly_expressed = highly_expressed,
+                          length_threshold = 1,
                           depth_of_coverage = depth_of_coverage)
   }
+
 
   if(is.na(trimlen)){
     genes <- filtered$Genes
   } else if (trimside == "start"){
-    genes <- subseq(filtered$Genes, 1, trimlen)
+    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
+               filtered$Genes[width(filtered$Genes)<trimlen])
   } else if (trimside == "end"){
-    genes <- subseq(filtered$Genes, width(filtered$Genes)-trimlen, width(filtered$Genes))
+    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
+                    width(filtered$Genes)-trimlen,
+                    width(filtered$Genes)),
+               filtered$Genes[width(filtered$Genes)<trimlen])
   } else {
     stop("trimside must be set to \"start\" or \"end\"")
   }
@@ -250,22 +262,34 @@ getCodonStatistics_i <- function(genes,
   }
 
   #Remove short sequences and sequences that are not multiples of 3
-  if(fragments == TRUE){
-    filtered <- filterSeq(genes = genes,
-                          highly_expressed = highly_expressed,
-                          length_threshold = 120,
-                          depth_of_coverage = depth_of_coverage)
+  if(!is.na(fragments)){
+    if(fragments == TRUE){
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            length_threshold = 120,
+                            depth_of_coverage = depth_of_coverage)
+    } else {
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            depth_of_coverage = depth_of_coverage)
+    }
   } else {
     filtered <- filterSeq(genes = genes,
                           highly_expressed = highly_expressed,
+                          length_threshold = 1,
                           depth_of_coverage = depth_of_coverage)
   }
+
   if(is.na(trimlen)){
     genes <- filtered$Genes
   } else if (trimside == "start"){
-    genes <- subseq(filtered$Genes, 1, trimlen)
+    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
+               filtered$Genes[width(filtered$Genes)<trimlen])
   } else if (trimside == "end"){
-    genes <- subseq(filtered$Genes, width(filtered$Genes)-trimlen, width(filtered$Genes))
+    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
+                      width(filtered$Genes)-trimlen,
+                      width(filtered$Genes)),
+               filtered$Genes[width(filtered$Genes)<trimlen])
   } else {
     stop("trimside must be set to \"start\" or \"end\"")
   }
