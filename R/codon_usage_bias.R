@@ -184,13 +184,15 @@ getCodonStatistics <- function(genes,
   if(is.na(trimlen)){
     genes <- filtered$Genes
   } else if (trimside == "start"){
-    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
+    genes_trim <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
                filtered$Genes[width(filtered$Genes)<trimlen])
+    genes <- genes_trim[names(genes)]
   } else if (trimside == "end"){
-    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
+    genes_trim <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
                     width(filtered$Genes)-trimlen,
                     width(filtered$Genes)),
                filtered$Genes[width(filtered$Genes)<trimlen])
+    genes <- genes_trim[names(genes)]
   } else {
     stop("trimside must be set to \"start\" or \"end\"")
   }

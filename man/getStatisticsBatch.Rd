@@ -9,6 +9,7 @@ getStatisticsBatch(
   genetic_code = "11",
   mc.cores = 1,
   bg = "all",
+  fragments = FALSE,
   trimlen = NA,
   trimside = "start"
 )

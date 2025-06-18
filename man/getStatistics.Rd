@@ -8,6 +8,7 @@ getStatistics(
   gene_file,
   genetic_code = "11",
   bg = "all",
+  fragments = FALSE,
   trimlen = NA,
   trimside = "start"
 )
