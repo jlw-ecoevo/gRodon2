@@ -183,21 +183,25 @@ getCodonStatistics <- function(genes,
 
   if(is.na(trimlen)){
     genes <- filtered$Genes
+    highly_expressed <- filtered$HE
+    depth_of_coverage <- filtered$Depth
   } else if (trimside == "start"){
-    genes_trim <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
+    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
                filtered$Genes[width(filtered$Genes)<trimlen])
-    genes <- genes_trim[names(genes)]
+    ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
+    highly_expressed <- filtered$HE[ind_genes]
+    depth_of_coverage <- filtered$Depth[ind_genes]
   } else if (trimside == "end"){
-    genes_trim <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
+    genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
                     width(filtered$Genes)-trimlen,
                     width(filtered$Genes)),
                filtered$Genes[width(filtered$Genes)<trimlen])
-    genes <- genes_trim[names(genes)]
+    ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
+    highly_expressed <- filtered$HE[ind_genes]
+    depth_of_coverage <- filtered$Depth[ind_genes]
   } else {
     stop("trimside must be set to \"start\" or \"end\"")
   }
-  highly_expressed <- filtered$HE
-  depth_of_coverage <- filtered$Depth
 
   # codon table
   codon_table <- codonTable(genes)
@@ -284,19 +288,25 @@ getCodonStatistics_i <- function(genes,
 
   if(is.na(trimlen)){
     genes <- filtered$Genes
+    highly_expressed <- filtered$HE
+    depth_of_coverage <- filtered$Depth
   } else if (trimside == "start"){
     genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen], 1, trimlen),
                filtered$Genes[width(filtered$Genes)<trimlen])
+    ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
+    highly_expressed <- filtered$HE[ind_genes]
+    depth_of_coverage <- filtered$Depth[ind_genes]
   } else if (trimside == "end"){
     genes <- c(subseq(filtered$Genes[width(filtered$Genes)>=trimlen],
                       width(filtered$Genes)-trimlen,
                       width(filtered$Genes)),
                filtered$Genes[width(filtered$Genes)<trimlen])
+    ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
+    highly_expressed <- filtered$HE[ind_genes]
+    depth_of_coverage <- filtered$Depth[ind_genes]
   } else {
     stop("trimside must be set to \"start\" or \"end\"")
   }
-  highly_expressed <- filtered$HE
-  depth_of_coverage <- filtered$Depth
 
   # codon table
   codon_table <- codonTable(genes)
