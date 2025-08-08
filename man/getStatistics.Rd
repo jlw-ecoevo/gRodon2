@@ -10,7 +10,8 @@ getStatistics(
   bg = "all",
   fragments = FALSE,
   trimlen = NA,
-  trimside = "start"
+  trimside = "start",
+  all_metrics = F
 )
 }
 \arguments{

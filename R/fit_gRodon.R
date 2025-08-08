@@ -10,7 +10,8 @@ getStatistics <- function(gene_file,
                           bg = "all",
                           fragments = FALSE,
                           trimlen = NA,
-                          trimside = "start"){
+                          trimside = "start",
+                          all_metrics=F){
   print(gene_file)
   genes <- readDNAStringSet(gene_file)
   highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T)
@@ -24,16 +25,18 @@ getStatistics <- function(gene_file,
                                             genetic_code = genetic_code,
                                             fragments = fragments,
                                             trimlen = trimlen,
-                                            trimside = trimside))
+                                            trimside = trimside,
+                                            all_metrics = all_metrics))
     } else if(bg=="individual"){
       codon_stats <- try(getCodonStatistics_i(genes,
                                             highly_expressed,
                                             genetic_code = genetic_code,
                                             fragments = fragments,
                                             trimlen = trimlen,
-                                            trimside = trimside))
+                                            trimside = trimside,
+                                            all_metrics = all_metrics))
     } else{
-      stop("Feature in testing, please set bg==\"all\" for normal gRodon behavior")
+      stop("please set bg=\"all\" for normal gRodon behavior")
     }
     codon_stats[["File"]] <- basename(gene_file)
     if(!inherits(codon_stats,"try-error")){
@@ -56,7 +59,8 @@ getStatisticsBatch <- function(directory,
                                bg = "all",
                                fragments = FALSE,
                                trimlen = NA,
-                               trimside = "start"){
+                               trimside = "start",
+                               all_metrics = F){
   gene_files <- list.files(directory)
   gene_paths <- paste0(directory,gene_files)
   cu <- mclapply(X = gene_paths,
@@ -66,6 +70,7 @@ getStatisticsBatch <- function(directory,
                  bg = bg,
                  trimlen = trimlen,
                  trimside = trimside,
+                 all_metrics = all_metrics,
                  mc.cores = mc.cores) %>%
     do.call("rbind", .) %>%
     as.data.frame(stringsAsFactors = FALSE) #%>%

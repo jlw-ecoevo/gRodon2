@@ -4,26 +4,49 @@ shuffleGenes <- function(gene){
     return()
 }
 
-singleMILC <- function(gene,n=100){
+singleMILC <- function(gene,n=100,method="MILC"){
   bg <- replicate(n,shuffleGenes(gene)) %>% DNAStringSet()
   # print(bg)
   # print(gene)
   genes_bg <- c(DNAStringSet(gene),bg)
   l1 <- logical(n+1)
   l1[1] <- T
-  MILC(codonTable(genes_bg))[1,1] %>%
-    return()
+
+  if(method=="MILC"){
+    MILC(codonTable(genes_bg))[1,1] %>%
+      return()
+
+  } else if(method == "ENCprime"){
+    ENCprime(codonTable(genes_bg))[1,1] %>%
+      return()
+
+  } else if(method == "B"){
+    B(codonTable(genes_bg))[1,1] %>%
+      return()
+
+  } else if(method == "SCUO"){
+    SCUO(codonTable(genes_bg))[1] %>%
+      return()
+
+  } else if(method == "MCB"){
+    MCB(codonTable(genes_bg))[1,1] %>%
+      return()
+
+  } else {
+    stop("Error: Please pick an implemented method (MILC, MILCgenomic, consistency)")
+  }
+
 }
 
 
-CUBi <- function(genes,highly_expressed,n_le=100){
+CUBi <- function(genes,highly_expressed,n_le=100,method="MILC"){
   genes_list <- as.list(as.character(genes)) %>%
     lapply(DNAString)
   genes_list_HE <- genes_list[highly_expressed]
   genes_list_LE <- genes_list[!highly_expressed][sample(1:sum(!highly_expressed),n_le,replace=T)]
 
-  x_HE <- lapply(genes_list_HE,singleMILC) %>% unlist()
-  x_LE <- lapply(genes_list_LE,singleMILC) %>% unlist()
+  x_HE <- lapply(genes_list_HE,singleMILC,method=method) %>% unlist()
+  x_LE <- lapply(genes_list_LE,singleMILC,method=method) %>% unlist()
 
   return(c(median(x_LE),median(x_HE)))
 }
@@ -45,36 +68,6 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
     x <- MILC(fna_tab,id_or_name2 = genetic_code)
     x[, 1] %>% median() %>% return()
 
-  # } else if(method == "MILC_i"){
-  #   # MILC estimate of codon usage bias from coRdon
-  #   #   - Bias of all genes, with genome-wide codon usage considered
-  #   #     expected codon usage
-  #   y <- numeric()
-  #   for(i in 1:sum(highly_expressed)){
-  #     print(MILC(fna_tab[highly_expressed][i]))
-  #     y <- c(y,MILC(fna_tab[highly_expressed][i]))
-  #   }
-  #   print(y)
-  #   y %>% unlist() %>% mean() %>% return()
-  #
-  # } else if(method == "MILCgenomic_i"){
-  #   # MILC estimate of codon usage bias from coRdon
-  #   #   - Bias of all genes, with genome-wide codon usage considered
-  #   #     expected codon usage
-  #   y <- numeric()
-  #   for(i in 1:length(fna_tab)){
-  #     y <- c(y,MILC(fna_tab[i]))
-  #   }
-  #   y %>% unlist() %>% mean() %>% return()
-
-  } else if(method == "MILCgenomic"){
-    # MILC estimate of codon usage bias from coRdon
-    #   - Bias of all genes, with genome-wide codon usage considered
-    #     expected codon usage
-    x <- MILC(fna_tab,id_or_name2 = genetic_code)
-    x[, 1] %>% median() %>% return()
-
-
   } else if(method == "consistency"){
     # Consistency of CUB across highly expressed genes
     #   - Bias of highly expessed genes, with codon usage of highly expressed
@@ -83,6 +76,38 @@ getCUB <- function(fna_tab, highly_expressed, method = "MILC", genetic_code = "1
                  subsets = list(HE = highly_expressed),
                  id_or_name2 = genetic_code)
     milc[highly_expressed, 2] %>% mean() %>% return()
+
+  } else if(method == "ENCprime"){
+      # ENCprime estimate of codon usage bias from coRdon
+      #   - Bias of highly expessed genes, with genome-wide codon usage considered
+      #     expected codon usage
+      x <- ENCprime(fna_tab,id_or_name2 = genetic_code)
+      # print(x[highly_expressed, 1])
+      x[highly_expressed, 1] %>% median() %>% return()
+
+  } else if(method == "B"){
+    # B estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- B(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed, 1] %>% median() %>% return()
+
+  } else if(method == "SCUO"){
+    # SCUO estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- SCUO(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed] %>% median() %>% return()
+
+  } else if(method == "MCB"){
+    # MCB estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- MCB(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed, 1] %>% median() %>% return()
 
   } else {
     stop("Error: Please pick an implemented method (MILC, MILCgenomic, consistency)")
@@ -96,23 +121,70 @@ getWeightedCUB <- function(fna_tab, highly_expressed, depth_of_coverage, genetic
       return()
 }
 
-getWeightedCUBHE <- function(fna_tab, highly_expressed, depth_of_coverage, genetic_code = "11"){
-  x <- MILC(fna_tab,id_or_name2 = genetic_code)
-  x[highly_expressed, 1] %>%
-    weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
-    return()
+getWeightedCUBHE <- function(fna_tab, highly_expressed, depth_of_coverage, genetic_code = "11",method="MILC"){
+
+  if(method=="MILC"){
+    x <- MILC(fna_tab,id_or_name2 = genetic_code)
+    x[highly_expressed, 1] %>%
+      weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
+      return()
+  }
+
+  else if(method == "ENCprime"){
+    # MILC estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- ENCprime(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed, 1] %>%
+      weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
+      return()
+
+  } else if(method == "B"){
+    # MILC estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- B(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed, 1] %>%
+      weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
+      return()
+
+  } else if(method == "SCUO"){
+    # MILC estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- SCUO(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed] %>%
+      weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
+      return()
+
+  } else if(method == "MCB"){
+    # MILC estimate of codon usage bias from coRdon
+    #   - Bias of highly expessed genes, with genome-wide codon usage considered
+    #     expected codon usage
+    x <- MCB(fna_tab,id_or_name2 = genetic_code)
+    # print(x[highly_expressed, 1])
+    x[highly_expressed, 1] %>%
+      weightedMedian(., w = depth_of_coverage[highly_expressed]) %>%
+      return()
+
+  } else {
+    stop("Error: Please pick an implemented method (MILC)")
+  }
+
 }
 
-
-getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=100){
+getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=100,method="MILC"){
   genes_list <- as.list(as.character(genes)) %>%
     lapply(DNAString)
   samp_le <- sample(1:sum(!highly_expressed),n_le,replace=T)
   genes_list_HE <- genes_list[highly_expressed]
   genes_list_LE <- genes_list[!highly_expressed][samp_le]
 
-  x_HE <- lapply(genes_list_HE,singleMILC) %>% unlist()
-  x_LE <- lapply(genes_list_LE,singleMILC) %>% unlist()
+  x_HE <- lapply(genes_list_HE,singleMILC,method=method) %>% unlist()
+  x_LE <- lapply(genes_list_LE,singleMILC,method=method) %>% unlist()
 
   wHE <- x_HE %>%
     weightedMedian(., w = depth_of_coverage[highly_expressed])
@@ -121,25 +193,6 @@ getWeightedCUBi <- function(genes,highly_expressed,depth_of_coverage,n_le=100){
 
   return(c(median(wLE),median(wHE)))
 }
-
-
-# getWeightedCUBHE_i <- function(fna_tab, highly_expressed, depth_of_coverage, genetic_code = "11"){
-#   y <- numeric()
-#   for(i in 1:sum(highly_expressed)){
-#     y <- c(y,MILC(fna_tab[highly_expressed][i]))
-#   }
-#   sum(unlist(y)*depth_of_coverage[highly_expressed]/sum(depth_of_coverage[highly_expressed])) %>%
-#     return()
-# }
-#
-# getWeightedCUB_i <- function(fna_tab, highly_expressed, depth_of_coverage, genetic_code = "11"){
-#   y <- numeric()
-#   for(i in 1:length(fna_tab)){
-#     y <- c(y,MILC(fna_tab[i]))
-#   }
-#   sum(unlist(y)*depth_of_coverage/sum(depth_of_coverage)) %>%
-#     return()
-# }
 
 getWeightedConsistency <- function(fna_tab, highly_expressed, depth_of_coverage, genetic_code = "11"){
   x <- MILC(fna_tab,
@@ -155,7 +208,8 @@ getCodonStatistics <- function(genes,
                                depth_of_coverage = NULL,
                                genetic_code = "11",
                                trimlen = NA,
-                               trimside = "start"){
+                               trimside = "start",
+                               all_metrics=F){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -209,7 +263,7 @@ getCodonStatistics <- function(genes,
   # codon pair counts
   codon_pair_table <- getPairCounts(genes, genetic_code = genetic_code)
 
-  if(!is.null(depth_of_coverage)){
+  if(!is.null(depth_of_coverage) & !all_metrics){
     gc <- sum(alphabetFrequency(genes)[,2:3]*depth_of_coverage)/sum(alphabetFrequency(genes)*depth_of_coverage)
     return(data.frame(CUBHE = getWeightedCUBHE(codon_table,
                                      highly_expressed,
@@ -229,7 +283,7 @@ getCodonStatistics <- function(genes,
                       FilteredSequences = filtered$Filtered,
                       nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
-  } else {
+  } else if (is.null(depth_of_coverage) & !all_metrics){
     gc <- sum(alphabetFrequency(genes)[,2:3])/sum(alphabetFrequency(genes))
     return(data.frame(CUBHE = getCUB(codon_table,
                                      highly_expressed,
@@ -249,6 +303,58 @@ getCodonStatistics <- function(genes,
                       FilteredSequences = filtered$Filtered,
                       nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
+  } else if(!is.null(depth_of_coverage) & all_metrics){
+    gc <- sum(alphabetFrequency(genes)[,2:3]*depth_of_coverage)/sum(alphabetFrequency(genes)*depth_of_coverage)
+    return(data.frame(MILC = getWeightedCUBHE(codon_table,
+                                               highly_expressed,
+                                               depth_of_coverage,
+                                               genetic_code = genetic_code),
+                      ENCprime = getWeightedCUBHE(codon_table,
+                                              highly_expressed,
+                                              depth_of_coverage,
+                                              genetic_code = genetic_code,
+                                              method="ENCprime"),
+                      B = getWeightedCUBHE(codon_table,
+                                                  highly_expressed,
+                                                  depth_of_coverage,
+                                                  genetic_code = genetic_code,
+                                                  method="B"),
+                      SCUO = getWeightedCUBHE(codon_table,
+                                                  highly_expressed,
+                                                  depth_of_coverage,
+                                                  genetic_code = genetic_code,
+                                                  method="SCUO"),
+                      MCB = getWeightedCUBHE(codon_table,
+                                                  highly_expressed,
+                                                  depth_of_coverage,
+                                                  genetic_code = genetic_code,
+                                                  method="MCB"),
+                      nHE = sum(highly_expressed),
+                      stringsAsFactors = FALSE))
+  } else if (is.null(depth_of_coverage) & all_metrics){
+    gc <- sum(alphabetFrequency(genes)[,2:3])/sum(alphabetFrequency(genes))
+    return(data.frame(CUB = getCUB(codon_table,
+                                     highly_expressed,
+                                     method = "MILC",
+                                     genetic_code = genetic_code),
+                      ENCprime = getCUB(codon_table,
+                                                  highly_expressed,
+                                                  genetic_code = genetic_code,
+                                                  method="ENCprime"),
+                      B = getCUB(codon_table,
+                                           highly_expressed,
+                                           genetic_code = genetic_code,
+                                           method="B"),
+                      SCUO = getCUB(codon_table,
+                                              highly_expressed,
+                                              genetic_code = genetic_code,
+                                              method="SCUO"),
+                      MCB = getCUB(codon_table,
+                                             highly_expressed,
+                                             genetic_code = genetic_code,
+                                             method="MCB"),
+                      nHE = sum(highly_expressed),
+                      stringsAsFactors = FALSE))
   }
 }
 
@@ -261,7 +367,8 @@ getCodonStatistics_i <- function(genes,
                                  genetic_code = "11",
                                  n_le=100,
                                  trimlen = NA,
-                                 trimside = "start"){
+                                 trimside = "start",
+                                 all_metrics=F){
 
   if(sum(highly_expressed) == 0){
     stop("No highly expressed genes?")
@@ -314,7 +421,7 @@ getCodonStatistics_i <- function(genes,
   # codon pair counts
   codon_pair_table <- getPairCounts(genes, genetic_code = genetic_code)
 
-  if(!is.null(depth_of_coverage)){
+  if(!is.null(depth_of_coverage) & !all_metrics){
     gc <- sum(alphabetFrequency(genes)[,2:3]*depth_of_coverage)/sum(alphabetFrequency(genes)*depth_of_coverage)
     cubi <- getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le)
     return(data.frame(CUBHE = cubi[2],
@@ -329,7 +436,7 @@ getCodonStatistics_i <- function(genes,
                       FilteredSequences = filtered$Filtered,
                       nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
-  } else {
+  } else if(is.null(depth_of_coverage) & !all_metrics){
     cubi <- CUBi(genes,highly_expressed,n_le=n_le)
     gc <- sum(alphabetFrequency(genes)[,2:3])/sum(alphabetFrequency(genes))
     return(data.frame(CUBHE = cubi[2],
@@ -342,6 +449,34 @@ getCodonStatistics_i <- function(genes,
                       CUB = cubi[1],
                       CPB = NA,
                       FilteredSequences = filtered$Filtered,
+                      nHE = sum(highly_expressed),
+                      stringsAsFactors = FALSE))
+  } else if(!is.null(depth_of_coverage) & all_metrics){
+    gc <- sum(alphabetFrequency(genes)[,2:3]*depth_of_coverage)/sum(alphabetFrequency(genes)*depth_of_coverage)
+    cubi <- getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le)
+    return(data.frame(MILC = cubi[2],
+                      ENCprime = getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le,
+                                                 method="ENCprime")[2],
+                      B = getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le,
+                                                 method="B")[2],
+                      SCUO = getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le,
+                                                 method="SCUO")[2],
+                      MCB = getWeightedCUBi(genes,highly_expressed,depth_of_coverage,n_le=n_le,
+                                                 method="MCB")[2],
+                      nHE = sum(highly_expressed),
+                      stringsAsFactors = FALSE))
+  } else if(is.null(depth_of_coverage) & all_metrics){
+    cubi <- CUBi(genes,highly_expressed,n_le=n_le)
+    gc <- sum(alphabetFrequency(genes)[,2:3])/sum(alphabetFrequency(genes))
+    return(data.frame(MILC = cubi[2],
+                      ENCprime = CUBi(genes,highly_expressed,n_le=n_le,
+                                      method="ENCprime")[2],
+                      B = CUBi(genes,highly_expressed,n_le=n_le,
+                                      method="B")[2],
+                      SCUO = CUBi(genes,highly_expressed,n_le=n_le,
+                                      method="SCUO")[2],
+                      MCB = CUBi(genes,highly_expressed,n_le=n_le,
+                                      method="MCB")[2],
                       nHE = sum(highly_expressed),
                       stringsAsFactors = FALSE))
   }
