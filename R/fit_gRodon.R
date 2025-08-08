@@ -14,7 +14,7 @@ getStatistics <- function(gene_file,
                           all_metrics=F){
   print(gene_file)
   genes <- readDNAStringSet(gene_file)
-  highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T)
+  highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
   # print(table(highly_expressed))
   if(sum(highly_expressed)<10){
     return(NULL)
