@@ -333,7 +333,7 @@ getCodonStatistics <- function(genes,
                       stringsAsFactors = FALSE))
   } else if (is.null(depth_of_coverage) & all_metrics){
     gc <- sum(alphabetFrequency(genes)[,2:3])/sum(alphabetFrequency(genes))
-    return(data.frame(CUB = getCUB(codon_table,
+    return(data.frame(MILC = getCUB(codon_table,
                                      highly_expressed,
                                      method = "MILC",
                                      genetic_code = genetic_code),
