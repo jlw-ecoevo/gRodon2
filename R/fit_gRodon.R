@@ -16,6 +16,8 @@ getStatistics <- function(gene_file,
   if(!is.na(gene_file)){
     print(gene_file)
     genes <- readDNAStringSet(gene_file)
+  } else {
+    gene_file <- "genome provided directly"
   }
   highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
   # print(table(highly_expressed))
