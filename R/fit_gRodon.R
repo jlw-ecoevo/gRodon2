@@ -21,8 +21,8 @@ getStatistics <- function(gene_file,
   }
   highly_expressed <- grepl("^(?!.*(methyl|hydroxy)).*0S ribosomal protein",names(genes),ignore.case = T, perl = TRUE)
   # print(table(highly_expressed))
-  if(sum(highly_expressed)<10){
-    return(NULL)
+  if(sum(highly_expressed)<1){
+    stop("no highly expressed genes")
   } else {
     if(bg=="all"){
       codon_stats <- try(getCodonStatistics(genes,
