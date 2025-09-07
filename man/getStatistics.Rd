@@ -6,6 +6,7 @@
 \usage{
 getStatistics(
   gene_file,
+  genes = NA,
   genetic_code = "11",
   bg = "all",
   fragments = FALSE,

@@ -10,6 +10,7 @@
 #' genes. Must be of same length as \code{genes}. Typically these are ribosomal proteins
 #' (all models were trained using ribosomal proteins as the highly expressed set.)
 #' @param mode Whether to run prediction in full, partial, metagenome_v1, metagenome_v2,
+#' metagenome_150bp, metagenome_250bp,
 #' eukaryote, or metagenome_euk mode
 #' (by default gRodon applies the full model). Mode metagenome_v2 may run slower
 #' than the other prediction modes when consistency>0.6.
@@ -21,8 +22,8 @@
 #' @param training_set Whether to use models trained on the original Vieira-Silva et al.
 #' doubling time dataset or doubling times drawn from the Madin et al. database. This
 #' setting is only used for prokaryotic modes (eukaryotic models based on their own
-#'  training set from Weissman et al. TBD). For metagenome_v2 mode, only the madin
-#'  set is available.By default training set is now set to Madin. For AOA and NOB try AOA_NOB
+#'  training set from Weissman et al. TBD). For metagenome_v2,metagenome_150bp, and metagenome_250bp, modes, only the madin
+#'  set is available. By default training set is now set to Madin. For AOA and NOB try AOA_NOB
 #'  which includes an expanded set of these organisms (including some measurements from enrichment cultures)
 #' @param depth_of_coverage When using metagenome mode, provide a vector containing
 #' the coverage of your ORFs to improve your estimate
@@ -51,6 +52,11 @@
 #'   \item{d}{Predicted doubling time in hours}
 #'   \item{LowerCI}{Lower CI of \code{d} (2.5%) from linear model}
 #'   \item{UpperCI}{Upper CI of \code{d} (97.5%) from linear model}
+#'   \item{MILC}{MILC of highly expressed genes (only short-read modes return)}
+#'   \item{ENCprime}{ENCprime of highly expressed genes (only short-read modes return)}
+#'   \item{B}{B of highly expressed genes (only short-read modes return)}
+#'   \item{SCUO}{SCUO of highly expressed genes (only short-read modes return)}
+#'   \item{MCB}{MCB of highly expressed genes (only short-read modes return)}
 #' }
 #' @examples
 #' # Load in example genome (Streptococcus pyogenes M1, downloaded from RefSeq)
@@ -89,8 +95,8 @@ predictGrowth <- function(genes,
                           n_le = 100,
                           bg = "all"){
 
-  if(! mode %in% c("full","partial","metagenome_v1","metagenome_v2","metagenome_euk","eukaryote","meta_testing","meta_nogc_testing")){
-    stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome_v1\", \"metagenome_v2\", \"eukaryote\")")
+  if(! mode %in% c("full","partial","metagenome_v1","metagenome_v2","metagenome_euk","eukaryote","meta_testing","meta_nogc_testing","metagenome_150bp","metagenome_250bp")){
+    stop("Invalid mode. Please pick an available prediction mode (\"full\", \"partial\", \"metagenome_v1\", \"metagenome_v2\",\"metagenome_150bp\", \"metagenome_250bp\", \"eukaryote\")")
   }
 
   if((! training_set  %in% c("vs","madin","AOA_NOB")) & !mode %in% c("eukaryote","metagenome_euk")){
@@ -101,7 +107,7 @@ predictGrowth <- function(genes,
     warning("Less than 10 highly expressed genes provided, performance may suffer")
   }
 
-  if(!(mode %in% c("metagenome_v1","metagenome_v2","meta_testing","meta_nogc_testing","metagenome_euk")) & !is.null(depth_of_coverage)){
+  if(!(mode %in% c("metagenome_v1","metagenome_v2","metagenome_150bp","metagenome_250bp","meta_testing","meta_nogc_testing","metagenome_euk")) & !is.null(depth_of_coverage)){
     warning("Ignoring depth_of_coverage because not in metagenome mode")
     depth_of_coverage <- NULL
   }
@@ -131,6 +137,16 @@ predictGrowth <- function(genes,
   if(mode=="metagenome_v2" & training_set %in% c("vs","AOA_NOB")){
     training_set <- "madin"
     warning("Training set automatically set to \"madin\" for metagenome_v2 mode")
+  }
+
+  if((!training_set  %in% c("madin")) & !mode %in% c("metagenome_150bp","metagenome_250bp")){
+    training_set <- "madin"
+    warning("For short-read modes model training set automatically set to \"madin\"")
+  }
+
+  if(mode %in% c("metagenome_150bp","metagenome_250bp")){
+    bg <- "individual"
+    warning("For short-read modes background CUB calculation set to individual mode automatically (bg=\"individual\")")
   }
 
   i_flag <- 0
@@ -392,7 +408,7 @@ predictGrowth <- function(genes,
     }
 
 
-  } else if(bg=="individual"){
+  } else if(bg=="individual" & !mode %in% c("metagenome_150bp","metagenome_250bp")){
     if(!(mode %in% c("meta_testing","meta_nogc_testing","metagenome","eukaryote"))){
       stop("Mode not compatible with gene-level CUB calculations")
     }
@@ -465,8 +481,56 @@ predictGrowth <- function(genes,
                                                lambda_milc_madin_i,
                                                back_transform = TRUE)
     }
-  } else{
-    stop("Feature in testing, please set bg==\"all\" for normal gRodon behavior")
+  } else if(bg=="individual" & mode %in% c("metagenome_150bp","metagenome_250bp")){
+    if(mode=="metagenome_150bp"){
+      codon_stats <- getCodonStatistics_i(genes,
+                           highly_expressed,
+                           genetic_code = genetic_code,
+                           fragments = NA,
+                           trimlen = 150,
+                           depth_of_coverage = depth_of_coverage,
+                           trimside = "start",
+                           all_metrics = T)
+
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_base_t150,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_temp_t150,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_newmeta_i,
+                                               back_transform = TRUE)
+    } else if(mode=="metagenome_250bp"){
+      codon_stats <- getCodonStatistics_i(genes,
+                                          highly_expressed,
+                                          genetic_code = genetic_code,
+                                          fragments = NA,
+                                          trimlen = 250,
+                                          depth_of_coverage = depth_of_coverage,
+                                          trimside = "start",
+                                          all_metrics = T)
+
+      if(temperature == "none"){
+        pred <- stats::predict.lm(gRodon_model_base_t250,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      } else {
+        codon_stats$OGT <- temperature
+        pred <- stats::predict.lm(gRodon_model_temp_t250,
+                                  newdata = codon_stats,
+                                  interval = "confidence")
+      }
+      #Transform back from box-cox
+      pred_back_transformed <- boxcoxTransform(pred,
+                                               lambda_newmeta_i,
+                                               back_transform = TRUE)
+    }
   }
 
 

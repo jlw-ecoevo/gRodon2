@@ -26,6 +26,7 @@ genes. Must be of same length as \code{genes}. Typically these are ribosomal pro
 (all models were trained using ribosomal proteins as the highly expressed set.)}
 
 \item{mode}{Whether to run prediction in full, partial, metagenome_v1, metagenome_v2,
+metagenome_150bp, metagenome_250bp,
 eukaryote, or metagenome_euk mode
 (by default gRodon applies the full model). Mode metagenome_v2 may run slower
 than the other prediction modes when consistency>0.6.}
@@ -39,8 +40,8 @@ a very strong relationship between OGT and max. growth rate for these organisms.
 \item{training_set}{Whether to use models trained on the original Vieira-Silva et al.
 doubling time dataset or doubling times drawn from the Madin et al. database. This
 setting is only used for prokaryotic modes (eukaryotic models based on their own
-training set from Weissman et al. TBD). For metagenome_v2 mode, only the madin
-set is available.By default training set is now set to Madin. For AOA and NOB try AOA_NOB
+training set from Weissman et al. TBD). For metagenome_v2,metagenome_150bp, and metagenome_250bp, modes, only the madin
+set is available. By default training set is now set to Madin. For AOA and NOB try AOA_NOB
 which includes an expanded set of these organisms (including some measurements from enrichment cultures)}
 
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing
@@ -76,6 +77,11 @@ calulation (due to length and/or presence of ambiguous bases)}
 \item{d}{Predicted doubling time in hours}
 \item{LowerCI}{Lower CI of \code{d} (2.5\%) from linear model}
 \item{UpperCI}{Upper CI of \code{d} (97.5\%) from linear model}
+\item{MILC}{MILC of highly expressed genes (only short-read modes return)}
+\item{ENCprime}{ENCprime of highly expressed genes (only short-read modes return)}
+\item{B}{B of highly expressed genes (only short-read modes return)}
+\item{SCUO}{SCUO of highly expressed genes (only short-read modes return)}
+\item{MCB}{MCB of highly expressed genes (only short-read modes return)}
 }
 }
 \description{
