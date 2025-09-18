@@ -210,3 +210,20 @@ fitGCModels <- function(stat_data, stat_data_extremo){
               meta_model_temp,
               lambda_oldmeta))
 }
+
+#' Fit gRodon short gene models
+#'
+#' This function fits the gRodon GC-corrected metagenome mode models
+#'
+#' @param stat_data dataframe with codon usage statistics and known doubling times
+fitTrimModels <- function(stat_data, stat_data_extremo){
+  bc_cub <- boxcox(d~MILC+ENCprime+B+SCUO+MCB,data=stat_data)
+  lambda_cub <- bc_cub$x[which.max(bc_cub$y)]
+
+  gRodon_model_trim <- lm(boxcoxTransform(d, lambda_cub) ~MILC+ENCprime+B+SCUO+MCB,
+                         data=stat_data)
+  gRodon_model_trim_temp <- lm(boxcoxTransform(d, lambda_cub) ~MILC+ENCprime+B+SCUO+MCB+OGT,
+                              data=stat_data_extremo)
+
+  return(list(gRodon_model_trim,gRodon_model_trim_temp,lambda_cub))
+}

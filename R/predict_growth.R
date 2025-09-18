@@ -504,7 +504,7 @@ predictGrowth <- function(genes,
       }
       #Transform back from box-cox
       pred_back_transformed <- boxcoxTransform(pred,
-                                               lambda_newmeta_i,
+                                               lambda_t150,
                                                back_transform = TRUE)
     } else if(mode=="metagenome_250bp"){
       codon_stats <- getCodonStatistics_i(genes,
@@ -528,7 +528,7 @@ predictGrowth <- function(genes,
       }
       #Transform back from box-cox
       pred_back_transformed <- boxcoxTransform(pred,
-                                               lambda_newmeta_i,
+                                               lambda_t250,
                                                back_transform = TRUE)
     }
   }
