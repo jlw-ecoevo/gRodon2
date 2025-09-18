@@ -1,6 +1,6 @@
 Package: gRodon
 Title: Inference of prokaryotic and eukaryotic growth rates with codon usage statistics
-Version: 2.4.1
+Version: 2.5
 Authors@R: 
     person(given = "JL",
            family = "Weissman",

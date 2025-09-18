@@ -221,10 +221,11 @@ genes optimized in different ways, and gRodon will severely underestimate your m
 growth rate. If you are getting really long minimal doubling times check to make sure
 you are using metagenome mode.
 
-**Metagenome mode is currently being updated.** The metagenome_v1 mode is the one
+**Metagenome mode has been updated.** The metagenome_v1 mode is the one
 described in the original paper, but suffers from GC-bias (unlike gRodon's 
-full mode). We have implemented metagenome_v2 mode which corrects for this, with
-a preprint coming soon describing a number of benchmarking experiments.
+full mode). We have implemented metagenome_v2 mode which corrects for this (see [here](https://doi.org/10.1128/msystems.00745-22)).
+Please note that MMv2 is inherently stochastic for metagenomes with `Consistency>0.6` and predictions will vary slightly run-to-run (see paper).
+
 
 Let's try this on one of the samples from [Okie et al.](https://doi.org/10.7554/eLife.49816), as discussed in the
 `gRodon` manuscript:
@@ -235,7 +236,7 @@ path_to_metagenome <- system.file('extdata',
   package = 'gRodon')
 genes <- readDNAStringSet(path_to_metagenome)
 highly_expressed <- grepl("ribosomal protein",names(genes),ignore.case = T)
-predictGrowth(genes, highly_expressed, mode = "metagenome_v1")
+predictGrowth(genes, highly_expressed, mode = "metagenome_v2")
 ```
 
 You may also want to incorporate a correction for the relative abundance of different
@@ -264,9 +265,16 @@ And now let's run weighted metagenome mode:
 ```{r weightedM}
 predictGrowth(genes, 
               highly_expressed, 
-              mode = "metagenome_v1", 
+              mode = "metagenome_v2", 
               depth_of_coverage = depth_of_coverage)
 ```
+
+#### Direct Inference From Short Reads (Assembly Free)
+
+If you have genes inferred directly from reads (e.g., from [FragGeneScanRs](https://doi.org/10.1186/s12859-022-04736-5)), you can predict growth rates
+on these short coding sequences more accurately using gene length specific models. We have implemented two
+additional gRodon modes, `metagenome_150bp` and `metagenome_250`, designed for this application that have been 
+benchmarked on synthetic metagenomes. 
 
 ### Slow Growers
 
@@ -278,8 +286,9 @@ codon-usage bias tends to plateau at a lower-bound in slow-growers.
 
 What does this mean for you? Well, `gRodon` can reliably tell you if your
 microbe grows slowly, but it can't tell you how slowly. In practice, minimal doubling 
-time predictions appear to be accurate up to 5 hours. If `gRodon` predicts a
-doubling time above 5 hours, you can confidently say your microbe grows slowly,
+time predictions appear to be accurate up to 5 hours for organisms with growth temperatures around 30C 
+(or CUBHE>0.59, dCUB<-0.08 is working with organisms with different optimal growth temperatures). If `gRodon` predicts a
+doubling time/codon usage bias beyond these thresholds, you can confidently say your microbe grows slowly,
 but not quite how slowly (minimal doubling times >5hrs tend to be underestimates). 
 In these cases `gRodon` will even warn you to be  careful:
 
@@ -321,7 +330,7 @@ the default training set.
 We also include a version of `gRodon` trained on an alternative set of minimal
 doubling time estimates from a trait database compiled by [Madin et al.](https://doi.org/10.1038/s41597-020-0497-4). This is a larger training
 set than the set of minimal doubling times fron [Vieira-Silva et al.](https://doi.org/10.1371/journal.pgen.1000808), though both training sets give
-very similar results. See the `gRodon` paper for an in-depth discussion.
+very similar results. See the `gRodon` paper for an in-depth discussion. As of the most recent gRodon update, the Madin training set is now the default.
 
 
 ```{r madin}

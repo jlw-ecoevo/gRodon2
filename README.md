@@ -155,6 +155,29 @@ If you find `gRodon` is useful to your study, please cite us!
 }
 ```
 
+#### For Assembly-Free Prediction from Short-Reads:  [Natarajan & Weissman]() (Forthcoming): 
+
+TBD
+
+#### For AOA and NOB modes:  [Buchanan et al](https://doi.org/10.1126/science.ado0742): 
+
+> Pearse J. Buchanan et al. Oxygen intrusions sustain aerobic nitrite-oxidizing bacteria in anoxic marine zones.Science 2025, 388,1069-1074, DOI: https://doi.org/10.1126/science.ado0742
+
+```
+@article{
+doi:10.1126/science.ado0742,
+author = {Pearse J. Buchanan  and Xin Sun  and J. L. Weissman  and Daniel McCoy  and Daniele Bianchi  and Emily J. Zakem },
+title = {Oxygen intrusions sustain aerobic nitrite-oxidizing bacteria in anoxic marine zones},
+journal = {Science},
+volume = {388},
+number = {6751},
+pages = {1069-1074},
+year = {2025},
+doi = {10.1126/science.ado0742},
+URL = {https://www.science.org/doi/abs/10.1126/science.ado0742},
+}
+```
+
 #### We also encourage you to cite `gRodon`'s dependencies:
 
 > Elek A, Kuzman M, Vlahovicek K (2020). coRdon: Codon Usage Analysis and Prediction of Gene Expressivity. R package version 1.8.0, https://github.com/BioinfoHR/coRdon
