@@ -253,8 +253,19 @@ getCodonStatistics <- function(genes,
     ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
     highly_expressed <- filtered$HE[ind_genes]
     depth_of_coverage <- filtered$Depth[ind_genes]
+  } else if (trimside == "random"){
+    genes_ok <- filtered$Genes[width(filtered$Genes)>=trimlen]
+    start_lims <- width(genes_ok)-150+1
+    start_inds <- lapply(start_lims,randomTriplet) %>% unlist()
+    genes <- c(subseq(genes_ok,
+                      start_inds,
+                      start_inds+trimlen-1),
+               filtered$Genes[width(filtered$Genes)<trimlen])
+    ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
+    highly_expressed <- filtered$HE[ind_genes]
+    depth_of_coverage <- filtered$Depth[ind_genes]
   } else {
-    stop("trimside must be set to \"start\" or \"end\"")
+    stop("trimside must be set to \"start\",\"end\", or \"random\"")
   }
 
   # codon table
@@ -411,8 +422,19 @@ getCodonStatistics_i <- function(genes,
     ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
     highly_expressed <- filtered$HE[ind_genes]
     depth_of_coverage <- filtered$Depth[ind_genes]
+  } else if (trimside == "random"){
+      genes_ok <- filtered$Genes[width(filtered$Genes)>=trimlen]
+      start_lims <- width(genes_ok)-150+1
+      start_inds <- lapply(start_lims,randomTriplet) %>% unlist()
+      genes <- c(subseq(genes_ok,
+                        start_inds,
+                        start_inds+trimlen-1),
+                 filtered$Genes[width(filtered$Genes)<trimlen])
+      ind_genes <- c(which(width(filtered$Genes)>=trimlen), which(width(filtered$Genes)<trimlen))
+      highly_expressed <- filtered$HE[ind_genes]
+      depth_of_coverage <- filtered$Depth[ind_genes]
   } else {
-    stop("trimside must be set to \"start\" or \"end\"")
+    stop("trimside must be set to \"start\",\"end\", or \"random\"")
   }
 
   # codon table

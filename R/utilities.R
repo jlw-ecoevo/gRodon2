@@ -1,4 +1,4 @@
-
+randomTriplet <- function(x){sample(seq(1,x,3),1)}
 
 filterSeq <- function(genes, highly_expressed, length_threshold = 240, depth_of_coverage = NULL){
   # Gene lengths >= 80 codons for good behavior (see coRdon documentation)
