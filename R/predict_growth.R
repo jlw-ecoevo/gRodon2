@@ -27,9 +27,13 @@
 #'  which includes an expanded set of these organisms (including some measurements from enrichment cultures)
 #' @param depth_of_coverage When using metagenome mode, provide a vector containing
 #' the coverage of your ORFs to improve your estimate
-#' @param fragments Do not change (performance will suffer, publication forthcoming).
-#' If using gene fragments predicted from reads, will use a
-#' more permissive length filter (120bp as opposed to 240bp)
+#' @param fragments Will use a
+#' more permissive length filter if set to T (120bp as opposed to 240bp, default=F). For gene fragments
+#' predicted from reads consider setting fragments=NA and using mode="metagenome_150bp"
+#' or "metagenome_250bp".
+#' @param exclude_short For use with mode="metagenome_150bp" or
+#' "metagenome_250bp". Will exclude genes with lengths below 150bp or 250bp respectively
+#' from the CUB calculations (default=F).
 #' @param genetic_code The genetic code of the organism to be used in codon usage
 #' calculations (see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By
 #' default code "1" is used for eukaryote mode and code "11" for prokaryotic modes.
@@ -91,6 +95,7 @@ predictGrowth <- function(genes,
                           training_set = "madin",
                           depth_of_coverage = NULL,
                           fragments = FALSE,
+                          exclude_short = F,
                           genetic_code = NULL,
                           n_le = 100,
                           bg = "all"){
@@ -487,6 +492,7 @@ predictGrowth <- function(genes,
                            highly_expressed,
                            genetic_code = genetic_code,
                            fragments = NA,
+                           exclude_short = exclude_short,
                            trimlen = 150,
                            depth_of_coverage = depth_of_coverage,
                            trimside = "start",
@@ -511,6 +517,7 @@ predictGrowth <- function(genes,
                                           highly_expressed,
                                           genetic_code = genetic_code,
                                           fragments = NA,
+                                          exclude_short = exclude_short,
                                           trimlen = 250,
                                           depth_of_coverage = depth_of_coverage,
                                           trimside = "start",

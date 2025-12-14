@@ -10,6 +10,7 @@ getStatisticsBatch(
   mc.cores = 1,
   bg = "all",
   fragments = FALSE,
+  exclude_short = FALSE,
   trimlen = NA,
   trimside = "start",
   all_metrics = F

@@ -205,6 +205,7 @@ getWeightedConsistency <- function(fna_tab, highly_expressed, depth_of_coverage,
 getCodonStatistics <- function(genes,
                                highly_expressed,
                                fragments = FALSE,
+                               exclude_short = FALSE,
                                depth_of_coverage = NULL,
                                genetic_code = "11",
                                trimlen = NA,
@@ -230,7 +231,7 @@ getCodonStatistics <- function(genes,
   } else {
     filtered <- filterSeq(genes = genes,
                           highly_expressed = highly_expressed,
-                          length_threshold = 1,
+                          length_threshold = (1-exclude_short)*1 + exclude_short*(trimlen-1),
                           depth_of_coverage = depth_of_coverage)
   }
 

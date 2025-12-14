@@ -12,6 +12,7 @@ predictGrowth(
   training_set = "madin",
   depth_of_coverage = NULL,
   fragments = FALSE,
+  exclude_short = F,
   genetic_code = NULL,
   n_le = 100,
   bg = "all"
@@ -47,9 +48,14 @@ which includes an expanded set of these organisms (including some measurements f
 \item{depth_of_coverage}{When using metagenome mode, provide a vector containing
 the coverage of your ORFs to improve your estimate}
 
-\item{fragments}{Do not change (performance will suffer, publication forthcoming).
-If using gene fragments predicted from reads, will use a
-more permissive length filter (120bp as opposed to 240bp)}
+\item{fragments}{Will use a
+more permissive length filter if set to T (120bp as opposed to 240bp, default=F). For gene fragments
+predicted from reads consider setting fragments=NA and using mode="metagenome_150bp"
+or "metagenome_250bp".}
+
+\item{exclude_short}{For use with mode="metagenome_150bp" or
+"metagenome_250bp". Will exclude genes with lengths below 150bp or 250bp respectively
+from the CUB calculations (default=F).}
 
 \item{genetic_code}{The genetic code of the organism to be used in codon usage
 calculations (see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By

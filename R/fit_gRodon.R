@@ -30,6 +30,7 @@ getStatistics <- function(gene_file,
                                             highly_expressed,
                                             genetic_code = genetic_code,
                                             fragments = fragments,
+                                            exclude_short = exclude_short,
                                             trimlen = trimlen,
                                             trimside = trimside,
                                             all_metrics = all_metrics))
