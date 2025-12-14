@@ -374,6 +374,7 @@ getCodonStatistics <- function(genes,
 getCodonStatistics_i <- function(genes,
                                  highly_expressed,
                                  fragments = FALSE,
+                                 exclude_short = FALSE,
                                  depth_of_coverage = NULL,
                                  genetic_code = "11",
                                  n_le=100,
@@ -400,7 +401,7 @@ getCodonStatistics_i <- function(genes,
   } else {
     filtered <- filterSeq(genes = genes,
                           highly_expressed = highly_expressed,
-                          length_threshold = 1,
+                          length_threshold = (1-exclude_short)*1 + exclude_short*(trimlen-1),
                           depth_of_coverage = depth_of_coverage)
   }
 
