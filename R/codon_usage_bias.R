@@ -424,7 +424,7 @@ getCodonStatistics_i <- function(genes,
     depth_of_coverage <- filtered$Depth[ind_genes]
   } else if (trimside == "random"){
       genes_ok <- filtered$Genes[width(filtered$Genes)>=trimlen]
-      start_lims <- width(genes_ok)-150+1
+      start_lims <- width(genes_ok)-trimlen+1
       start_inds <- lapply(start_lims,randomTriplet) %>% unlist()
       genes <- c(subseq(genes_ok,
                         start_inds,
