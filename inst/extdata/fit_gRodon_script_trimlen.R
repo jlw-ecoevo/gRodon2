@@ -41,13 +41,13 @@ cu150 <- genome_df %>%
   subset(select=c(File,MILC,ENCprime,B,SCUO,MCB,nHE)) %>%
   subset(nHE>=10)
 
-cu250 <- genome_df %>%
+cu240 <- genome_df %>%
   subset(!grepl("Error",File)) %>%
-  mutate(MILC=MILC.250 %>% unlist() %>% as.numeric(),
-         ENCprime=ENCprime.250 %>% unlist() %>% as.numeric(),
-         B=B.250 %>% unlist() %>% as.numeric(),
-         SCUO=SCUO.250 %>% unlist() %>% as.numeric(),
-         MCB=MCB.250 %>% unlist() %>% as.numeric(),
+  mutate(MILC=MILC.240 %>% unlist() %>% as.numeric(),
+         ENCprime=ENCprime.240 %>% unlist() %>% as.numeric(),
+         B=B.240 %>% unlist() %>% as.numeric(),
+         SCUO=SCUO.240 %>% unlist() %>% as.numeric(),
+         MCB=MCB.240 %>% unlist() %>% as.numeric(),
          nHE=nHE  %>% unlist() %>% as.numeric(),
          File=File  %>% unlist() %>% as.character()) %>%
   subset(select=c(File,MILC,ENCprime,B,SCUO,MCB,nHE)) %>%
@@ -66,12 +66,12 @@ cu150$Species <- lapply(cu150$Spp,rgrep,small_vec=d$Species) %>%
 cu150$Species[cu150$Spp %in% d$Species] <- cu150$Spp[cu150$Spp %in% d$Species]
 cu150 <- merge.easy(cu150,d,key="Species") %>% subset(!is.na(Species))
 
-cu250$Accession <- cu250$File %>% gsub(pattern="[.].*",replace="")
-cu250$Spp <- spp_acc[cu250$Accession,"V2"]
-cu250$Species <- lapply(cu250$Spp,rgrep,small_vec=d$Species) %>%
+cu240$Accession <- cu240$File %>% gsub(pattern="[.].*",replace="")
+cu240$Spp <- spp_acc[cu240$Accession,"V2"]
+cu240$Species <- lapply(cu240$Spp,rgrep,small_vec=d$Species) %>%
   lapply("[",1) %>% unlist()
-cu250$Species[cu250$Spp %in% d$Species] <- cu250$Spp[cu250$Spp %in% d$Species]
-cu250 <- merge.easy(cu250,d,key="Species") %>% subset(!is.na(Species))
+cu240$Species[cu240$Spp %in% d$Species] <- cu240$Spp[cu240$Spp %in% d$Species]
+cu240 <- merge.easy(cu240,d,key="Species") %>% subset(!is.na(Species))
 
 # Average CUB estimates over species
 stat_data150 <- cu150 %>%
@@ -90,35 +90,35 @@ stat_data_extremo150$OGT[is.na(stat_data_extremo150$OGT)] <-
   stat_data_extremo150$GrowthTemp[is.na(stat_data_extremo150$OGT)]
 
 # Average CUB estimates over species
-stat_data250 <- cu250 %>%
+stat_data240 <- cu240 %>%
   subset(Extremophile == FALSE) %>%
   group_by(Species) %>%
   summarise_all(mean,na.rm=T) %>%
   subset(!is.na(Species))
 
 # Average CUB estimates over species, including extremophiles
-stat_data_extremo250 <- cu250 %>%
+stat_data_extremo240 <- cu240 %>%
   group_by(Species) %>%
   summarise_all(mean,na.rm=T) %>%
   subset(!is.na(Species))
-stat_data_extremo250$OGT <- stat_data_extremo250$OptTemp
-stat_data_extremo250$OGT[is.na(stat_data_extremo250$OGT)] <-
-  stat_data_extremo250$GrowthTemp[is.na(stat_data_extremo250$OGT)]
+stat_data_extremo240$OGT <- stat_data_extremo240$OptTemp
+stat_data_extremo240$OGT[is.na(stat_data_extremo240$OGT)] <-
+  stat_data_extremo240$GrowthTemp[is.na(stat_data_extremo240$OGT)]
 
 
 # Fit Models -------------------------------------------------------------------
 
 
 model_list150 <- fitTrimModels(stat_data=stat_data150, stat_data_extremo=stat_data_extremo150)
-model_list250 <- fitTrimModels(stat_data=stat_data250, stat_data_extremo=stat_data_extremo250)
+model_list240 <- fitTrimModels(stat_data=stat_data240, stat_data_extremo=stat_data_extremo240)
 
 gRodon_model_base_t150 <- model_list150[[1]]
 gRodon_model_temp_t150 <- model_list150[[2]]
 lambda_t150 <- model_list150[[3]]
 
-gRodon_model_base_t250 <- model_list250[[1]]
-gRodon_model_temp_t250 <- model_list250[[2]]
-lambda_t250 <- model_list250[[3]]
+gRodon_model_base_t240 <- model_list240[[1]]
+gRodon_model_temp_t240 <- model_list240[[2]]
+lambda_t240 <- model_list240[[3]]
 
 setwd("C:/Users/jlwei/Documents/gRodon2/R/")
 load("sysdata.rda")
@@ -164,8 +164,8 @@ save(gRodon_model_base,
      lambda_milc_AOANOB,
      gRodon_model_base_t150,
      gRodon_model_temp_t150,
-     gRodon_model_base_t250,
-     gRodon_model_temp_t250,
+     gRodon_model_base_t240,
+     gRodon_model_temp_t240,
      lambda_t150,
-     lambda_t250,
+     lambda_t240,
      file="sysdata.rda")

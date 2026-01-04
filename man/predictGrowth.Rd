@@ -27,7 +27,7 @@ genes. Must be of same length as \code{genes}. Typically these are ribosomal pro
 (all models were trained using ribosomal proteins as the highly expressed set.)}
 
 \item{mode}{Whether to run prediction in full, partial, metagenome_v1, metagenome_v2,
-metagenome_150bp, metagenome_250bp,
+metagenome_150bp, metagenome_240bp,
 eukaryote, or metagenome_euk mode
 (by default gRodon applies the full model). Mode metagenome_v2 may run slower
 than the other prediction modes when consistency>0.6.}
@@ -41,7 +41,7 @@ a very strong relationship between OGT and max. growth rate for these organisms.
 \item{training_set}{Whether to use models trained on the original Vieira-Silva et al.
 doubling time dataset or doubling times drawn from the Madin et al. database. This
 setting is only used for prokaryotic modes (eukaryotic models based on their own
-training set from Weissman et al. TBD). For metagenome_v2,metagenome_150bp, and metagenome_250bp, modes, only the madin
+training set from Weissman et al. TBD). For metagenome_v2,metagenome_150bp, and metagenome_240bp, modes, only the madin
 set is available. By default training set is now set to Madin. For AOA and NOB try AOA_NOB
 which includes an expanded set of these organisms (including some measurements from enrichment cultures)}
 
@@ -51,10 +51,10 @@ the coverage of your ORFs to improve your estimate}
 \item{fragments}{Will use a
 more permissive length filter if set to T (120bp as opposed to 240bp, default=F). For gene fragments
 predicted from reads consider setting fragments=NA and using mode="metagenome_150bp"
-or "metagenome_250bp".}
+or "metagenome_240bp".}
 
 \item{exclude_short}{For use with mode="metagenome_150bp" or
-"metagenome_250bp". Will exclude genes with lengths below 150bp or 250bp respectively
+"metagenome_240bp". Will exclude genes with lengths below 150bp or 240bp respectively
 from the CUB calculations (default=F).}
 
 \item{genetic_code}{The genetic code of the organism to be used in codon usage
