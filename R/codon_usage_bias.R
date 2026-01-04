@@ -229,10 +229,17 @@ getCodonStatistics <- function(genes,
                             depth_of_coverage = depth_of_coverage)
     }
   } else {
-    filtered <- filterSeq(genes = genes,
-                          highly_expressed = highly_expressed,
-                          length_threshold = (1-exclude_short)*1 + exclude_short*(trimlen-1),
-                          depth_of_coverage = depth_of_coverage)
+    if(exclude_short==T & !is.na(trimlen)){
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            length_threshold = (trimlen-1),
+                            depth_of_coverage = depth_of_coverage)
+    } else {
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            length_threshold = 1,
+                            depth_of_coverage = depth_of_coverage)
+    }
   }
 
 
@@ -400,10 +407,17 @@ getCodonStatistics_i <- function(genes,
                             depth_of_coverage = depth_of_coverage)
     }
   } else {
-    filtered <- filterSeq(genes = genes,
-                          highly_expressed = highly_expressed,
-                          length_threshold = (1-exclude_short)*1 + exclude_short*(trimlen-1),
-                          depth_of_coverage = depth_of_coverage)
+    if(exclude_short==T & !is.na(trimlen)){
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            length_threshold = (trimlen-1),
+                            depth_of_coverage = depth_of_coverage)
+    } else {
+      filtered <- filterSeq(genes = genes,
+                            highly_expressed = highly_expressed,
+                            length_threshold = 1,
+                            depth_of_coverage = depth_of_coverage)
+    }
   }
 
   if(is.na(trimlen)){
