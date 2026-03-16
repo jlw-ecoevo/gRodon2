@@ -1,0 +1,61 @@
+
+## JLW 2026
+setwd("C:/Users/jlwei/Documents/gRodon2/inst/extdata/")
+load("mags_df.rda")
+load("PCA_model_P16.rda")
+IoC.pacific <- x
+load("PCA_model_warming.rda")
+IoC.permafrost <- x
+
+setwd("C:/Users/jlwei/Documents/gRodon2/R/")
+load("sysdata.rda")
+save(gRodon_model_base,
+     gRodon_model_base_euk,
+     gRodon_model_base_euk_i,
+     gRodon_model_base_madin,
+     gRodon_model_meta,
+     gRodon_model_meta_madin,
+     gRodon_model_meta_madin_i,
+     gRodon_model_meta_temp,
+     gRodon_model_meta_temp_madin,
+     gRodon_model_meta_temp_madin_i,
+     gRodon_model_newmeta,
+     gRodon_model_newmeta_i,
+     gRodon_model_newmeta_nogc,
+     gRodon_model_newmeta_nogc_i,
+     gRodon_model_newmeta_nogc_temp,
+     gRodon_model_newmeta_nogc_temp_i,
+     gRodon_model_newmeta_temp,
+     gRodon_model_newmeta_temp_i,
+     gRodon_model_partial,
+     gRodon_model_partial_madin,
+     gRodon_model_partial_temp,
+     gRodon_model_partial_temp_madin,
+     gRodon_model_temp,
+     gRodon_model_temp_euk,
+     gRodon_model_temp_euk_i,
+     gRodon_model_temp_madin,
+     lambda_milc,
+     lambda_milc_euk,
+     lambda_milc_euk_i,
+     lambda_milc_madin,
+     lambda_milc_madin_i,
+     lambda_newmeta,
+     lambda_newmeta_i,
+     gRodon_model_base_AOANOB,
+     gRodon_model_temp_AOANOB,
+     gRodon_model_partial_AOANOB,
+     gRodon_model_partial_temp_AOANOB,
+     gRodon_model_meta_AOANOB,
+     gRodon_model_meta_temp_AOANOB,
+     lambda_milc_AOANOB,
+     gRodon_model_base_t150,
+     gRodon_model_temp_t150,
+     gRodon_model_base_t240,
+     gRodon_model_temp_t240,
+     lambda_t150,
+     lambda_t240,
+     mags,
+     IoC.pacific,
+     IoC.permafrost,
+     file="sysdata.rda")
