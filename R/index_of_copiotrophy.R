@@ -59,7 +59,8 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 
   x$rCAZy <- x$nCAZy/x$nGenes
   x.pca <- prcomp(x[,c("rCAZy","dCUB","nGenes")],scale=T)
-  x$PC1 <- x.pca$x[,1]
+  pca.dir <- sign(x.pca$rotation[2,1])*(-1)
+  x$PC1 <- x.pca$x[,1]*pca.dir
   x$IoC <- x$PC1-min(x$PC1)+1
 
   return(list(IoC=x$IoC,model=x.pca))
@@ -146,8 +147,9 @@ predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
 
   x$rCAZy <- x$nCAZy/x$nGenes
   x.pred <- predict(model,x[,c("rCAZy","dCUB","nGenes")])
-  x$PC1 <- x.pred[,1]
-  x$IoC <- x$IoC <- x$PC1-min(model$x[,1])+1
+  pca.dir <- sign(model$rotation[2,1])*(-1)
+  x$PC1 <- x.pred[,1]*pca.dir
+  x$IoC <- x$PC1-min(model$x[,1]*pca.dir)+1
 
   return(x$IoC)
 }
