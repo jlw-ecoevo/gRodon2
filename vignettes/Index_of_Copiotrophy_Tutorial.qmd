@@ -1,0 +1,212 @@
+---
+title: "Index of Copiotrophy"
+subtitle: "gRodon's `fitIoC()` and `predictIoC()` functions"
+author: J.L. Weissman
+date: 03-16-2026
+format: html
+editor: visual
+embed-resources: true
+---
+
+This tutorial assumes you already have the `gRodon` package (version 2.6.0 or higher) installed (see \[here\](<https://github.com/jlw-ecoevo/gRodon2>) for installation instructions). We will also use `ggplot` and `ggfotify` for visualization and `mclust` for clustering.
+
+```{r}
+#| label: load-packagesa
+#| include: true
+
+library(gRodon)
+library(ggplot2)
+library(ggfortify)
+library(mclust)
+```
+
+The approach to genomically measuring copiotrophy discussed here is more thoroughly outlined in [Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550) and [Zakem et al. 2025](https://doi.org/10.1126/science.ado5323). Briefly, we combine three quantities that are easy to compute for a genome: (1) the codon usage bias of the ribosomal proteins (computed as dCUB using gRodon's `predictGrowth()` function), (2) the number of annotated carbohydrate active enzymes (annotated using [dbcan](https://github.com/bcb-unl/run_dbcan)), and (3) the number of protein coding genes. A large body of work suggests that these three axes of variation should broadly be associated with specialization for sporadic resource-abundance, especially codon usage bias, and our own work has shown that these three traits can be combined into an axis of variation that predicts microbial responses to permafrost thaw ([Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550)) and the biogeography of marine heterotrophs ([Zakem et al. 2025](https://doi.org/10.1126/science.ado5323)). To use gRodon's two IoC functions you will need to already have these three datapoints in hand for a genome or set of genomes.
+
+# Fitting an Index of Copiotrophy and Estimating IoC Values for New Genomes
+
+For today, we will use a dataset of 102 metagenome-assembled genomes (MAGs) derived from a permafrost thaw experiment ([Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550)) that are included in the gRodon package. We will hold out three genomes and use the rest to fit our index of copiotrophy (IoC).
+
+```{r}
+load(system.file('extdata',
+  'mags_df.rda',
+  package = 'gRodon'))
+head(mags)
+
+mags_held_out <- mags[1:3,]
+mags_train <- mags[4:nrow(mags),]
+```
+
+Let's look at what our three measures of growth strategy look like for this data (note that more negative values of dCUB correspond to higher bias):
+
+```{r}
+ggplot(mags,aes(x=-dCUB,y=nCAZy,size=nGenes)) +
+  geom_point(alpha=.75) +
+  labs(size="Number of\nGenes") +
+  scale_y_log10() +
+  theme(legend.position = "right") +
+  geom_smooth(method="lm",color="white") +
+  ylab("Number of CAZymes") +
+  xlab("Codon Usage Bias (-dCUB)") 
+```
+
+We can create an index of copiotrophy for this set of genomes using the `fitIoC()` function. In other words, we will create a single index that captures the variation in these three genomic traits across this set of genomes and ranges from 1 to positive infinity (or in this case, about 10). Importantly, we always create an index with respect to a specific set of genomes, usually sampled to be representative of the range in a particular system we are interested in (e.g., across a gradient of permafrost thaw, across a depth gradient in the pacific). To date, we have avoided trying to create a "master" index applicable across all microbes because most scientific questions are interested in the range of variation in a trait within a specific environmental context. In this way we avoid comparing apples to oranges (or soil microbes to marine microbes).
+
+The `fitIoC()` function returns a list with two entries. The input to `fitIoC()` can take a few different forms (see helpfile with `?fitIoC()`)
+
+```{r}
+IoC <- fitIoC(mags_train)
+```
+
+The first entry is just a list of IoC values for all genomes in the dataframe
+
+```{r}
+IoC$IoC
+```
+
+The second entry is a prcomp PCA object that can be used to place new genomes onto this index using the `predictIoC()` function. Your IoC values are just the first component of this PCA (with a correction factor so that higher IoC values always imply more copiotrophic and lower IoC values always imply more oligotrophic). We don't have specific recommendations for when the percent variance explained by this axis is too low for IoC to be a useful indicator for a dataset, but we have found good results with 50% or greater variance explained.
+
+```{r}
+summary(IoC$model)
+autoplot(IoC$model)
+```
+
+Once we have an IoC fitted, we can generate values for new genomes along this index using the `predictIoC()` function.
+
+```{r}
+predictIoC(mags_held_out,model=IoC)
+```
+
+# Using Pre-Fitted Indices of Copiotrophy from Alaskan Permafrost and Marine Datasets
+
+We have also included pre-fitted IoC from a permafrost thaw experiment ([Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550)) and the P16 Pacific Ocean transect ([Zakem et al. 2025](https://doi.org/10.1126/science.ado5323)) for users hoping to project their own genomes onto these indices. The permafrost dataset captures microbial diversity pre-thaw and immediately post-thaw for a range of Alaskan permafrost types and may be useful for those studying trajectories of the thaw process or other soil datasets. The P16 transect captures heterotrophic diversity along a broad range of open ocean environments (a N-S transect from 60N to 60S with depth profiles to 60 meters) and may be useful for a variety of marine habitats. *If you would like your IoC to be implemented in gRodon for others to use, please reach out to JL who will be happy to add your IoC and a link to the relevant paper.*
+
+```{r}
+predictIoC(mags_held_out,model="permafrost")
+predictIoC(mags_held_out,model="pacific")
+```
+
+# Clustering Copiotrophs and Oligotrophs
+
+Given a set of IoC values, we often wish to cluster organisms into growth strategies (e.g., as "copiotrophs" or "oligotrophs"). While IoC offers a continuous index along which genomes vary, we do often see evidence of clustering along this axis that corresponds to microbial responses to environmental change or biogeography. There are many ways to cluster values, here we will use a Gaussian mixture model as one example that has worked well in our hands for this application.
+
+First, let's fit our IoC for the complete set of MAG data and pull out just the estimated values:
+
+```{r}
+mag_ioc <- fitIoC(mags)$IoC
+plot(density(mag_ioc))
+```
+
+These data look somewhat skewed, so we perform a log-transform:
+
+```{r}
+plot(density(log(mag_ioc)))
+```
+
+Other than the apparent bimodality, these data appear roughly Gaussian. We next apply a Gaussian mixture model to the log-transformed data to detect clusters using the `mclust` package:
+
+```{r}
+#fit Gaussian mixture model
+mC <- Mclust(log10(mag_ioc),
+             verbose=F)
+#Check means and variances of fitted Gaussians
+mC$parameters$mean
+mC$parameters$variance$sigmasq
+```
+
+It looks like `Mclust()` detected two Gaussians with equal variance but different means.
+
+We first clean up this output a little to get it into a convenient format for plotting:
+
+```{r}
+#We create weightings for our two Gaussians for visualization
+#based on the total probability of our MAGs being in each Gaussian
+p <- (colSums(mC$z)/sum(mC$z))
+
+#a grid of values to evaluate our Guassians over for plotting
+x_seq <- seq(-0.2,1,0.01)
+#dataframe for plotting densities
+cluster_df <- data.frame(x=10^x_seq,
+                    gaussian_1=dnorm(x_seq,
+                              mean=mC$parameters$mean[1],
+                              sd=sqrt(mC$p$variance$sigmasq[1]))*p[1],
+                    gaussian_2=dnorm(x_seq,
+                              mean=mC$parameters$mean[2],
+                              sd=sqrt(mC$p$variance$sigmasq[1]))*p[2])
+```
+
+And now we can plot our fitted Gaussians against the empirical distribution of the IoC data:
+
+```{r}
+ggplot() + 
+  scale_x_log10() +
+  geom_density(data=data.frame(IoC=mag_ioc),
+               aes(x=IoC),
+               lwd=2) + 
+  geom_polygon(data=cluster_df,
+               aes(x=x, 
+                   y=gaussian_1, 
+                   fill="Cluster 1"),
+               alpha=0.75, 
+               color="black") +
+  geom_polygon(data=cluster_df,
+               aes(x=x, 
+                   y=gaussian_2, 
+                   fill="Cluster 2"), 
+               alpha=0.75, 
+               color="black") +
+  xlab("Index of Copiotrophy")  + 
+  ylab("Density") +
+  theme(legend.position = "right") + 
+  labs(fill="") +
+  scale_fill_manual(values=c("#7570B3","#1B9E77")) +
+  theme(legend.position = "bottom")
+```
+
+Great, we have clusters! We can pull out the classification of each datapoint in our cluster directly from `Mclust()` if we want:
+
+```{r}
+ioc_classifications <- data.frame(IoC=10^mC$data,
+                                  cluster=mC$classification,
+                                  uncertainty=mC$uncertainty)
+ggplot(ioc_classifications,
+       aes(x=IoC,y=cluster,color=factor(cluster)))  +
+  geom_point(size=5) +
+  scale_color_manual(values=c("#7570B3","#1B9E77")) +
+  geom_vline(xintercept=10^mC$data[which.max(mC$uncertainty)],lty=2)
+```
+
+Based on the classifications above, there is a clear cutoff around an IoC of about 2.8 for this set of genomes that could be used as a cutoff between oligotrophy and copiotrophy for this dataset. That being said, it will generally be true that for datapoints close to the cutoff our classification uncertainty will be high:
+
+```{r}
+ggplot(ioc_classifications,
+       aes(x=IoC,y=uncertainty,color=factor(cluster)))  +
+  geom_point(size=5) +
+  scale_color_manual(values=c("#7570B3","#1B9E77")) +
+  geom_vline(xintercept=10^mC$data[which.max(mC$uncertainty)],lty=2)
+```
+
+One solution, and the one we prefer, is to define cutoffs for oligotrophy and copiotrophy independently where classification uncertainty drops below some threshold (say, 0.1), thus leaving the classification of some points uncertain:
+
+```{r}
+#Defining cutoffs
+c_l <- max(10^mC$data[mC$uncertainty<0.1 & 10^mC$data<2.8])
+c_h <- min(10^mC$data[mC$uncertainty<0.1 & 10^mC$data>2.8])
+
+#Classifications for plotting
+ioc_classifications$GrowthCluster <- "Undefined"
+ioc_classifications$GrowthCluster[ioc_classifications$IoC<c_l] <- "Oligotroph"
+ioc_classifications$GrowthCluster[ioc_classifications$IoC>c_h] <- "Copiotroph"
+ioc_classifications$GrowthCluster <- factor(ioc_classifications$GrowthCluster,
+                       levels=c("Oligotroph",
+                                "Undefined",
+                                "Copiotroph"))
+
+ggplot(ioc_classifications,
+       aes(x=IoC,y=uncertainty,color=factor(GrowthCluster)))  +
+  geom_point(size=5) +
+  scale_color_brewer(palette="Dark2",direction=-1) +
+  geom_vline(xintercept=c(c_l,c_h),lty=2) +
+  labs(color="")
+```
+
+In our previous work, we even found that these intermediate organisms with an undefined growth class sometimes have biogeographic patterns distinct from those of both oligotrophs and copiotrophs (in [Zakem et al. 2025](https://doi.org/10.1126/science.ado5323) we call them "slow copiotrophs").
