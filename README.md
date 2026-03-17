@@ -1,4 +1,4 @@
-**JL will be [hiring a postdoc and recruiting PhD students](https://microbialgamut.com/join.html) starting Fall 2024 - please reach out (<jackie.weissman@stonybrook.edu>) if you are interested in working on projects like this one!**
+**If you are interested in working on projects like this one, check our [lab website](https://microbialgamut.com/join.html) for current job postings for PhD students and postdocs - please reach out (<jackie.weissman@stonybrook.edu>) if you have questions!**
 
 **Do you have growth rates matched to genomes for cultured isolates? Email JL (<jackie.weissman@stonybrook.edu>) and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
 
@@ -56,7 +56,9 @@ predictGrowth(genes, highly_expressed)
 
 ## Documentation
 
-**You can find a detailed tutorial (vignette) on how to use the `gRodon` package [here](https://jlw-ecoevo.github.io/gRodon-vignette).**
+**You can find a detailed tutorial (vignette) on how to use the `gRodon` package for growth rate prediction [here](https://jlw-ecoevo.github.io/gRodon-vignette).**
+
+**For those interested in the "index of copiotrophy" described in [Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550) and [Zakem et al. 2025](https://doi.org/10.1126/science.ado5323), we have now implemented functions in gRodon to reproduce this analysis! You can find a detailed tutorial on the topic [here](https://www.microbialgamut.com/Index_of_Copiotrophy_Tutorial.html)**
 
 ## Using `gRodon` with [`docker`](https://www.docker.com/)
 
@@ -101,82 +103,25 @@ If you find `gRodon` is useful to your study, please cite us!
 
 > JL Weissman, Shengwei Hou, Jed A. Fuhrman. Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns. Proceedings of the National Academy of Sciences 2021, 118 (12) e2016810118; DOI: 10.1073/pnas.2016810118
 
-```
-@article {Weissmane2016810118,
-	author = {Weissman, JL and Hou, Shengwei and Fuhrman, Jed A.},
-	title = {Estimating maximal microbial growth rates from cultures, metagenomes, and single cells via codon usage patterns},
-	volume = {118},
-	number = {12},
-	elocation-id = {e2016810118},
-	year = {2021},
-	doi = {10.1073/pnas.2016810118},
-	publisher = {National Academy of Sciences},
-	issn = {0027-8424},
-	URL = {https://www.pnas.org/content/118/12/e2016810118},
-	eprint = {https://www.pnas.org/content/118/12/e2016810118.full.pdf},
-	journal = {Proceedings of the National Academy of Sciences}
-}
-```
-
 #### For eukaryotic prediction: the [`gRodon2` paper](https://doi.org/10.1101/2021.10.15.464604): 
 
 > JL Weissman, Edward-Robert O Dimbo, Arianna I Krinos, Christopher Neely, Yuniba Yagues, Delaney Nolin, Shengwei Hou, Sarah Laperriere, David A Caron, Benjamin L Tully, Harriet Alexander, Jed A Fuhrman. Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns. bioRxiv 2021.10.15.464604; DOI: https://doi.org/10.1101/2021.10.15.464604
-
-```
-@article {Weissman2021.10.15.464604,
-	author = {Weissman, JL and Dimbo, Edward-Robert O and Krinos, Arianna I and Neely, Christopher and Yagues, Yuniba and Nolin, Delaney and Hou, Shengwei and Laperriere, Sarah and Caron, David A and Tully, Benjamin L and Alexander, Harriet and Fuhrman, Jed A},
-	title = {Estimating the maximal growth rates of eukaryotic microbes from cultures and metagenomes via codon usage patterns},
-	elocation-id = {2021.10.15.464604},
-	year = {2021},
-	doi = {10.1101/2021.10.15.464604},
-	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2021/10/16/2021.10.15.464604},
-	eprint = {https://www.biorxiv.org/content/early/2021/10/16/2021.10.15.464604.full.pdf},
-	journal = {bioRxiv}
-}
-```
 
 #### For metagenomic prediction: the [`Metagenome Mode v2` paper](https://doi.org/10.1101/2022.04.12.488109): 
 
 > JL Weissman, Marie Peras, Tyler P Barnum, Jed A Fuhrman. Benchmarking community-wide estimates of growth potential from metagenomes using codon usage statistics. mSystems 2022, 7 (5) e00745-22; DOI: https://doi.org/10.1128/msystems.00745-22
 
-```
-@article {Weissman2022.04.12.488109,
-	author = {Weissman, JL and Peras, Marie and Barnum, Tyler P. and Fuhrman, Jed A.},
-	title = {Benchmarking Community-Wide Estimates of Growth Potential from Metagenomes Using Codon Usage Statistics},
-	journal = {mSystems},
-	volume = {7},
-	number = {5},
-	pages = {e00745-22},
-	year = {2022},
-	doi = {10.1128/msystems.00745-22},
-	URL = {https://journals.asm.org/doi/abs/10.1128/msystems.00745-22},
-	eprint = {https://journals.asm.org/doi/pdf/10.1128/msystems.00745-22}
-}
-```
+#### For Assembly-Free Prediction from Short-Reads:  [Natarajan & Weissman](https://doi.org/10.1101/2025.09.18.677194): 
 
-#### For Assembly-Free Prediction from Short-Reads:  [Natarajan & Weissman]() (Forthcoming): 
-
-TBD
+> Jesse Natarajan & JL Weissman. 2026. Assembly-Free Short-Read Metagenomic Maximum Growth Rate Prediction. Elementa: Science of the Anthropocene (accepted)
 
 #### For AOA and NOB modes:  [Buchanan et al](https://doi.org/10.1126/science.ado0742): 
 
-> Pearse J. Buchanan et al. Oxygen intrusions sustain aerobic nitrite-oxidizing bacteria in anoxic marine zones.Science 2025, 388,1069-1074, DOI: https://doi.org/10.1126/science.ado0742
+> Pearse J. Buchanan et al. Oxygen intrusions sustain aerobic nitrite-oxidizing bacteria in anoxic marine zones. Science 2025, 388,1069-1074, DOI: https://doi.org/10.1126/science.ado0742
 
-```
-@article{
-doi:10.1126/science.ado0742,
-author = {Pearse J. Buchanan  and Xin Sun  and J. L. Weissman  and Daniel McCoy  and Daniele Bianchi  and Emily J. Zakem },
-title = {Oxygen intrusions sustain aerobic nitrite-oxidizing bacteria in anoxic marine zones},
-journal = {Science},
-volume = {388},
-number = {6751},
-pages = {1069-1074},
-year = {2025},
-doi = {10.1126/science.ado0742},
-URL = {https://www.science.org/doi/abs/10.1126/science.ado0742},
-}
-```
+#### For the Index of Copiotrophy functions:  [Weissman et al](https://doi.org/10.1101/2025.09.01.673550): 
+
+> JL Weissman et al. Growth Optimization Predicts Microbial Success in a Permafrost Thaw Experiment. bioRxiv 2025, DOI: https://doi.org/10.1101/2025.09.01.673550
 
 #### We also encourage you to cite `gRodon`'s dependencies:
 
