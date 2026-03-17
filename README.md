@@ -1,4 +1,4 @@
-**JL will be [hiring a postdoc and recruiting PhD students](https://microbialgamut.com/join.html) starting Fall 2024 - please reach out (<jackie.weissman@stonybrook.edu>) if you are interested in working on projects like this one!**
+**If you are interested in working on projects like this one, check our [lab website](https://microbialgamut.com/join.html) for current job postings for PhD students and postdocs - please reach out (<jackie.weissman@stonybrook.edu>) if you have questions!**
 
 **Do you have growth rates matched to genomes for cultured isolates? Email JL (<jackie.weissman@stonybrook.edu>) and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
 
