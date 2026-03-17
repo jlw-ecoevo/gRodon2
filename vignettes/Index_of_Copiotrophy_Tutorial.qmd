@@ -17,7 +17,7 @@ This tutorial assumes you already have the `gRodon` package (version 2.6.0 or hi
 library(gRodon)
 library(ggplot2)
 library(ggfortify)
-library(mclust)
+library(mclust, quietly = T)
 ```
 
 The approach to genomically measuring copiotrophy discussed here is more thoroughly outlined in [Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550) and [Zakem et al. 2025](https://doi.org/10.1126/science.ado5323). Briefly, we combine three quantities that are easy to compute for a genome: (1) the codon usage bias of the ribosomal proteins (computed as dCUB using gRodon's `predictGrowth()` function), (2) the number of annotated carbohydrate active enzymes (annotated using [dbcan](https://github.com/bcb-unl/run_dbcan)), and (3) the number of protein coding genes. A large body of work suggests that these three axes of variation should broadly be associated with specialization for sporadic resource-abundance, especially codon usage bias, and our own work has shown that these three traits can be combined into an axis of variation that predicts microbial responses to permafrost thaw ([Weissman et al. 2025](https://doi.org/10.1101/2025.09.01.673550)) and the biogeography of marine heterotrophs ([Zakem et al. 2025](https://doi.org/10.1126/science.ado5323)). To use gRodon's two IoC functions you will need to already have these three datapoints in hand for a genome or set of genomes.
@@ -44,7 +44,6 @@ ggplot(mags,aes(x=-dCUB,y=nCAZy,size=nGenes)) +
   labs(size="Number of\nGenes") +
   scale_y_log10() +
   theme(legend.position = "right") +
-  geom_smooth(method="lm",color="white") +
   ylab("Number of CAZymes") +
   xlab("Codon Usage Bias (-dCUB)") 
 ```
