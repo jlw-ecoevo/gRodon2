@@ -95,24 +95,18 @@ mag_ioc <- fitIoC(mags)$IoC
 plot(density(mag_ioc))
 ```
 
-These data look somewhat skewed, so we perform a log-transform:
-
-```{r}
-plot(density(log(mag_ioc)))
-```
-
-Other than the apparent bimodality, these data appear roughly Gaussian. We next apply a Gaussian mixture model to the log-transformed data to detect clusters using the `mclust` package:
+We next apply a Gaussian mixture model to the log-transformed data to detect clusters using the `mclust` package:
 
 ```{r}
 #fit Gaussian mixture model
-mC <- Mclust(log10(mag_ioc),
+mC <- Mclust(mag_ioc,
              verbose=F)
 #Check means and variances of fitted Gaussians
 mC$parameters$mean
 mC$parameters$variance$sigmasq
 ```
 
-It looks like `Mclust()` detected two Gaussians with equal variance but different means.
+It looks like `Mclust()` detected two Gaussians.
 
 We first clean up this output a little to get it into a convenient format for plotting:
 
@@ -122,22 +116,21 @@ We first clean up this output a little to get it into a convenient format for pl
 p <- (colSums(mC$z)/sum(mC$z))
 
 #a grid of values to evaluate our Guassians over for plotting
-x_seq <- seq(-0.2,1,0.01)
+x_seq <- seq(0.1,10,0.01)
 #dataframe for plotting densities
-cluster_df <- data.frame(x=10^x_seq,
+cluster_df <- data.frame(x=x_seq,
                     gaussian_1=dnorm(x_seq,
                               mean=mC$parameters$mean[1],
                               sd=sqrt(mC$p$variance$sigmasq[1]))*p[1],
                     gaussian_2=dnorm(x_seq,
                               mean=mC$parameters$mean[2],
-                              sd=sqrt(mC$p$variance$sigmasq[1]))*p[2])
+                              sd=sqrt(mC$p$variance$sigmasq[2]))*p[2])
 ```
 
 And now we can plot our fitted Gaussians against the empirical distribution of the IoC data:
 
 ```{r}
 ggplot() + 
-  scale_x_log10() +
   geom_density(data=data.frame(IoC=mag_ioc),
                aes(x=IoC),
                lwd=2) + 
@@ -164,14 +157,14 @@ ggplot() +
 Great, we have clusters! We can pull out the classification of each datapoint in our cluster directly from `Mclust()` if we want:
 
 ```{r}
-ioc_classifications <- data.frame(IoC=10^mC$data,
+ioc_classifications <- data.frame(IoC=mC$data,
                                   cluster=mC$classification,
                                   uncertainty=mC$uncertainty)
 ggplot(ioc_classifications,
        aes(x=IoC,y=cluster,color=factor(cluster)))  +
   geom_point(size=5) +
   scale_color_manual(values=c("#7570B3","#1B9E77")) +
-  geom_vline(xintercept=10^mC$data[which.max(mC$uncertainty)],lty=2)
+  geom_vline(xintercept=mC$data[which.max(mC$uncertainty)],lty=2)
 ```
 
 Based on the classifications above, there is a clear cutoff around an IoC of about 2.8 for this set of genomes that could be used as a cutoff between oligotrophy and copiotrophy for this dataset. That being said, it will generally be true that for datapoints close to the cutoff our classification uncertainty will be high:
@@ -181,15 +174,15 @@ ggplot(ioc_classifications,
        aes(x=IoC,y=uncertainty,color=factor(cluster)))  +
   geom_point(size=5) +
   scale_color_manual(values=c("#7570B3","#1B9E77")) +
-  geom_vline(xintercept=10^mC$data[which.max(mC$uncertainty)],lty=2)
+  geom_vline(xintercept=mC$data[which.max(mC$uncertainty)],lty=2)
 ```
 
-One solution, and the one we prefer, is to define cutoffs for oligotrophy and copiotrophy independently where classification uncertainty drops below some threshold (say, 0.1), thus leaving the classification of some points uncertain:
+One solution, and the one we prefer, is to define cutoffs for oligotrophy and copiotrophy independently where classification uncertainty drops below some threshold (say, 0.25), thus leaving the classification of some points uncertain:
 
 ```{r}
 #Defining cutoffs
-c_l <- max(10^mC$data[mC$uncertainty<0.1 & 10^mC$data<2.8])
-c_h <- min(10^mC$data[mC$uncertainty<0.1 & 10^mC$data>2.8])
+c_l <- max(mC$data[mC$uncertainty<0.25 & mC$data<mC$data[which.max(mC$uncertainty)]])
+c_h <- min(mC$data[mC$uncertainty<0.25 & mC$data>mC$data[which.max(mC$uncertainty)]])
 
 #Classifications for plotting
 ioc_classifications$GrowthCluster <- "Undefined"
