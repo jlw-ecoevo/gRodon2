@@ -2,10 +2,8 @@
 ## JLW 2026
 setwd("C:/Users/jlwei/Documents/gRodon2/inst/extdata/")
 load("mags_df.rda")
-load("PCA_model_P16.rda")
-IoC.pacific <- x
-load("PCA_model_warming.rda")
-IoC.permafrost <- x
+load("IoC_Models.rda")
+
 
 setwd("C:/Users/jlwei/Documents/gRodon2/R/")
 load("sysdata.rda")
@@ -56,6 +54,5 @@ save(gRodon_model_base,
      lambda_t150,
      lambda_t240,
      mags,
-     IoC.pacific,
-     IoC.permafrost,
+     IoC_models,
      file="sysdata.rda")

@@ -83,9 +83,13 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 #' @param nGenes Vector of the number of protein coding genes per genome. Only required
 #' if x is not provided as an argument.
 #' @param model The output of fitIoC(), which creates an index of copiotrophy from a set of genomes that captures
-#' the range of growth strategies encoded in that set. Alternatively, set to "permafrost" to use the IoC
-#' computed in https://doi.org/10.1101/2025.09.01.673550 from MAGs from a permafrost warming experiment
-#' or "pacific" to use the IoC from the P16 Pacific ocean transect in https://doi.org/10.1126/science.ado5323
+#' the range of growth strategies encoded in that set. Alternatively, set to "permafrost" to use IoC
+#' from MAGs from a permafrost warming experiment (https://doi.org/10.1101/2025.09.01.673550),
+#' "pacific" to use the IoC from the P16 Pacific ocean transect (https://doi.org/10.1126/science.ado5323),
+#' "soil" to use IoC computed from SMAG DB (https://doi.org/10.1038/s41467-023-43000-z),
+#' "gut" to use IoC computed from Pasolli et al. human gut microbiome MAGs (https://doi.org/10.1016/j.cell.2019.01.001),
+#' or "all_habitat" to use IoC computed from an evenly sampled set of Soil, Gut, and Pacific MAGs
+#' from the above datasets.
 #' @return predictIoC returns a vector of IoC values
 #' @examples
 #' #First let's take a look at the "mags" dataframe provided in this package
@@ -113,7 +117,7 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
   if(class(model)=="list"){
     if(class(model$model)!="prcomp"){
-      stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\" or \"pacific\"")
+      stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"gut\", \"soil\", or \"all_habit\"")
     } else {
       model <- model$model
     }
@@ -121,12 +125,18 @@ predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
 
   if(class(model)=="character"){
     if(model=="permafrost"){
-      model <- IoC.permafrost
+      model <- IoC_models$Permafrost
     } else if(model=="pacific") {
-      model <- IoC.pacific
+      model <- IoC_models$Pacific
+    } else if(model=="soil") {
+      model <- IoC_models$Soil
+    }else if(model=="gut") {
+      model <- IoC_models$Gut
+    } else if(model=="all_habitat") {
+      model <- IoC_models$All
     }
   } else if(class(model)!="prcomp"){
-    stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\" or \"pacific\"")
+    stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"gut\", \"soil\", or \"all_habit\"")
   }
 
   if(is.null(x) | class(x)!="data.frame"){
