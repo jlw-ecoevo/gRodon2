@@ -26,8 +26,8 @@ the range of growth strategies encoded in that set. Alternatively, set to "perma
 from MAGs from a permafrost warming experiment (https://doi.org/10.1101/2025.09.01.673550),
 "pacific" to use the IoC from the P16 Pacific ocean transect (https://doi.org/10.1126/science.ado5323),
 "soil" to use IoC computed from SMAG DB (https://doi.org/10.1038/s41467-023-43000-z),
-"gut" to use IoC computed from Pasolli et al. human gut microbiome MAGs (https://doi.org/10.1016/j.cell.2019.01.001),
-or "all_habitat" to use IoC computed from an evenly sampled set of Soil, Gut, and Pacific MAGs
+"human" to use IoC computed from Pasolli et al. human microbiome MAGs (https://doi.org/10.1016/j.cell.2019.01.001),
+or "all_habitat" to use IoC computed from an evenly sampled set of Soil, Human, and Pacific MAGs
 from the above datasets.}
 }
 \value{

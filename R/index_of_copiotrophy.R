@@ -87,8 +87,8 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 #' from MAGs from a permafrost warming experiment (https://doi.org/10.1101/2025.09.01.673550),
 #' "pacific" to use the IoC from the P16 Pacific ocean transect (https://doi.org/10.1126/science.ado5323),
 #' "soil" to use IoC computed from SMAG DB (https://doi.org/10.1038/s41467-023-43000-z),
-#' "gut" to use IoC computed from Pasolli et al. human gut microbiome MAGs (https://doi.org/10.1016/j.cell.2019.01.001),
-#' or "all_habitat" to use IoC computed from an evenly sampled set of Soil, Gut, and Pacific MAGs
+#' "human" to use IoC computed from Pasolli et al. human microbiome MAGs (https://doi.org/10.1016/j.cell.2019.01.001),
+#' or "all_habitat" to use IoC computed from an evenly sampled set of Soil, Human, and Pacific MAGs
 #' from the above datasets.
 #' @return predictIoC returns a vector of IoC values
 #' @examples
@@ -117,7 +117,7 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
   if(class(model)=="list"){
     if(class(model$model)!="prcomp"){
-      stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"gut\", \"soil\", or \"all_habit\"")
+      stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"human\", \"soil\", or \"all_habit\"")
     } else {
       model <- model$model
     }
@@ -130,13 +130,13 @@ predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
       model <- IoC_models$Pacific
     } else if(model=="soil") {
       model <- IoC_models$Soil
-    }else if(model=="gut") {
-      model <- IoC_models$Gut
+    }else if(model=="human") {
+      model <- IoC_models$Human
     } else if(model=="all_habitat") {
       model <- IoC_models$All
     }
   } else if(class(model)!="prcomp"){
-    stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"gut\", \"soil\", or \"all_habit\"")
+    stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"human\", \"soil\", or \"all_habit\"")
   }
 
   if(is.null(x) | class(x)!="data.frame"){
