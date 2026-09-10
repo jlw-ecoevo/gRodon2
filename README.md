@@ -1,4 +1,6 @@
-**If you are interested in working on projects like this one, check our [lab website](https://microbialgamut.com/join.html) for current job postings for PhD students and postdocs - please reach out (<jackie.weissman@stonybrook.edu>) if you have questions!**
+**If you are interested in working on projects like this one, we are currently hiring two postdoctoral researchers to begin in January 2027 (start date negotiable). We seek researchers interested in (1) building trait prediction models capable of resolving complex microbial traits from genomes and metagenomes, and/or (2) building mathematical models of microbial community dynamics using a trait-based framework. Applications to the human microbiome and beyond. More info [here](https://www.microbialgamut.com/mGAMUT_postdoc_ad_F26.pdf)**
+
+**check our [lab website](https://microbialgamut.com/join.html) for current job postings for PhD students and postdocs - please reach out (<jackie.weissman@stonybrook.edu>) if you have questions!**
 
 **Do you have growth rates matched to genomes for cultured isolates? Email JL (<jackie.weissman@stonybrook.edu>) and she will be happy to incorporate that data into the next version of gRodon in development! They are always on the lookout for more data, and always happy to have more collaborators on board.**
 
