@@ -15,6 +15,8 @@
 #' if x is not provided as an argument.
 #' @param nGenes Vector of the number of protein coding genes per genome. Only required
 #' if x is not provided as an argument.
+#' @param completeness Vector of completeness values for each genome (e.g., from checkM2). 
+#' Can be useful when dealing with partial MAGs.
 #' @return fitIoC returns a list with the following elements:
 #' \describe{
 #'   \item{IoC}{The calculated IoC values for each of the genomes in x}
@@ -40,7 +42,7 @@
 #' predictIoC(mags_held_out,model=IoC)
 #'
 #' @export
-fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
+fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,completeness=1){
   if(is.null(x) | class(x)!="data.frame"){
     if(is.na(dCUB+nCAZy+nGenes)){
       stop("If not providing a dataframe \"x\" with the columns, \"dCUB\",\"nCAZy\", and \"nGenes\", then please provide these values as vector arguments")
@@ -58,6 +60,7 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
   }
 
   x$rCAZy <- x$nCAZy/x$nGenes
+  x$nGenes <- x$nGenes*as.numeric(completeness)
   x.pca <- prcomp(x[,c("rCAZy","dCUB","nGenes")],scale=T)
   pca.dir <- sign(x.pca$rotation[2,1])*(-1)
   x$PC1 <- x.pca$x[,1]*pca.dir
@@ -82,6 +85,8 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 #' if x is not provided as an argument.
 #' @param nGenes Vector of the number of protein coding genes per genome. Only required
 #' if x is not provided as an argument.
+#' @param completeness Vector of completeness values for each genome (e.g., from checkM2). 
+#' Can be useful when dealing with partial MAGs.
 #' @param model The output of fitIoC(), which creates an index of copiotrophy from a set of genomes that captures
 #' the range of growth strategies encoded in that set. Alternatively, set to "permafrost" to use IoC
 #' from MAGs from a permafrost warming experiment (https://doi.org/10.1101/2025.09.01.673550),
@@ -114,7 +119,7 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA){
 #' predictIoC(mags_held_out,model="pacific")
 #'
 #' @export
-predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
+predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,completeness=1,model){
   if(class(model)=="list"){
     if(class(model$model)!="prcomp"){
       stop("Please provide a valid IoC model either from the fitIoC() or prcomp() functions, or one of the built-in models: \"permafrost\", \"pacific\", \"human\", \"soil\", or \"all_habit\"")
@@ -156,6 +161,7 @@ predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,model){
   }
 
   x$rCAZy <- x$nCAZy/x$nGenes
+  x$nGenes <- x$nGenes*as.numeric(completeness)
   x.pred <- predict(model,x[,c("rCAZy","dCUB","nGenes")])
   pca.dir <- sign(model$rotation[2,1])*(-1)
   x$PC1 <- x.pred[,1]*pca.dir
