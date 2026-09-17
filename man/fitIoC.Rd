@@ -4,7 +4,7 @@
 \alias{fitIoC}
 \title{Create an Index of Copiotrophy}
 \usage{
-fitIoC(x = NULL, dCUB = NA, nCAZy = NA, nGenes = NA)
+fitIoC(x = NULL, dCUB = NA, nCAZy = NA, nGenes = NA, completeness = 1)
 }
 \arguments{
 \item{x}{Dataframe with the columns "dCUB", "nCAZy", and "nGenes" containing dCUB
@@ -20,6 +20,9 @@ if x is not provided as an argument.}
 
 \item{nGenes}{Vector of the number of protein coding genes per genome. Only required
 if x is not provided as an argument.}
+
+\item{completeness}{Vector of completeness values (\%) for each genome (e.g., from checkM2).
+Can be useful when dealing with partial MAGs.}
 }
 \value{
 fitIoC returns a list with the following elements:

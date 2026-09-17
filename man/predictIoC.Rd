@@ -4,7 +4,14 @@
 \alias{predictIoC}
 \title{Calculate Index of Copiotrophy for a Set of Genomes}
 \usage{
-predictIoC(x = NULL, dCUB = NA, nCAZy = NA, nGenes = NA, model)
+predictIoC(
+  x = NULL,
+  dCUB = NA,
+  nCAZy = NA,
+  nGenes = NA,
+  completeness = 1,
+  model
+)
 }
 \arguments{
 \item{x}{Dataframe with the columns "dCUB", "nCAZy", and "nGenes" containing dCUB
@@ -20,6 +27,9 @@ if x is not provided as an argument.}
 
 \item{nGenes}{Vector of the number of protein coding genes per genome. Only required
 if x is not provided as an argument.}
+
+\item{completeness}{Vector of completeness values (\%) for each genome (e.g., from checkM2).
+Can be useful when dealing with partial MAGs.}
 
 \item{model}{The output of fitIoC(), which creates an index of copiotrophy from a set of genomes that captures
 the range of growth strategies encoded in that set. Alternatively, set to "permafrost" to use IoC
