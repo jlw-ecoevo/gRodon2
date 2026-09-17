@@ -15,7 +15,7 @@
 #' if x is not provided as an argument.
 #' @param nGenes Vector of the number of protein coding genes per genome. Only required
 #' if x is not provided as an argument.
-#' @param completeness Vector of completeness values for each genome (e.g., from checkM2). 
+#' @param completeness Vector of completeness values (%) for each genome (e.g., from checkM2). 
 #' Can be useful when dealing with partial MAGs.
 #' @return fitIoC returns a list with the following elements:
 #' \describe{
@@ -60,7 +60,7 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,completeness=1){
   }
 
   x$rCAZy <- x$nCAZy/x$nGenes
-  x$nGenes <- x$nGenes*as.numeric(completeness)
+  x$nGenes <- x$nGenes/(as.numeric(completeness)/100)
   x.pca <- prcomp(x[,c("rCAZy","dCUB","nGenes")],scale=T)
   pca.dir <- sign(x.pca$rotation[2,1])*(-1)
   x$PC1 <- x.pca$x[,1]*pca.dir
@@ -85,7 +85,7 @@ fitIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,completeness=1){
 #' if x is not provided as an argument.
 #' @param nGenes Vector of the number of protein coding genes per genome. Only required
 #' if x is not provided as an argument.
-#' @param completeness Vector of completeness values for each genome (e.g., from checkM2). 
+#' @param completeness Vector of completeness values (%) for each genome (e.g., from checkM2). 
 #' Can be useful when dealing with partial MAGs.
 #' @param model The output of fitIoC(), which creates an index of copiotrophy from a set of genomes that captures
 #' the range of growth strategies encoded in that set. Alternatively, set to "permafrost" to use IoC
@@ -161,7 +161,7 @@ predictIoC <- function(x=NULL,dCUB=NA,nCAZy=NA,nGenes=NA,completeness=1,model){
   }
 
   x$rCAZy <- x$nCAZy/x$nGenes
-  x$nGenes <- x$nGenes*as.numeric(completeness)
+  x$nGenes <- x$nGenes/(as.numeric(completeness)/100)
   x.pred <- predict(model,x[,c("rCAZy","dCUB","nGenes")])
   pca.dir <- sign(model$rotation[2,1])*(-1)
   x$PC1 <- x.pred[,1]*pca.dir
